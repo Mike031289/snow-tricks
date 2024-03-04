@@ -8,7 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\DBAL\ArrayParameterType;
 use Doctrine\DBAL\ParameterType;
-use Doctrine\ORM\Internal\CriteriaOrderings;
+use Doctrine\ORM\Internal\NoUnknownNamedArguments;
 use Doctrine\ORM\Internal\QueryType;
 use Doctrine\ORM\Query\Expr;
 use Doctrine\ORM\Query\Parameter;
@@ -41,7 +41,7 @@ use function substr;
  */
 class QueryBuilder implements Stringable
 {
-    use CriteriaOrderings;
+    use NoUnknownNamedArguments;
 
     /**
      * The array of DQL parts collected.
@@ -616,6 +616,8 @@ class QueryBuilder implements Stringable
      */
     public function select(mixed ...$select): static
     {
+        self::validateVariadicParameter($select);
+
         $this->type = QueryType::Select;
 
         if ($select === []) {
@@ -662,6 +664,8 @@ class QueryBuilder implements Stringable
      */
     public function addSelect(mixed ...$select): static
     {
+        self::validateVariadicParameter($select);
+
         $this->type = QueryType::Select;
 
         if ($select === []) {
@@ -956,6 +960,8 @@ class QueryBuilder implements Stringable
      */
     public function where(mixed ...$predicates): static
     {
+        self::validateVariadicParameter($predicates);
+
         if (! (count($predicates) === 1 && $predicates[0] instanceof Expr\Composite)) {
             $predicates = new Expr\Andx($predicates);
         }
@@ -981,6 +987,8 @@ class QueryBuilder implements Stringable
      */
     public function andWhere(mixed ...$where): static
     {
+        self::validateVariadicParameter($where);
+
         $dql = $this->getDQLPart('where');
 
         if ($dql instanceof Expr\Andx) {
@@ -1011,6 +1019,8 @@ class QueryBuilder implements Stringable
      */
     public function orWhere(mixed ...$where): static
     {
+        self::validateVariadicParameter($where);
+
         $dql = $this->getDQLPart('where');
 
         if ($dql instanceof Expr\Orx) {
@@ -1038,6 +1048,8 @@ class QueryBuilder implements Stringable
      */
     public function groupBy(string ...$groupBy): static
     {
+        self::validateVariadicParameter($groupBy);
+
         return $this->add('groupBy', new Expr\GroupBy($groupBy));
     }
 
@@ -1056,6 +1068,8 @@ class QueryBuilder implements Stringable
      */
     public function addGroupBy(string ...$groupBy): static
     {
+        self::validateVariadicParameter($groupBy);
+
         return $this->add('groupBy', new Expr\GroupBy($groupBy), true);
     }
 
@@ -1067,6 +1081,8 @@ class QueryBuilder implements Stringable
      */
     public function having(mixed ...$having): static
     {
+        self::validateVariadicParameter($having);
+
         if (! (count($having) === 1 && ($having[0] instanceof Expr\Andx || $having[0] instanceof Expr\Orx))) {
             $having = new Expr\Andx($having);
         }
@@ -1082,6 +1098,8 @@ class QueryBuilder implements Stringable
      */
     public function andHaving(mixed ...$having): static
     {
+        self::validateVariadicParameter($having);
+
         $dql = $this->getDQLPart('having');
 
         if ($dql instanceof Expr\Andx) {
@@ -1102,6 +1120,8 @@ class QueryBuilder implements Stringable
      */
     public function orHaving(mixed ...$having): static
     {
+        self::validateVariadicParameter($having);
+
         $dql = $this->getDQLPart('having');
 
         if ($dql instanceof Expr\Orx) {
@@ -1167,7 +1187,7 @@ class QueryBuilder implements Stringable
             }
         }
 
-        foreach (self::getCriteriaOrderings($criteria) as $sort => $order) {
+        foreach ($criteria->orderings() as $sort => $order) {
             $hasValidAlias = false;
             foreach ($allAliases as $alias) {
                 if (str_starts_with($sort . '.', $alias . '.')) {
@@ -1180,7 +1200,7 @@ class QueryBuilder implements Stringable
                 $sort = $allAliases[0] . '.' . $sort;
             }
 
-            $this->addOrderBy($sort, $order);
+            $this->addOrderBy($sort, $order->value);
         }
 
         // Overwrite limits only if they was set in criteria

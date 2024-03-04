@@ -15,9 +15,9 @@ class ComposerStaticInitf2f3ea2b52dc1dc543fcff270d9d2335
         'b6b991a57620e2fb6b2f66f03fe9ddc2' => __DIR__ . '/..' . '/symfony/string/Resources/functions.php',
         'f598d06aa772fa33d905e87be6398fb1' => __DIR__ . '/..' . '/symfony/polyfill-intl-idn/bootstrap.php',
         '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
+        '6a47392539ca2329373e0d33e1dba053' => __DIR__ . '/..' . '/symfony/polyfill-intl-icu/bootstrap.php',
         'ec07570ca5a812141189b1fa81503674' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Assert/Functions.php',
         '92c8763cd6170fce6fcfe7e26b4e8c10' => __DIR__ . '/..' . '/symfony/phpunit-bridge/bootstrap.php',
-        '6a47392539ca2329373e0d33e1dba053' => __DIR__ . '/..' . '/symfony/polyfill-intl-icu/bootstrap.php',
         'a1105708a18b76903365ca1c4aa61b02' => __DIR__ . '/..' . '/symfony/translation/Resources/functions.php',
     );
 
@@ -94,7 +94,6 @@ class ComposerStaticInitf2f3ea2b52dc1dc543fcff270d9d2335
             'Symfony\\Component\\Cache\\' => 24,
             'Symfony\\Component\\BrowserKit\\' => 29,
             'Symfony\\Component\\Asset\\' => 24,
-            'Symfony\\Component\\AssetMapper\\' => 30,
             'Symfony\\Bundle\\WebProfilerBundle\\' => 33,
             'Symfony\\Bundle\\TwigBundle\\' => 26,
             'Symfony\\Bundle\\SecurityBundle\\' => 30,
@@ -155,8 +154,8 @@ class ComposerStaticInitf2f3ea2b52dc1dc543fcff270d9d2335
         'phpDocumentor\\Reflection\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpdocumentor/reflection-common/src',
-            1 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
-            2 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
+            1 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
+            2 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
         ),
         'Webmozart\\Assert\\' => 
         array (
@@ -398,10 +397,6 @@ class ComposerStaticInitf2f3ea2b52dc1dc543fcff270d9d2335
         array (
             0 => __DIR__ . '/..' . '/symfony/asset',
         ),
-        'Symfony\\Component\\AssetMapper\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/symfony/asset-mapper',
-        ),
         'Symfony\\Bundle\\WebProfilerBundle\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/web-profiler-bundle',
@@ -557,6 +552,8 @@ class ComposerStaticInitf2f3ea2b52dc1dc543fcff270d9d2335
     );
 
     public static $classMap = array (
+        'App\\Controller\\HomeController' => __DIR__ . '/../..' . '/src/Controller/HomeController.php',
+        'App\\Kernel' => __DIR__ . '/../..' . '/src/Kernel.php',
         'Collator' => __DIR__ . '/..' . '/symfony/polyfill-intl-icu/Resources/stubs/Collator.php',
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'DeepCopy\\DeepCopy' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/DeepCopy.php',
@@ -1336,7 +1333,6 @@ class ComposerStaticInitf2f3ea2b52dc1dc543fcff270d9d2335
         'Doctrine\\ORM\\Id\\BigIntegerIdentityGenerator' => __DIR__ . '/..' . '/doctrine/orm/src/Id/BigIntegerIdentityGenerator.php',
         'Doctrine\\ORM\\Id\\IdentityGenerator' => __DIR__ . '/..' . '/doctrine/orm/src/Id/IdentityGenerator.php',
         'Doctrine\\ORM\\Id\\SequenceGenerator' => __DIR__ . '/..' . '/doctrine/orm/src/Id/SequenceGenerator.php',
-        'Doctrine\\ORM\\Internal\\CriteriaOrderings' => __DIR__ . '/..' . '/doctrine/orm/src/Internal/CriteriaOrderings.php',
         'Doctrine\\ORM\\Internal\\HydrationCompleteHandler' => __DIR__ . '/..' . '/doctrine/orm/src/Internal/HydrationCompleteHandler.php',
         'Doctrine\\ORM\\Internal\\Hydration\\AbstractHydrator' => __DIR__ . '/..' . '/doctrine/orm/src/Internal/Hydration/AbstractHydrator.php',
         'Doctrine\\ORM\\Internal\\Hydration\\ArrayHydrator' => __DIR__ . '/..' . '/doctrine/orm/src/Internal/Hydration/ArrayHydrator.php',
@@ -1346,6 +1342,7 @@ class ComposerStaticInitf2f3ea2b52dc1dc543fcff270d9d2335
         'Doctrine\\ORM\\Internal\\Hydration\\ScalarHydrator' => __DIR__ . '/..' . '/doctrine/orm/src/Internal/Hydration/ScalarHydrator.php',
         'Doctrine\\ORM\\Internal\\Hydration\\SimpleObjectHydrator' => __DIR__ . '/..' . '/doctrine/orm/src/Internal/Hydration/SimpleObjectHydrator.php',
         'Doctrine\\ORM\\Internal\\Hydration\\SingleScalarHydrator' => __DIR__ . '/..' . '/doctrine/orm/src/Internal/Hydration/SingleScalarHydrator.php',
+        'Doctrine\\ORM\\Internal\\NoUnknownNamedArguments' => __DIR__ . '/..' . '/doctrine/orm/src/Internal/NoUnknownNamedArguments.php',
         'Doctrine\\ORM\\Internal\\QueryType' => __DIR__ . '/..' . '/doctrine/orm/src/Internal/QueryType.php',
         'Doctrine\\ORM\\Internal\\SQLResultCasing' => __DIR__ . '/..' . '/doctrine/orm/src/Internal/SQLResultCasing.php',
         'Doctrine\\ORM\\Internal\\StronglyConnectedComponents' => __DIR__ . '/..' . '/doctrine/orm/src/Internal/StronglyConnectedComponents.php',
@@ -2411,6 +2408,7 @@ class ComposerStaticInitf2f3ea2b52dc1dc543fcff270d9d2335
         'PharIo\\Manifest\\ManifestLoader' => __DIR__ . '/..' . '/phar-io/manifest/src/ManifestLoader.php',
         'PharIo\\Manifest\\ManifestLoaderException' => __DIR__ . '/..' . '/phar-io/manifest/src/exceptions/ManifestLoaderException.php',
         'PharIo\\Manifest\\ManifestSerializer' => __DIR__ . '/..' . '/phar-io/manifest/src/ManifestSerializer.php',
+        'PharIo\\Manifest\\NoEmailAddressException' => __DIR__ . '/..' . '/phar-io/manifest/src/exceptions/NoEmailAddressException.php',
         'PharIo\\Manifest\\PhpElement' => __DIR__ . '/..' . '/phar-io/manifest/src/xml/PhpElement.php',
         'PharIo\\Manifest\\PhpExtensionRequirement' => __DIR__ . '/..' . '/phar-io/manifest/src/values/PhpExtensionRequirement.php',
         'PharIo\\Manifest\\PhpVersionRequirement' => __DIR__ . '/..' . '/phar-io/manifest/src/values/PhpVersionRequirement.php',
@@ -3329,42 +3327,6 @@ class ComposerStaticInitf2f3ea2b52dc1dc543fcff270d9d2335
         'Symfony\\Bundle\\WebProfilerBundle\\Profiler\\TemplateManager' => __DIR__ . '/..' . '/symfony/web-profiler-bundle/Profiler/TemplateManager.php',
         'Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension' => __DIR__ . '/..' . '/symfony/web-profiler-bundle/Twig/WebProfilerExtension.php',
         'Symfony\\Bundle\\WebProfilerBundle\\WebProfilerBundle' => __DIR__ . '/..' . '/symfony/web-profiler-bundle/WebProfilerBundle.php',
-        'Symfony\\Component\\AssetMapper\\AssetDependency' => __DIR__ . '/..' . '/symfony/asset-mapper/AssetDependency.php',
-        'Symfony\\Component\\AssetMapper\\AssetMapper' => __DIR__ . '/..' . '/symfony/asset-mapper/AssetMapper.php',
-        'Symfony\\Component\\AssetMapper\\AssetMapperCompiler' => __DIR__ . '/..' . '/symfony/asset-mapper/AssetMapperCompiler.php',
-        'Symfony\\Component\\AssetMapper\\AssetMapperDevServerSubscriber' => __DIR__ . '/..' . '/symfony/asset-mapper/AssetMapperDevServerSubscriber.php',
-        'Symfony\\Component\\AssetMapper\\AssetMapperInterface' => __DIR__ . '/..' . '/symfony/asset-mapper/AssetMapperInterface.php',
-        'Symfony\\Component\\AssetMapper\\AssetMapperRepository' => __DIR__ . '/..' . '/symfony/asset-mapper/AssetMapperRepository.php',
-        'Symfony\\Component\\AssetMapper\\Command\\AssetMapperCompileCommand' => __DIR__ . '/..' . '/symfony/asset-mapper/Command/AssetMapperCompileCommand.php',
-        'Symfony\\Component\\AssetMapper\\Command\\DebugAssetMapperCommand' => __DIR__ . '/..' . '/symfony/asset-mapper/Command/DebugAssetMapperCommand.php',
-        'Symfony\\Component\\AssetMapper\\Command\\ImportMapExportCommand' => __DIR__ . '/..' . '/symfony/asset-mapper/Command/ImportMapExportCommand.php',
-        'Symfony\\Component\\AssetMapper\\Command\\ImportMapRemoveCommand' => __DIR__ . '/..' . '/symfony/asset-mapper/Command/ImportMapRemoveCommand.php',
-        'Symfony\\Component\\AssetMapper\\Command\\ImportMapRequireCommand' => __DIR__ . '/..' . '/symfony/asset-mapper/Command/ImportMapRequireCommand.php',
-        'Symfony\\Component\\AssetMapper\\Command\\ImportMapUpdateCommand' => __DIR__ . '/..' . '/symfony/asset-mapper/Command/ImportMapUpdateCommand.php',
-        'Symfony\\Component\\AssetMapper\\Compiler\\AssetCompilerInterface' => __DIR__ . '/..' . '/symfony/asset-mapper/Compiler/AssetCompilerInterface.php',
-        'Symfony\\Component\\AssetMapper\\Compiler\\AssetCompilerPathResolverTrait' => __DIR__ . '/..' . '/symfony/asset-mapper/Compiler/AssetCompilerPathResolverTrait.php',
-        'Symfony\\Component\\AssetMapper\\Compiler\\CssAssetUrlCompiler' => __DIR__ . '/..' . '/symfony/asset-mapper/Compiler/CssAssetUrlCompiler.php',
-        'Symfony\\Component\\AssetMapper\\Compiler\\JavaScriptImportPathCompiler' => __DIR__ . '/..' . '/symfony/asset-mapper/Compiler/JavaScriptImportPathCompiler.php',
-        'Symfony\\Component\\AssetMapper\\Compiler\\SourceMappingUrlsCompiler' => __DIR__ . '/..' . '/symfony/asset-mapper/Compiler/SourceMappingUrlsCompiler.php',
-        'Symfony\\Component\\AssetMapper\\Exception\\CircularAssetsException' => __DIR__ . '/..' . '/symfony/asset-mapper/Exception/CircularAssetsException.php',
-        'Symfony\\Component\\AssetMapper\\Exception\\ExceptionInterface' => __DIR__ . '/..' . '/symfony/asset-mapper/Exception/ExceptionInterface.php',
-        'Symfony\\Component\\AssetMapper\\Exception\\RuntimeException' => __DIR__ . '/..' . '/symfony/asset-mapper/Exception/RuntimeException.php',
-        'Symfony\\Component\\AssetMapper\\Factory\\CachedMappedAssetFactory' => __DIR__ . '/..' . '/symfony/asset-mapper/Factory/CachedMappedAssetFactory.php',
-        'Symfony\\Component\\AssetMapper\\Factory\\MappedAssetFactory' => __DIR__ . '/..' . '/symfony/asset-mapper/Factory/MappedAssetFactory.php',
-        'Symfony\\Component\\AssetMapper\\Factory\\MappedAssetFactoryInterface' => __DIR__ . '/..' . '/symfony/asset-mapper/Factory/MappedAssetFactoryInterface.php',
-        'Symfony\\Component\\AssetMapper\\ImportMap\\ImportMapEntry' => __DIR__ . '/..' . '/symfony/asset-mapper/ImportMap/ImportMapEntry.php',
-        'Symfony\\Component\\AssetMapper\\ImportMap\\ImportMapManager' => __DIR__ . '/..' . '/symfony/asset-mapper/ImportMap/ImportMapManager.php',
-        'Symfony\\Component\\AssetMapper\\ImportMap\\ImportMapRenderer' => __DIR__ . '/..' . '/symfony/asset-mapper/ImportMap/ImportMapRenderer.php',
-        'Symfony\\Component\\AssetMapper\\ImportMap\\PackageRequireOptions' => __DIR__ . '/..' . '/symfony/asset-mapper/ImportMap/PackageRequireOptions.php',
-        'Symfony\\Component\\AssetMapper\\ImportMap\\Resolver\\JsDelivrEsmResolver' => __DIR__ . '/..' . '/symfony/asset-mapper/ImportMap/Resolver/JsDelivrEsmResolver.php',
-        'Symfony\\Component\\AssetMapper\\ImportMap\\Resolver\\JspmResolver' => __DIR__ . '/..' . '/symfony/asset-mapper/ImportMap/Resolver/JspmResolver.php',
-        'Symfony\\Component\\AssetMapper\\ImportMap\\Resolver\\PackageResolver' => __DIR__ . '/..' . '/symfony/asset-mapper/ImportMap/Resolver/PackageResolver.php',
-        'Symfony\\Component\\AssetMapper\\ImportMap\\Resolver\\PackageResolverInterface' => __DIR__ . '/..' . '/symfony/asset-mapper/ImportMap/Resolver/PackageResolverInterface.php',
-        'Symfony\\Component\\AssetMapper\\ImportMap\\Resolver\\ResolvedImportMapPackage' => __DIR__ . '/..' . '/symfony/asset-mapper/ImportMap/Resolver/ResolvedImportMapPackage.php',
-        'Symfony\\Component\\AssetMapper\\MappedAsset' => __DIR__ . '/..' . '/symfony/asset-mapper/MappedAsset.php',
-        'Symfony\\Component\\AssetMapper\\MapperAwareAssetPackage' => __DIR__ . '/..' . '/symfony/asset-mapper/MapperAwareAssetPackage.php',
-        'Symfony\\Component\\AssetMapper\\Path\\PublicAssetsPathResolver' => __DIR__ . '/..' . '/symfony/asset-mapper/Path/PublicAssetsPathResolver.php',
-        'Symfony\\Component\\AssetMapper\\Path\\PublicAssetsPathResolverInterface' => __DIR__ . '/..' . '/symfony/asset-mapper/Path/PublicAssetsPathResolverInterface.php',
         'Symfony\\Component\\Asset\\Context\\ContextInterface' => __DIR__ . '/..' . '/symfony/asset/Context/ContextInterface.php',
         'Symfony\\Component\\Asset\\Context\\NullContext' => __DIR__ . '/..' . '/symfony/asset/Context/NullContext.php',
         'Symfony\\Component\\Asset\\Context\\RequestStackContext' => __DIR__ . '/..' . '/symfony/asset/Context/RequestStackContext.php',

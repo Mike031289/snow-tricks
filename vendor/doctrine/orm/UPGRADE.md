@@ -1,3 +1,26 @@
+# Upgrade to 3.1
+
+## Deprecate `Doctrine\ORM\Mapping\ReflectionEnumProperty`
+
+This class is deprecated and will be removed in 4.0.
+Instead, use `Doctrine\Persistence\Reflection\EnumReflectionProperty` from
+`doctrine/persistence`.
+
+## Deprecate passing null to `ClassMetadata::fullyQualifiedClassName()`
+
+Passing `null` to `Doctrine\ORM\ClassMetadata::fullyQualifiedClassName()` is
+deprecated and will no longer be possible in 4.0.
+
+## Deprecate array access
+
+Using array access on instances of the following classes is deprecated:
+
+- `Doctrine\ORM\Mapping\DiscriminatorColumnMapping`
+- `Doctrine\ORM\Mapping\EmbedClassMapping`
+- `Doctrine\ORM\Mapping\FieldMapping`
+- `Doctrine\ORM\Mapping\JoinColumnMapping`
+- `Doctrine\ORM\Mapping\JoinTableMapping`
+
 # Upgrade to 3.0
 
 ## BC BREAK: Calling `ClassMetadata::getAssociationMappedByTargetField()` with the owning side of an association now throws an exception
@@ -673,6 +696,23 @@ following classes and methods:
 - `IterableResult`
 
 Use `toIterable()` instead.
+
+# Upgrade to 2.19
+
+## Deprecate calling `ClassMetadata::getAssociationMappedByTargetField()` with the owning side of an association
+
+Calling
+`Doctrine\ORM\Mapping\ClassMetadata::getAssociationMappedByTargetField()` with
+the owning side of an association returns `null`, which is undocumented, and
+wrong according to the phpdoc of the parent method.
+
+If you do not know whether you are on the owning or inverse side of an association,
+you can use  `Doctrine\ORM\Mapping\ClassMetadata::isAssociationInverseSide()`
+to find out.
+
+## Deprecate `Doctrine\ORM\Query\Lexer::T_*` constants
+
+Use `Doctrine\ORM\Query\TokenType::T_*` instead.
 
 # Upgrade to 2.17
 

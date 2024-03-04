@@ -7,6 +7,7 @@ namespace Doctrine\ORM\Persisters\Entity;
 use BackedEnum;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\Common\Collections\Expr\Comparison;
+use Doctrine\Common\Collections\Order;
 use Doctrine\DBAL\ArrayParameterType;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\LockMode;
@@ -16,7 +17,6 @@ use Doctrine\DBAL\Result;
 use Doctrine\DBAL\Types\Type;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\Internal\CriteriaOrderings;
 use Doctrine\ORM\Mapping\AssociationMapping;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\Mapping\JoinColumnMapping;
@@ -98,7 +98,6 @@ use function trim;
  */
 class BasicEntityPersister implements EntityPersister
 {
-    use CriteriaOrderings;
     use LockSqlHelper;
 
     /** @var array<string,string> */
@@ -766,7 +765,7 @@ class BasicEntityPersister implements EntityPersister
         $targetClass = $this->em->getClassMetadata($assoc->targetEntity);
 
         if ($assoc->isOwningSide()) {
-            $isInverseSingleValued = $assoc->inversedBy && ! $targetClass->isCollectionValuedAssociation($assoc->inversedBy);
+            $isInverseSingleValued = $assoc->inversedBy !== null && ! $targetClass->isCollectionValuedAssociation($assoc->inversedBy);
 
             // Mark inverse side as fetched in the hints, otherwise the UoW would
             // try to load it in a separate query (remember: to-one inverse sides can not be lazy).
@@ -844,7 +843,10 @@ class BasicEntityPersister implements EntityPersister
      */
     public function loadCriteria(Criteria $criteria): array
     {
-        $orderBy = self::getCriteriaOrderings($criteria);
+        $orderBy = array_map(
+            static fn (Order $order): string => $order->value,
+            $criteria->orderings(),
+        );
         $limit   = $criteria->getMaxResults();
         $offset  = $criteria->getFirstResult();
         $query   = $this->getSelectSQL($criteria, null, null, $limit, $offset, $orderBy);
@@ -1153,7 +1155,7 @@ class BasicEntityPersister implements EntityPersister
 
             if (isset($this->class->fieldMappings[$fieldName])) {
                 $tableAlias = isset($this->class->fieldMappings[$fieldName]->inherited)
-                    ? $this->getSQLTableAlias($this->class->fieldMappings[$fieldName]['inherited'])
+                    ? $this->getSQLTableAlias($this->class->fieldMappings[$fieldName]->inherited)
                     : $baseTableAlias;
 
                 $columnName    = $this->quoteStrategy->getColumnName($fieldName, $this->class, $this->platform);
