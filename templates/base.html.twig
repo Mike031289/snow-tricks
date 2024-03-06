@@ -1,19 +1,85 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}snow-tricks{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-        {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
-        {% block stylesheets %}
-            {{ encore_entry_link_tags('app') }}
-        {% endblock %}
+  <head>
+    <meta charset="UTF-8">
+    <title>
+      {% block title %}snow-tricks{% endblock %}
+    </title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.29.0/feather.min.js" crossorigin="anonymous"></script>
+      <!-- font awesome icon-->
+    <script data-search-pseudo-elements="data-search-pseudo-elements" defer="defer" src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-        {% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
-        {% endblock %}
-    </head>
+    {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+    {% block stylesheets %}
+      {{ encore_entry_link_tags('app') }}
+      <link rel="stylesheet" href="{{ asset('css/myStyles.css') }}" />
+      <link rel="stylesheet" href="{{ asset('css/uiStyles.css') }}" />
+      <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css"/>
+    {% endblock %}
+  </head>
+  
+  {% block body %}
     <body>
-        {% block body %}{% endblock %}
+      <!-- Page footer-->
+      {% block footer %}
+        <div id="layoutDefault_footer">
+          <footer class="footer pt-10 pb-5 mt-auto bg-dark footer-dark">
+            <div class="container px-5">
+              <div class="row gx-5">
+                <div class="col-lg-6 col-md-6">
+                  <div class="footer-brand">Adjoukou AGBELOU</div>
+                  <div class="mb-3">Développeur PHP/SYMFONY</div>
+                  <div class="icon-list-social mb-5">
+                    <a class="icon-list-social-link" href="https://www.linkedin.com/in/mike-adjoukou-agbelou-23640098/" target="blank">
+                      <i class="fab fa-linkedin"></i>
+                    </a>
+                    <a class="icon-list-social-link" href="https://github.com/Mike031289">
+                      <i class="fab fa-github" target="blank"></i>
+                    </a>
+                    <a class="icon-list-social-link" href="https://dmdprod.com/developpeur_adjoukou-agbelou/" target="blank">
+                      <i class="fas fa-globe"></i>
+                    </a>
+                  </div>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                  <div class="text-uppercase-expanded text-xs mb-4">Liens</div>
+                  {# <ul class="list-unstyled mb-0">
+                    <li class="mb-2 nav-item">
+                      <a class="{% if page == 'home' %}active{% endif %}" href="/../mon-blog/">Accueil</a>
+                    </li>
+                    <li class="mb-2 nav-item">
+                      <a class="{% if page == 'posts' %}active{% endif %}" href="/../mon-blog/posts/{{ 1 }}">Articles</a>
+                    </li>
+                    <li class="mb-2 nav-item">
+                      <a class="{% if page == 'contact' %}active{% endif %}" href="/../mon-blog/contact">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="{% if page == 'login' %}active{% endif %}" href="/../mon-blog/login" target="_blank">Espace Administrateur</a>
+                    </li>
+                  </ul> #}
+                </div>
+              </div>
+              <hr class="my-5"/>
+              <div class="row gx-5 align-items-center">
+                <div class="col-md-6 small">Copyright &copy; dmdprod 2023</div>
+                <div class="col-md-6 text-md-end small">
+                  <a href="#!">Politique de Confidentialité</a>
+                  |
+                  <a href="#!">Conditions Générales D'utilisation</a>
+                </div>
+              </div>
+            </div>
+          </footer>
+        <div>
+      {% endblock footer %}
+      {% block javascripts %}
+        {{ encore_entry_script_tags('app') }}
+        <script src="{{ asset('js/myJs.js') }}"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+      {% endblock %}
     </body>
+  {% endblock %}

@@ -3,33 +3,34 @@
 
 {% block body %}
 <header>
-{% block navContainer %}
-  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-  <div class="container bg-primary px-5">
-    <a class="navbar-brand" href="#">Snow-Tricks</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarText">
-      <hr class="navbar-nav mr-auto">
-      <a class="nav-link navbar-text" href="#">Inscription
-      </a>
-      <a class="nav-link navbar-text" href="#">Connexion
-      </a>
-    </div>
-  </div>
-  </nav>
-  <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
-    <div class="carousel-inner">
-      <div class="carousel-item active">
-        <img class="w-100" src="{{ asset('pictures/snow-trickers-img.jpeg') }}" alt="Description de l'image">
+  {% block navContainer %}
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+      <div class="container bg-primary px-5">
+        <a class="navbar-brand" href="">Snow-Tricks</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarText">
+          <hr class="navbar-nav mr-auto">
+          <a class="nav-link navbar-text text-white" href="{{ path('inscription', { 'slug': 'signUpForm'}) }}">Inscription</a>
+          <hr class="navbar-nav mr-5">
+          <a class="nav-link navbar-text text-white" href="#">Connexion
+          </a>
+        </div>
+      </div>
+    </nav>
+    <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <img class="w-100" src="{{ asset('pictures/snow-trickers-img.jpeg') }}" alt="Description de l'image">
         </div>
       </div>
     </div>
-  </div>
-{% endblock %}
+  {% endblock %}
 </header>
-  {% block section %}
+{# {% block section %} #}
+<body>
+
   <div class="container"
     <div class="jumbotron">
       <h1 class="display-4">Liste de figures</h1>
@@ -72,5 +73,6 @@
       <a class="btn btn-primary btn-lg" href="#" role="button">voir plus</a>
     </div>
   </div>
-  {% endblock %}
+</body>
+  {# {% endblock %} #}
 {% endblock %}
