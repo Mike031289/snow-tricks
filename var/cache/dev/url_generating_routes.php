@@ -17,5 +17,7 @@ return [
     '_profiler_exception' => [['token'], ['_controller' => 'web_profiler.controller.exception_panel::body'], [], [['text', '/exception'], ['variable', '/', '[^/]++', 'token', true], ['text', '/_profiler']], [], [], []],
     '_profiler_exception_css' => [['token'], ['_controller' => 'web_profiler.controller.exception_panel::stylesheet'], [], [['text', '/exception.css'], ['variable', '/', '[^/]++', 'token', true], ['text', '/_profiler']], [], [], []],
     'inscription' => [[], ['_controller' => 'App\\Controller\\UserController::register'], [], [['text', '/register']], [], [], []],
+    'connexion' => [[], ['_controller' => 'App\\Controller\\UserController::login'], [], [['text', '/login']], [], [], []],
+    'password-reset' => [[], ['_controller' => 'App\\Controller\\UserController::passwordReset'], [], [['text', '/passwordReset']], [], [], []],
     'homepage' => [[], ['_controller' => 'App\\Controller\\HomeController::index'], [], [['text', '/']], [], [], []],
 ];

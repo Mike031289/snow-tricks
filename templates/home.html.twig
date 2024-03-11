@@ -1,5 +1,6 @@
 {# templates/home.html.twig #}
 {% extends 'base.html.twig' %}
+{% set page = 'home' %}
 
 {% block body %}
 <header>
@@ -12,9 +13,9 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarText">
           <hr class="navbar-nav mr-auto">
-          <a class="nav-link navbar-text text-white" href="{{ path('inscription', { 'slug': 'signUpForm'}) }}">Inscription</a>
+          <a class="nav-link navbar-text text-white {% if page == 'signUp' %}active{% endif %}" href="{{ path('inscription', { 'slug': 'signUpForm'}) }}">Inscription</a>
           <hr class="navbar-nav mr-5">
-          <a class="nav-link navbar-text text-white" href="#">Connexion
+          <a class="nav-link navbar-text text-white {% if page == 'signIn' %}active{% endif %}" href="{{ path('connexion', { 'slug': 'signInForm'}) }}">Connexion
           </a>
         </div>
       </div>

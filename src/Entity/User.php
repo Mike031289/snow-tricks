@@ -41,7 +41,7 @@ class User
     private ?string $userPicture = null;
 
     #[ORM\Column(length: 255)]
-    #[Assert\NotBlank(message: 'Créer votre mot de passe')]
+    #[Assert\NotBlank(message: 'Saisissez votre mot de passe')]
     private ?string $password = null;
 
     #[ORM\Column(length: 255)]

@@ -366,6 +366,9 @@
     <service id="App\Form\TrickType" class="App\Form\TrickType" autowire="true" autoconfigure="true">
       <tag name="form.type"/>
     </service>
+    <service id="App\Form\UserSignInType" class="App\Form\UserSignInType" autowire="true" autoconfigure="true">
+      <tag name="form.type"/>
+    </service>
     <service id="App\Form\UserType" class="App\Form\UserType" autowire="true" autoconfigure="true">
       <tag name="form.type"/>
     </service>
@@ -1191,6 +1194,7 @@
         <argument>App\Form\MediaType</argument>
         <argument>App\Form\PasswordresetType</argument>
         <argument>App\Form\TrickType</argument>
+        <argument>App\Form\UserSignInType</argument>
         <argument>App\Form\UserType</argument>
         <argument>Symfony\Component\Form\Extension\Core\Type\FormType</argument>
         <argument>Symfony\Component\Form\Extension\Core\Type\ChoiceType</argument>
@@ -3078,7 +3082,7 @@
       <argument type="service" id="form.registry"/>
     </service>
     <service id="form.extension" class="Symfony\Component\Form\Extension\DependencyInjection\DependencyInjectionExtension">
-      <argument type="service" id=".service_locator.RU6QpwC"/>
+      <argument type="service" id=".service_locator._ITDxy0"/>
       <argument type="collection">
         <argument key="Symfony\Component\Form\Extension\Core\Type\FormType" type="iterator">
           <argument type="service" id="form.type_extension.form.transformation_failure_handling"/>
@@ -5845,6 +5849,8 @@
     <service id=".abstract.instanceof.App\Form\PasswordresetType" class="App\Form\PasswordresetType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\TrickType" class="App\Form\TrickType" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Form\TrickType" class="App\Form\TrickType" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\UserSignInType" class="App\Form\UserSignInType" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Form\UserSignInType" class="App\Form\UserSignInType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\UserType" class="App\Form\UserType" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Form\UserType" class="App\Form\UserType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\ChatRepository" class="App\Repository\ChatRepository" autowire="true" abstract="true"/>
@@ -6406,7 +6412,7 @@
       <argument type="service" id="debug.argument_resolver.not_tagged_controller.inner"/>
       <argument type="service" id="debug.stopwatch"/>
     </service>
-    <service id=".service_locator.RU6QpwC" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator._ITDxy0" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Form\ChatType" type="service_closure" id="App\Form\ChatType"/>
@@ -6414,6 +6420,7 @@
         <argument key="App\Form\MediaType" type="service_closure" id="App\Form\MediaType"/>
         <argument key="App\Form\PasswordresetType" type="service_closure" id="App\Form\PasswordresetType"/>
         <argument key="App\Form\TrickType" type="service_closure" id="App\Form\TrickType"/>
+        <argument key="App\Form\UserSignInType" type="service_closure" id="App\Form\UserSignInType"/>
         <argument key="App\Form\UserType" type="service_closure" id="App\Form\UserType"/>
         <argument key="Symfony\Bridge\Doctrine\Form\Type\EntityType" type="service_closure" id="form.type.entity"/>
         <argument key="Symfony\Component\Form\Extension\Core\Type\ChoiceType" type="service_closure" id="form.type.choice"/>
@@ -8092,7 +8099,7 @@
     <service id=".service_locator.0GV1BZZ" alias=".service_locator.gSv9zYw"/>
     <service id=".service_locator.uYp3OwG" alias=".service_locator._tHndrl"/>
     <service id=".service_locator.wKF4yn1" alias=".service_locator.19_mNxd"/>
-    <service id=".service_locator.UhphAV6" alias=".service_locator.RU6QpwC"/>
+    <service id=".service_locator._Y.6xMr" alias=".service_locator._ITDxy0"/>
     <service id=".service_locator.uwh6Rke" alias=".service_locator.cgfzwmn"/>
     <service id=".service_locator.O24_MAy" alias=".service_locator.yY.p4P7"/>
     <service id=".service_locator._eRAkJb" alias=".service_locator.jIxfAsi"/>

@@ -15,6 +15,8 @@ return [
         '/_profiler/xdebug' => [[['_route' => '_profiler_xdebug', '_controller' => 'web_profiler.controller.profiler::xdebugAction'], null, null, null, false, false, null]],
         '/_profiler/open' => [[['_route' => '_profiler_open_file', '_controller' => 'web_profiler.controller.profiler::openAction'], null, null, null, false, false, null]],
         '/register' => [[['_route' => 'inscription', '_controller' => 'App\\Controller\\UserController::register'], null, null, null, false, false, null]],
+        '/login' => [[['_route' => 'connexion', '_controller' => 'App\\Controller\\UserController::login'], null, null, null, false, false, null]],
+        '/passwordReset' => [[['_route' => 'password-reset', '_controller' => 'App\\Controller\\UserController::passwordReset'], null, null, null, false, false, null]],
         '/' => [[['_route' => 'homepage', '_controller' => 'App\\Controller\\HomeController::index'], null, null, null, false, false, null]],
     ],
     [ // $regexpList
