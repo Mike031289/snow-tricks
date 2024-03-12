@@ -2,7 +2,7 @@
 
 namespace App\Form;
 
-use App\Entity\Passwordreset;
+use App\Entity\PasswordReset;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -19,7 +19,7 @@ class PasswordresetType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Passwordreset::class,
+            'data_class' => PasswordReset::class,
         ]);
     }
 }

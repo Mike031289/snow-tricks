@@ -5,15 +5,16 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Form\UserSignInType;
+use App\Entity\PasswordReset;
 use App\Form\PasswordresetType;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class UserController extends AbstractController
 {
-    #[Route(path: '/register', name: 'inscription')]
+    #[Route(path: '/inscription', name: 'register')]
     public function register(Request $request): Response
     {
         $user = new User();
@@ -49,11 +50,11 @@ class UserController extends AbstractController
         ]);
     }
 
-    #[Route(path: '/passwordReset', name: 'password-reset')]
+    #[Route(path: '/password-reset', name: 'passwordreset')]
     public function passwordReset(Request $request): Response
     {
-        $user = new User();
-        $form = $this->createForm(PasswordresetType::class, $user);
+        $passwordReset = new PasswordReset();
+        $form = $this->createForm(PasswordresetType::class, $passwordReset);
 
         $form->handleRequest($request);
 

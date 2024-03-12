@@ -2,49 +2,57 @@
 
 namespace App\Entity;
 
-use App\Repository\PasswordresetRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\PasswordresetRepository;
+use Symfony\Component\Validator\Constraints as Assert;
 
-#[ORM\Entity(repositoryClass: PasswordresetRepository::class)]
-#[ORM\Table(name: 'passwordreset')]
-class Passwordreset
+#[ORM\MappedSuperclass(repositoryClass: PasswordresetRepository::class)]
+class PasswordReset
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
-
     #[ORM\Column(length: 255)]
-    private ?string $token = null;
+    #[Assert\NotBlank(message: 'Renseigner votre adresse mail')]
+    #[Assert\Email(message: 'l\'adresse mail "{{ value }}" n\'est pas valide')]
+    private ?string $email = null;
+    
+    #[ORM\Column(type: "string", length: 255)]
+    private string $token;
 
-    #[ORM\Column]
-    private ?\DateTimeImmutable $createdAt = null;
+    #[ORM\Column(type: "datetime")]
+    private \DateTimeInterface $expiresAt;
 
-    public function getId(): ?int
+    // Getters and setters
+    public function getEmail(): string
     {
-        return $this->id;
+        return $this->email;
     }
 
-    public function getToken(): ?string
+    public function setEmail(string $email): self
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    public function getToken(): string
     {
         return $this->token;
     }
 
-    public function setToken(string $token): static
+    public function setToken(string $token): self
     {
         $this->token = $token;
 
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeImmutable
+    public function getExpiresAt(): \DateTimeInterface
     {
-        return $this->createdAt;
+        return $this->expiresAt;
     }
 
-    public function setCreatedAt(\DateTimeImmutable $createdAt): static
+    public function setExpiresAt(\DateTimeInterface $expiresAt): self
     {
-        $this->createdAt = $createdAt;
+        $this->expiresAt = $expiresAt;
 
         return $this;
     }
