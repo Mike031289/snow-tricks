@@ -35,7 +35,7 @@
                         {{ form_label(loginForm.password, 'Mot de passe *', {'label_attr': {'class': 'small mb-1'}}) }}
                         <div class="input-group-append">
                          {{ form_widget(loginForm.password, {'attr': {'class': 'form-control', 'id': 'inputPassword'}}) }}
-                          <button class="btn btn-outline-secondary" type="button" id="showPasswordBtn">
+                          <button class="btn btn-outline-black" type="button" id="showPasswordBtn">
                             <i class="fa fa-eye" id="password-icon"></i>
                           </button>
                         </div>
@@ -46,7 +46,7 @@
                   </div>
                   <!-- Form Group (login submit)-->
                   <div class="d-flex align-items-center justify-content-between p-5 pb-2 pt-2">
-                    <a class="small text-secondary" href="{{ path('homepage') }}">Retour à l'accueil</a>
+                    <a class="small text-black" href="{{ path('homepage') }}">Retour à l'accueil</a>
                     <button type="submit" class="btn btn-primary">Se connecter</button>
                   </div>
                   <div class="small text-muted p-5 pt-2 pb-2">
@@ -56,8 +56,8 @@
                   <!-- Fin Symfony Login form -->
                   <div class="card-footer text-center">
                     <div class="small">
-                      <a class="text-secondary" href="{{ path('register', {'': 'inscription'}) }}">Vous n'avez pas de compte? Inscrivez-vous</a> <br>
-                      <a class="text-secondary" href="{{ path('passwordreset', {'': 'réinitialistation du mot de passe'}) }}">Mot de passe oublié? Réinitialisez-le</a>
+                      <a class="text-black" href="{{ path('register', {'': 'inscription'}) }}">Vous n'avez pas de compte? Inscrivez-vous</a> <br>
+                      <a class="text-black" href="{{ path('passwordreset', {'': 'réinitialistation du mot de passe'}) }}">Mot de passe oublié? Réinitialisez-le</a>
                     </div>
                   </div>
                 </div>

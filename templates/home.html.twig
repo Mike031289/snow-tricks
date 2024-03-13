@@ -6,43 +6,183 @@
   <body>
     <div class="container"
       <div class="jumbotron">
-        <h1 class="display-4">Liste de figures</h1>
+        <h1 class="display-4 pt-5">Liste de figures</h1>
         <p class="lead">
-          <div class="card-deck">
-            <div class="card">
-              <img src="..." class="card-img-top" alt="...">
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-              </div>
-              <div class="card-footer">
-                <small class="text-muted">Last updated 3 mins ago</small>
-              </div>
+          <div class="row gx-5">
+            <div class="col-md-6 col-xl-4 mb-5">
+              <a class="card post-preview lift {% if page == 'showtrick' %}active{% endif %}" href="{{ path('show-trick', { 'slug': 'nom de la figure'}) }}">
+                <img class="card-img-top" src="{{ asset('pictures/snow-trickers-img.jpeg') }}"alt="trick"/>
+                <div class="card-body">
+                  <h5 class="card-title"></h5>
+                  <p class="card-text"></p>
+                </div>
+                <div class="card-footer">
+                  <div class="post-preview-meta">
+                    <div class="post-preview-meta-details col-lg col-md col-sm">
+                      <div class="post-preview-meta-details-name">Créer par </div>
+                      <div class="post-preview-meta-details-date">Le </div>
+                    </div>
+                    <button class="btn btn-black btn-sm col-lg-3" href="">Afficher la figure</button>
+                  </div>
+                </div>
+              </a>
             </div>
-            <div class="card">
-              <img src="..." class="card-img-top" alt="...">
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-              </div>
-              <div class="card-footer">
-                <small class="text-muted">Last updated 3 mins ago</small>
-              </div>
+            <div class="col-md-6 col-xl-4 mb-5">
+              <a class="card post-preview lift {% if page == 'showtrick' %}active{% endif %}" href="{{ path('show-trick', { 'slug': 'nom de la figure'}) }}">
+                <img class="card-img-top" src="{{ asset('pictures/trick1.jpeg') }}"alt="trick"/>
+                <div class="card-body">
+                  <h5 class="card-title"></h5>
+                  <p class="card-text"></p>
+                </div>
+                <div class="card-footer">
+                  <div class="post-preview-meta">
+                    
+                    <div class="post-preview-meta-details col-lg col-md col-sm">
+                      <div class="post-preview-meta-details-name">Créer par </div>
+                      <div class="post-preview-meta-details-date">Le </div>
+                    </div>
+                    <button class="btn btn-black btn-sm col-lg-3" href="">Afficher la figure</button>
+                  </div>
+                </div>
+              </a>
             </div>
-            <div class="card">
-              <img src="..." class="card-img-top" alt="...">
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
-              </div>
-              <div class="card-footer">
-                <small class="text-muted">Last updated 3 mins ago</small>
-              </div>
+            <div class="col-md-6 col-xl-4 mb-5">
+              <a class="card post-preview lift" href="">
+                <img class="card-img-top" src="{{ asset('pictures/trick2.jpeg') }}"alt="trick"/>
+                <div class="card-body">
+                  <h5 class="card-title"></h5>
+                  <p class="card-text"></p>
+                </div>
+                <div class="card-footer">
+                  <div class="post-preview-meta">
+                    
+                    <div class="post-preview-meta-details col-lg col-md col-sm">
+                      <div class="post-preview-meta-details-name">Créer par </div>
+                      <div class="post-preview-meta-details-date">Le </div>
+                    </div>
+                    <button class="btn btn-black btn-sm col-lg-3" href="">Afficher la figure</button>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="col-md-6 col-xl-4 mb-5">
+              <a class="card post-preview lift" href="">
+                <img class="card-img-top" src="{{ asset('pictures/trick10.jpeg') }}"alt="trick"/>
+                <div class="card-body">
+                  <h5 class="card-title"></h5>
+                  <p class="card-text"></p>
+                </div>
+                <div class="card-footer">
+                  <div class="post-preview-meta">
+                    
+                    <div class="post-preview-meta-details col-lg col-md col-sm">
+                      <div class="post-preview-meta-details-name">Créer par </div>
+                      <div class="post-preview-meta-details-date">Le </div>
+                    </div>
+                    <button class="btn btn-black btn-sm col-lg-3" href="">Afficher la figure</button>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="col-md-6 col-xl-4 mb-5">
+              <a class="card post-preview lift" href="">
+                <img class="card-img-top" src="{{ asset('pictures/trick4.jpeg') }}"alt="trick"/>
+                <div class="card-body">
+                  <h5 class="card-title"></h5>
+                  <p class="card-text"></p>
+                </div>
+                <div class="card-footer">
+                  <div class="post-preview-meta">
+                    
+                    <div class="post-preview-meta-details col-lg col-md col-sm">
+                      <div class="post-preview-meta-details-name">Créer par </div>
+                      <div class="post-preview-meta-details-date">Le </div>
+                    </div>
+                    <button class="btn btn-black btn-sm col-lg-3" href="">Afficher la figure</button>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="col-md-6 col-xl-4 mb-5">
+              <a class="card post-preview lift" href="">
+                <img class="card-img-top" src="{{ asset('pictures/trick5.jpeg') }}" alt="trick"/>
+                <div class="card-body">
+                  <h5 class="card-title"></h5>
+                  <p class="card-text"></p>
+                </div>
+                <div class="card-footer">
+                  <div class="post-preview-meta">
+                    
+                    <div class="post-preview-meta-details col-lg col-md col-sm">
+                      <div class="post-preview-meta-details-name">Créer par </div>
+                      <div class="post-preview-meta-details-date">Le </div>
+                    </div>
+                    <button class="btn btn-black btn-sm col-lg-3" href="">Afficher la figure</button>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="col-md-6 col-xl-4 mb-5">
+              <a class="card post-preview lift" href="">
+                <img class="card-img-top" src="{{ asset('pictures/trick6.jpeg') }}"alt="trick"/>
+                <div class="card-body">
+                  <h5 class="card-title"></h5>
+                  <p class="card-text"></p>
+                </div>
+                <div class="card-footer">
+                  <div class="post-preview-meta">
+                    
+                    <div class="post-preview-meta-details col-lg col-md col-sm">
+                      <div class="post-preview-meta-details-name">Créer par </div>
+                      <div class="post-preview-meta-details-date">Le </div>
+                    </div>
+                    <button class="btn btn-black btn-sm col-lg-3" href="">Afficher la figure</button>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="col-md-6 col-xl-4 mb-5">
+              <a class="card post-preview lift" href="">
+                <img class="card-img-top" src="{{ asset('pictures/trick7.jpeg') }}"alt="trick"/>
+                <div class="card-body">
+                  <h5 class="card-title"></h5>
+                  <p class="card-text"></p>
+                </div>
+                <div class="card-footer">
+                  <div class="post-preview-meta">
+                    
+                    <div class="post-preview-meta-details col-lg col-md col-sm">
+                      <div class="post-preview-meta-details-name">Créer par </div>
+                      <div class="post-preview-meta-details-date">Le </div>
+                    </div>
+                    <button class="btn btn-black btn-sm col-lg-3" href="">Afficher la figure</button>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="col-md-6 col-xl-4 mb-5">
+              <a class="card post-preview lift" href="">
+                <img class="card-img-top" src="{{ asset('pictures/trick9.jpeg') }}"alt="trick"/>
+                <div class="card-body">
+                  <h5 class="card-title"></h5>
+                  <p class="card-text"></p>
+                </div>
+                <div class="card-footer">
+                  <div class="post-preview-meta">
+                    
+                    <div class="post-preview-meta-details col-lg col-md col-sm">
+                      <div class="post-preview-meta-details-name">Créer par </div>
+                      <div class="post-preview-meta-details-date">Le </div>
+                    </div>
+                    <button class="btn btn-black btn-sm col-lg-3" href="">Afficher la figure</button>
+                  </div>
+                </div>
+              </a>
             </div>
           </div>
         </p>
         <div class="container-flex text-center"> 
-          <a class="btn btn-primary btn-lg m-auto" href="#" role="button">voir plus de figures</a>
+          <a class="btn btn-outline-primary btn-lg m-auto" href="#" role="button">Voir plus de figures</a>
         </div>
         <hr class="my-4">
       </div>

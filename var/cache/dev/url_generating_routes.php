@@ -19,6 +19,7 @@ return [
     'connexion' => [[], ['_controller' => 'App\\Controller\\LoginLogoutController::login'], [], [['text', '/login']], [], [], []],
     'passwordreset' => [[], ['_controller' => 'App\\Controller\\PasswordResetController::passwordReset'], [], [['text', '/password-reset']], [], [], []],
     'resetpassword' => [[], ['_controller' => 'App\\Controller\\PasswordResetController::resetPassword'], [], [['text', '/reset-password']], [], [], []],
+    'show-trick' => [[], ['_controller' => 'App\\Controller\\TrickController::showTrick'], [], [['text', '/page-figure']], [], [], []],
     'register' => [[], ['_controller' => 'App\\Controller\\UserController::register'], [], [['text', '/inscription']], [], [], []],
     'homepage' => [[], ['_controller' => 'App\\Controller\\HomeController::index'], [], [['text', '/']], [], [], []],
 ];

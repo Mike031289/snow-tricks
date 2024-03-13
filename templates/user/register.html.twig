@@ -64,7 +64,7 @@
                             {{ form_label(registerForm.password, 'Mot de passe *', {'label_attr': {'class': 'small mb-1'}}) }}
                               <div class="input-group-append">  
                                 {{ form_widget(registerForm.password, {'attr': {'class': 'form-control'}}) }}
-                                <button class="btn btn-outline-secondary" type="button" id="showPasswordBtn">
+                                <button class="btn btn-outline-black" type="button" id="showPasswordBtn">
                                   <i class="fa fa-eye" id="password-icon"></i>
                                 </button>
                               </div>
@@ -79,7 +79,7 @@
                             {{ form_label(registerForm.passwordConfirm, 'Confirmez votre mot de passe *', {'label_attr': {'class': 'small mb-1'}}) }}
                               <div class="input-group-append">
                                 {{ form_widget(registerForm.passwordConfirm, {'attr': {'class': 'form-control'}}) }}
-                                <button class="btn btn-outline-secondary" type="button" id="showConfirmPasswordBtn">
+                                <button class="btn btn-outline-black" type="button" id="showConfirmPasswordBtn">
                                   <i class="fa fa-eye" id="confirm-password-icon"></i>
                                 </button>
                               </div>
@@ -99,7 +99,7 @@
                   </div>
                   <!-- Form Group (create account submit)-->
                   <div class="d-flex align-items-center justify-content-between p-5 pb-2 pt-2">
-                    <a class="small text-secondary" href="{{ path('homepage') }}">Voir la liste des figures</a>
+                    <a class="small text-black" href="{{ path('homepage') }}">Voir la liste des figures</a>
                     <button type="submit" class="btn btn-primary">Créer un compte</button>
                   </div>
                   <div class="small text-muted p-5 pt-2 pb-2">
@@ -109,7 +109,7 @@
                 <!-- Fin Symfony Registration form -->
                 <div class="card-footer text-center">
                   <div class="small">
-                    <a class="text-secondary" href="{{ path('connexion') }}">Vous êtes déjà inscrit? Connectez-vous</a>
+                    <a class="text-black" href="{{ path('connexion') }}">Vous êtes déjà inscrit? Connectez-vous</a>
                     {# href="{{path('login')}}" #}
                   </div>
                 </div>

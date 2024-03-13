@@ -23,19 +23,22 @@
     {% endblock %}
     {% block header %}
       <header>
-        <nav class="navbar navbar-marketing navbar-expand-lg bg-primary navbar-dark fixed-top">
-          <div class="container bg-primary px-5">
-            <a class="navbar-brand text-white" href="{{ path('homepage') }}">Snow-Tricks</a>
+        <nav class="navbar navbar-marketing navbar-expand-lg bg-light navbar-light fixed-top">
+          <div class="container bg-light px-5">
+            <a class="navbar-brand text-black" href="{{ path('homepage') }}">Snow-Tricks</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
               {# <i data-feather="menu"></i> #}
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <hr class="navbar-nav mr-auto">
-              <a class="nav-link navbar-text text-white {% if page == 'register' %}active{% endif %}" href="{{ path('register', { 'slug': 'inscription'}) }}">Inscription</a>
+              <a class="nav-link navbar-text {% if page == 'home' %}active{% endif %}" href="{{ path('homepage') }}">Accueil</a>
               <hr class="navbar-nav mr-5">
-              <a class="nav-link navbar-text text-white {% if page == 'login' %}active{% endif %}" href="{{ path('connexion', { 'slug': 'loginForm'}) }}">Connexion
-              <i class="ms-2" data-feather="log-in"></i>
+              <a class="nav-link navbar-text {% if page == 'register' %}active{% endif %}" href="{{ path('register', { 'slug': 'inscription'}) }}">Inscription</a>
+              <hr class="navbar-nav mr-5">
+              <a class="nav-link navbar-text {% if page == 'login' %}active{% endif %}" href="{{ path('connexion', { 'slug': 'loginForm'}) }}">Connexion
+              {# <i class="ms-2" data-feather="log-in"></i> #}
+              {# <idata-feather="edit"></i> #}
               </a>
             </div>
           </div>
@@ -43,7 +46,7 @@
         <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
           <div class="carousel-inner">
             <div class="carousel-item active">
-              <img class="w-100" src="{{ asset('pictures/snow-trickers-img.jpeg') }}" alt="Description de l'image">
+              <img class="trick-header-img" src="{{ asset('pictures/snow-trickers-img.jpeg') }}" alt="Description de l'image">
             </div>
           </div>
         </div>

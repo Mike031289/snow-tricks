@@ -17,6 +17,7 @@ return [
         '/login' => [[['_route' => 'connexion', '_controller' => 'App\\Controller\\LoginLogoutController::login'], null, null, null, false, false, null]],
         '/password-reset' => [[['_route' => 'passwordreset', '_controller' => 'App\\Controller\\PasswordResetController::passwordReset'], null, null, null, false, false, null]],
         '/reset-password' => [[['_route' => 'resetpassword', '_controller' => 'App\\Controller\\PasswordResetController::resetPassword'], null, null, null, false, false, null]],
+        '/page-figure' => [[['_route' => 'show-trick', '_controller' => 'App\\Controller\\TrickController::showTrick'], null, null, null, false, false, null]],
         '/inscription' => [[['_route' => 'register', '_controller' => 'App\\Controller\\UserController::register'], null, null, null, false, false, null]],
         '/' => [[['_route' => 'homepage', '_controller' => 'App\\Controller\\HomeController::index'], null, null, null, false, false, null]],
     ],
