@@ -384,7 +384,10 @@
     <service id="App\Form\MediaType" class="App\Form\MediaType" autowire="true" autoconfigure="true">
       <tag name="form.type"/>
     </service>
-    <service id="App\Form\PasswordresetType" class="App\Form\PasswordresetType" autowire="true" autoconfigure="true">
+    <service id="App\Form\RequestForPasswordresetType" class="App\Form\RequestForPasswordresetType" autowire="true" autoconfigure="true">
+      <tag name="form.type"/>
+    </service>
+    <service id="App\Form\ResetPasswordType" class="App\Form\ResetPasswordType" autowire="true" autoconfigure="true">
       <tag name="form.type"/>
     </service>
     <service id="App\Form\TrickType" class="App\Form\TrickType" autowire="true" autoconfigure="true">
@@ -1214,7 +1217,8 @@
         <argument>App\Form\GroupType</argument>
         <argument>App\Form\LoginType</argument>
         <argument>App\Form\MediaType</argument>
-        <argument>App\Form\PasswordresetType</argument>
+        <argument>App\Form\RequestForPasswordresetType</argument>
+        <argument>App\Form\ResetPasswordType</argument>
         <argument>App\Form\TrickType</argument>
         <argument>App\Form\UserType</argument>
         <argument>Symfony\Component\Form\Extension\Core\Type\FormType</argument>
@@ -3103,7 +3107,7 @@
       <argument type="service" id="form.registry"/>
     </service>
     <service id="form.extension" class="Symfony\Component\Form\Extension\DependencyInjection\DependencyInjectionExtension">
-      <argument type="service" id=".service_locator.vUWcG7p"/>
+      <argument type="service" id=".service_locator.OJb2FcJ"/>
       <argument type="collection">
         <argument key="Symfony\Component\Form\Extension\Core\Type\FormType" type="iterator">
           <argument type="service" id="form.type_extension.form.transformation_failure_handling"/>
@@ -5877,8 +5881,10 @@
     <service id=".abstract.instanceof.App\Form\LoginType" class="App\Form\LoginType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\MediaType" class="App\Form\MediaType" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Form\MediaType" class="App\Form\MediaType" autowire="true" autoconfigure="true" abstract="true"/>
-    <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\PasswordresetType" class="App\Form\PasswordresetType" autowire="true" abstract="true"/>
-    <service id=".abstract.instanceof.App\Form\PasswordresetType" class="App\Form\PasswordresetType" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\RequestForPasswordresetType" class="App\Form\RequestForPasswordresetType" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Form\RequestForPasswordresetType" class="App\Form\RequestForPasswordresetType" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\ResetPasswordType" class="App\Form\ResetPasswordType" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Form\ResetPasswordType" class="App\Form\ResetPasswordType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\TrickType" class="App\Form\TrickType" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Form\TrickType" class="App\Form\TrickType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\UserType" class="App\Form\UserType" autowire="true" abstract="true"/>
@@ -6442,14 +6448,15 @@
       <argument type="service" id="debug.argument_resolver.not_tagged_controller.inner"/>
       <argument type="service" id="debug.stopwatch"/>
     </service>
-    <service id=".service_locator.vUWcG7p" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.OJb2FcJ" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Form\CommentType" type="service_closure" id="App\Form\CommentType"/>
         <argument key="App\Form\GroupType" type="service_closure" id="App\Form\GroupType"/>
         <argument key="App\Form\LoginType" type="service_closure" id="App\Form\LoginType"/>
         <argument key="App\Form\MediaType" type="service_closure" id="App\Form\MediaType"/>
-        <argument key="App\Form\PasswordresetType" type="service_closure" id="App\Form\PasswordresetType"/>
+        <argument key="App\Form\RequestForPasswordresetType" type="service_closure" id="App\Form\RequestForPasswordresetType"/>
+        <argument key="App\Form\ResetPasswordType" type="service_closure" id="App\Form\ResetPasswordType"/>
         <argument key="App\Form\TrickType" type="service_closure" id="App\Form\TrickType"/>
         <argument key="App\Form\UserType" type="service_closure" id="App\Form\UserType"/>
         <argument key="Symfony\Bridge\Doctrine\Form\Type\EntityType" type="service_closure" id="form.type.entity"/>
@@ -8147,7 +8154,7 @@
     <service id=".service_locator.0GV1BZZ" alias=".service_locator.gSv9zYw"/>
     <service id=".service_locator.uYp3OwG" alias=".service_locator._tHndrl"/>
     <service id=".service_locator.wKF4yn1" alias=".service_locator.19_mNxd"/>
-    <service id=".service_locator._tOdY1h" alias=".service_locator.vUWcG7p"/>
+    <service id=".service_locator.3gd7TPR" alias=".service_locator.OJb2FcJ"/>
     <service id=".service_locator.uwh6Rke" alias=".service_locator.cgfzwmn"/>
     <service id=".service_locator.O24_MAy" alias=".service_locator.yY.p4P7"/>
     <service id=".service_locator._eRAkJb" alias=".service_locator.jIxfAsi"/>

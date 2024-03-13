@@ -18,6 +18,7 @@ return [
     '_profiler_exception_css' => [['token'], ['_controller' => 'web_profiler.controller.exception_panel::stylesheet'], [], [['text', '/exception.css'], ['variable', '/', '[^/]++', 'token', true], ['text', '/_profiler']], [], [], []],
     'connexion' => [[], ['_controller' => 'App\\Controller\\LoginLogoutController::login'], [], [['text', '/login']], [], [], []],
     'passwordreset' => [[], ['_controller' => 'App\\Controller\\PasswordResetController::passwordReset'], [], [['text', '/password-reset']], [], [], []],
+    'resetpassword' => [[], ['_controller' => 'App\\Controller\\PasswordResetController::resetPassword'], [], [['text', '/reset-password']], [], [], []],
     'register' => [[], ['_controller' => 'App\\Controller\\UserController::register'], [], [['text', '/inscription']], [], [], []],
     'homepage' => [[], ['_controller' => 'App\\Controller\\HomeController::index'], [], [['text', '/']], [], [], []],
 ];

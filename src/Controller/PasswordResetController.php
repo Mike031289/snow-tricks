@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
+use App\Form\ResetPasswordType;
 use App\Entity\PasswordReset;
-use App\Form\PasswordresetType;
+use App\Form\RequestForPasswordresetType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -15,7 +17,7 @@ class PasswordResetController extends AbstractController
     public function passwordReset(Request $request): Response
     {
         $passwordReset = new PasswordReset();
-        $form = $this->createForm(PasswordresetType::class, $passwordReset);
+        $form = $this->createForm(RequestForPasswordresetType::class, $passwordReset);
 
         $form->handleRequest($request);
 
@@ -24,7 +26,25 @@ class PasswordResetController extends AbstractController
             return $this->redirectToRoute('snow-tricks');
         }
 
-        return $this->render('user/passwordReset.html.twig', [
+        return $this->render('user/requestForPasswordReset.html.twig', [
+            'loginForm' => $form->createView(),
+        ]);
+    }
+
+    #[Route(path: '/reset-password', name: 'resetpassword')]
+    public function resetPassword(Request $request): Response
+    {
+        $passwordReset = new User();
+        $form = $this->createForm(ResetPasswordType::class, $passwordReset);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            return $this->redirectToRoute('snow-tricks');
+        }
+
+        return $this->render('user/resetPassword.html.twig', [
             'loginForm' => $form->createView(),
         ]);
     }
