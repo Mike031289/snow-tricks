@@ -1,0 +1,238 @@
+{# templates/home.html.twig #}
+{% extends 'base.html.twig' %}
+{% set page = 'showtrick' %}
+
+{% block header %}
+  <header>
+    <nav class="navbar navbar-marketing navbar-expand-lg bg-light navbar-light fixed-top">
+      <div class="container bg-light px-5">
+        <a class="navbar-brand text-black" href="{{ path('homepage') }}">Snow-Tricks</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <hr class="navbar-nav mr-auto">
+          <a class="nav-link {% if page == 'home' %}active{% endif %}" href="{{ path('homepage') }}">Accueil</a>
+          <hr class="navbar-nav mr-5">
+          <a class="nav-link navbar-text {% if page == 'register' %}active{% endif %}" href="{{ path('register', { 'slug': 'inscription'}) }}">Inscription</a>
+          <hr class="navbar-nav mr-5">
+          <a class="nav-link navbar-text {% if page == 'login' %}active{% endif %}" href="{{ path('connexion', { 'slug': 'loginForm'}) }}">Connexion
+          </a>
+        </div>
+      </div>
+    </nav>
+    <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <img class="trick-header-img" src="{{ asset('pictures/trick24.jpeg') }}" alt="Description de l'image">
+          <div class="carousel-caption d-none d-md-block">
+            <a class="" href="">
+              <i class="mr-3" data-feather="edit"></i>
+            </a>
+            <a class="" href="">
+              <i data-feather="trash"></i>
+            </a>
+            <h5>First slide label</h5>
+            <p>Some representative placeholder content for the first slide.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+{% endblock %}
+{% block body %}
+  <body><div class="container" <div class="jumbotron"> <h1 class="display-4 pt-5">Médias</h1>
+  <p class="lead">
+    <div class="row gx-5">
+      <div class="row">
+        <div class="col-sm-6 mb-3 mb-sm-0">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Images</h5>
+              <p class="card-text">
+                <div id="carouselExampleSlidesOnly trick-media-picture" class="carousel slide carousel-fade" data-bs-ride="carousel">
+                  <div class="carousel-inner">
+                    <div class="carousel-item active">
+                      <img class="picture" src="{{ asset('pictures/snow-trickers-img.jpeg') }}" alt="tricks">
+                    </div>
+                    <div class="carousel-item">
+                      <img class="picture" src="{{ asset('pictures/trick1.jpeg') }}" alt="tricks">
+                    </div>
+                    <div class="carousel-item">
+                      <img class="picture" src="{{ asset('pictures/trick18.jpeg') }}" alt="tricks">
+                    </div>
+                  </div>
+                </div>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Vidéos</h5>
+              <p class="card-text">
+                <div id="carouselExampleSlidesOnly trick-media-video" class="carousel slide carousel-fade" data-bs-ride="carousel">
+                  <div class="carousel-inner">
+                    <div class="carousel-item active">
+                      <!-- Vidéo YouTube -->
+                      <iframe class="video" src="https://www.youtube.com/embed/aINlzgrOovI?si=F8L2Y0av4zk5CuF1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="allowfullscreen"></iframe>
+                    </div>
+                    <div class="carousel-item">
+                      <!-- Autre vidéo -->
+                      <iframe class="video" src="https://www.youtube.com/embed/vx-uVPSSnx0?si=Savr0smQk1QXrG7Q" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="allowfullscreen"></iframe>
+                    </div>
+                    <div class="carousel-item">
+                      <!-- Autre vidéo -->
+                      <iframe class="video" src="https://www.youtube.com/embed/LAuDJsReHlw?si=Mcl5q4PbPeKEbJwj" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="allowfullscreen"></iframe>
+                    </div>
+                  </div>
+                </div>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </p>
+  <hr class="my-4">
+</div>
+</div>
+
+<!-- Page Section-->
+<section class="bg-light py-10">
+{% block section %}
+  <div class="container px-5">
+    <div class="row gx-5 justify-content-center">
+      <div class="col-lg-10 col-xl-8">
+        <div class="single-post">
+          <h1 class="mt-5">Titre de la figure</h1>
+          <div class="d-flex align-items-center justify-content-between mb-5">
+            <div class="single-post-meta me-4">
+              <div class="single-post-meta-details">
+                <div class="single-post-meta-details-name">Auteur: Nom de l'Auteur</div>
+                <div class="single-post-meta-details-date">Publié le
+                  10/02/2024</div>
+                <div class="single-post-meta-details-date">Mise à jour le
+                  10/02/2024</div>
+              </div>
+            </div>
+          </div>
+          <div class="small text-gray-500 text-center">Nom du groupe : groupe 5</div>
+          <div class="single-post-text my-5">
+            <p>suivante :Nettoyez le Cache : Si toutes les autres étapes échouent, essayez de nettoyer le cache Symfony avec la commande suivante :Nettoyez le Cache : Si toutes les autres étapes échouent, essayez de nettoyer le cache Symfony avec la commande suivante :Nettoyez le Cache : Si toutes les autres étapes échouent, essayez de nettoyer le cache Symfony avec la commande suivante :Nettoyez le Cache : Si toutes les autres étapes échouent, essayez de nettoyer le cache Symfony avec la commande suivante</p>
+            <hr class="my-5"/>
+            <div class="text-center">
+              <a class="btn btn-outline-dark" href="{{ path('homepage')}}">Retour à la Liste des Figures</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- formulaire d'ajout de commentaires -->
+        <form class="mt-5" method="POST">
+          <div class="card mb-5">
+            <div class="card-header text-secondary">LAISSEZ NOUS UN COMMENTAIRE</div>
+            <div class="card-body">
+              <textarea class="form-control mb-2" name="content" placeholder="Ajouter un commentaire" required="required" rows="4"></textarea>
+              <button type="submit" class="btn btn-secondary btn-sm me-2">Ajouter</button>
+            </div>
+          </div>
+        </form>
+
+        <div class="mb-5">
+          <p>Pour nous laissez votre commentaire vous devez être connecté ! Si non inscrivez vous pour vous connecter celà vous prendra environ 2 min</p>
+          <a href="{{ path('connexion', { 'slug': 'loginForm'}) }}" class="btn btn-success btn-sm">Je me connecte</a>
+          <a href="{{ path('register', { 'slug': 'inscription'}) }}" class="btn btn-secondary btn-sm">Je suis nouveau</a>
+        </div>
+
+        <!-- affichage des commentaires -->
+        <section class="bg-light py-3">
+          <div class="container px-5">
+            <div class="row gx-5 justify-content-center">
+              <div class="col-lg-10">
+                <h3 class="post-archive-tag">
+                  <span class="translate-midlle badge rounded bg-secondary p-2">12</span>
+                  COMMENTAIRES
+                </h3>
+                <div>
+                  <a class="post-archive-item">
+                    <h5>Auteur du Commentaire: nom de l'auteur</h5>
+                    <p>
+                      ceci est un commentaire ajouté ceci est un commentaire ajoutéceci est un commentaire ajoutéceci est un commentaire ajoutéceci est un commentaire ajoutéceci est un commentaire ajoutéceci est un commentaire ajouté
+                    </p>
+                  </a>
+                  <div class="post-archive-meta">
+                    <img class="post-archive-meta-img" src="/../mon-blog/public/assets/img/illustrations/profiles/profile-1.png"/>
+                    <div class="post-archive-meta-details">
+                      <div class="post-archive-meta-details-name">Auteur : Auteur</div>
+                      <div class="post-archive-meta-details-date">Commentaire ajouté le : 13/02/2024</div>
+                    </div>
+                  </div>
+                </div>
+                <hr class="my-5"/>
+                <div>
+                  <a class="post-archive-item">
+                    <h5>Auteur du Commentaire: nom de l'auteur</h5>
+                    <p>
+                      ceci est un commentaire ajouté ceci est un commentaire ajoutéceci est un commentaire ajoutéceci est un commentaire ajoutéceci est un commentaire ajoutéceci est un commentaire ajoutéceci est un commentaire ajouté
+                    </p>
+                  </a>
+                  <div class="post-archive-meta">
+                    <img class="post-archive-meta-img" src="/../mon-blog/public/assets/img/illustrations/profiles/profile-1.png"/>
+                    <div class="post-archive-meta-details">
+                      <div class="post-archive-meta-details-name">Auteur : Auteur</div>
+                      <div class="post-archive-meta-details-date">Commentaire ajouté le : 13/02/2024</div>
+                    </div>
+                  </div>
+                </div>
+                <hr class="my-5"/>
+                <div>
+                  <a class="post-archive-item">
+                    <h5>Auteur du Commentaire: nom de l'auteur</h5>
+                    <p>
+                      ceci est un commentaire ajouté ceci est un commentaire ajoutéceci est un commentaire ajoutéceci est un commentaire ajoutéceci est un commentaire ajoutéceci est un commentaire ajoutéceci est un commentaire ajouté
+                    </p>
+                  </a>
+                  <div class="post-archive-meta">
+                    <img class="post-archive-meta-img" src="/../mon-blog/public/assets/img/illustrations/profiles/profile-1.png"/>
+                    <div class="post-archive-meta-details">
+                      <div class="post-archive-meta-details-name">Auteur : Auteur</div>
+                      <div class="post-archive-meta-details-date">Commentaire ajouté le : 13/02/2024</div>
+                    </div>
+                  </div>
+                </div>
+                <hr class="my-5"/>
+                <div>
+                  <a class="post-archive-item">
+                    <h5>Auteur du Commentaire: nom de l'auteur</h5>
+                    <p>
+                      ceci est un commentaire ajouté ceci est un commentaire ajoutéceci est un commentaire ajoutéceci est un commentaire ajoutéceci est un commentaire ajoutéceci est un commentaire ajoutéceci est un commentaire ajouté
+                    </p>
+                  </a>
+                  <div class="post-archive-meta">
+                    <img class="post-archive-meta-img" src="/../mon-blog/public/assets/img/illustrations/profiles/profile-1.png"/>
+                    <div class="post-archive-meta-details">
+                      <div class="post-archive-meta-details-name">Auteur : Auteur</div>
+                      <div class="post-archive-meta-details-date">Commentaire ajouté le : 13/02/2024</div>
+                    </div>
+                  </div>
+                </div>
+                <hr class="my-5"/>
+
+                <p class="mb-5">
+                  <span class="translate-midlle badge rounded bg-dark p-2">0</span>
+                  commentaire pour ce post. Laissez nous votre commentaire, nous apprécions vos retours</p>
+
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+    </div>
+  </div>
+{% endblock %}
+
+</section>
+</body>
+{% endblock %}

@@ -22,7 +22,23 @@ class Trick
     private ?string $description = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $picture_video = null;
+    private ?string $picture = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $video = null;
+
+    #[ORM\ManyToOne(targetEntity: Categorie::class)]
+    #[ORM\JoinColumn(name: 'categorie_id', referencedColumnName: 'id')]
+    private ?Categorie $categorie = null;
+
+    #[ORM\Column(name: 'user_id')]
+    private ?int $userId = null;
+
+    #[ORM\Column(type: 'datetime')]
+    private \DateTimeInterface $createdAt;
+
+    #[ORM\Column(type: 'datetime')]
+    private \DateTimeInterface $updatedAt;
 
     public function getId(): ?int
     {
@@ -53,14 +69,74 @@ class Trick
         return $this;
     }
 
-    public function getPictureVideo(): ?string
+    public function getPicture(): ?string
     {
-        return $this->picture_video;
+        return $this->picture;
     }
 
-    public function setPictureVideo(string $picture_video): static
+    public function setPicture(string $picture): static
     {
-        $this->picture_video = $picture_video;
+        $this->picture = $picture;
+
+        return $this;
+    }
+
+    public function getVideo(): ?string
+    {
+        return $this->video;
+    }
+
+    public function setVideo(string $video): static
+    {
+        $this->video = $video;
+
+        return $this;
+    }
+
+    public function getCategorie(): ?Categorie
+    {
+        return $this->categorie;
+    }
+
+    public function setCategorie(?Categorie $categorie): static
+    {
+        $this->categorie = $categorie;
+
+        return $this;
+    }
+
+    public function getUserId(): ?int
+    {
+        return $this->userId;
+    }
+
+    public function setUserId(int $userId): static
+    {
+        $this->userId = $userId;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): \DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $createdAt): static
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): \DateTimeInterface
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(\DateTimeInterface $updatedAt): static
+    {
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }

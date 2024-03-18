@@ -1,15 +1,12 @@
 <?php
 
-// src/Entity/User.php
 namespace App\Entity;
 
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: 'user')]
-
 class User
 {
     #[ORM\Id]
@@ -18,20 +15,15 @@ class User
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Assert\NotBlank(message: 'Renseigner votre prénom')]
     private ?string $firstName = null;
 
     #[ORM\Column(length: 255)]
-    #[Assert\NotBlank(message: 'Renseigner votre nom')]
     private ?string $lastName = null;
 
     #[ORM\Column(length: 255)]
-    #[Assert\NotBlank(message: 'Choisissez un nom d\'utilisateur')]
     private ?string $userName = null;
 
     #[ORM\Column(length: 255)]
-    #[Assert\NotBlank(message: 'Renseigner votre adresse mail')]
-    #[Assert\Email(message: 'l\'adresse mail "{{ value }}" n\'est pas valide')]
     private ?string $email = null;
 
     #[ORM\Column(length: 255)]
@@ -41,11 +33,9 @@ class User
     private ?string $userPicture = null;
 
     #[ORM\Column(length: 255)]
-    #[Assert\NotBlank(message: 'Saisissez votre mot de passe')]
     private ?string $password = null;
 
     #[ORM\Column(length: 255)]
-    #[Assert\NotBlank(message: 'Confirmez votre mot de passe')]
     private ?string $passwordConfirm = null;
 
     #[ORM\Column]
