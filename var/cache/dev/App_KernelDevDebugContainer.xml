@@ -386,7 +386,7 @@
         <argument type="service" id=".service_locator.jIxfAsi.App\Controller\UserController"/>
       </call>
     </service>
-    <service id="App\Form\CategorieType" class="App\Form\CategorieType" autowire="true" autoconfigure="true">
+    <service id="App\Form\CategoryType" class="App\Form\CategoryType" autowire="true" autoconfigure="true">
       <tag name="form.type"/>
     </service>
     <service id="App\Form\CommentType" class="App\Form\CommentType" autowire="true" autoconfigure="true">
@@ -410,11 +410,11 @@
     <service id="App\Form\UserType" class="App\Form\UserType" autowire="true" autoconfigure="true">
       <tag name="form.type"/>
     </service>
-    <service id="App\Repository\CategorieRepository" class="App\Repository\CategorieRepository" autowire="true" autoconfigure="true">
+    <service id="App\Repository\CategoryRepository" class="App\Repository\CategoryRepository" autowire="true" autoconfigure="true">
       <tag name="doctrine.repository_service"/>
       <argument type="service" id="doctrine"/>
     </service>
-    <service id="App\Repository\ChatRepository" class="App\Repository\ChatRepository" autowire="true" autoconfigure="true">
+    <service id="App\Repository\CommentRepository" class="App\Repository\CommentRepository" autowire="true" autoconfigure="true">
       <tag name="doctrine.repository_service"/>
       <argument type="service" id="doctrine"/>
     </service>
@@ -1227,7 +1227,7 @@
         <argument>Symfony\Bridge\Doctrine\Form\Type</argument>
       </argument>
       <argument type="collection">
-        <argument>App\Form\CategorieType</argument>
+        <argument>App\Form\CategoryType</argument>
         <argument>App\Form\CommentType</argument>
         <argument>App\Form\LoginType</argument>
         <argument>App\Form\MediaType</argument>
@@ -3121,7 +3121,7 @@
       <argument type="service" id="form.registry"/>
     </service>
     <service id="form.extension" class="Symfony\Component\Form\Extension\DependencyInjection\DependencyInjectionExtension">
-      <argument type="service" id=".service_locator.YjAowuj"/>
+      <argument type="service" id=".service_locator.dVIvw84"/>
       <argument type="collection">
         <argument key="Symfony\Component\Form\Extension\Core\Type\FormType" type="iterator">
           <argument type="service" id="form.type_extension.form.transformation_failure_handling"/>
@@ -4043,7 +4043,7 @@
     <service id="doctrine.orm.configuration" class="Doctrine\ORM\Configuration" abstract="true"/>
     <service id="doctrine.orm.entity_manager.abstract" class="Doctrine\ORM\EntityManager" lazy="true" abstract="true"/>
     <service id="doctrine.orm.container_repository_factory" class="Doctrine\Bundle\DoctrineBundle\Repository\ContainerRepositoryFactory">
-      <argument type="service" id=".service_locator.QsvsPkk"/>
+      <argument type="service" id=".service_locator.Kbu2ZWt"/>
     </service>
     <service id="doctrine.orm.manager_configurator.abstract" class="Doctrine\Bundle\DoctrineBundle\ManagerConfigurator" abstract="true">
       <argument type="collection"/>
@@ -5893,8 +5893,8 @@
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\UserController" class="App\Controller\UserController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\UserController" class="App\Controller\UserController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\UserController" class="App\Controller\UserController" autowire="true" autoconfigure="true" abstract="true"/>
-    <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\CategorieType" class="App\Form\CategorieType" autowire="true" abstract="true"/>
-    <service id=".abstract.instanceof.App\Form\CategorieType" class="App\Form\CategorieType" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\CategoryType" class="App\Form\CategoryType" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Form\CategoryType" class="App\Form\CategoryType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\CommentType" class="App\Form\CommentType" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Form\CommentType" class="App\Form\CommentType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\LoginType" class="App\Form\LoginType" autowire="true" abstract="true"/>
@@ -5909,10 +5909,10 @@
     <service id=".abstract.instanceof.App\Form\TrickType" class="App\Form\TrickType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\UserType" class="App\Form\UserType" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Form\UserType" class="App\Form\UserType" autowire="true" autoconfigure="true" abstract="true"/>
-    <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\CategorieRepository" class="App\Repository\CategorieRepository" autowire="true" abstract="true"/>
-    <service id=".abstract.instanceof.App\Repository\CategorieRepository" class="App\Repository\CategorieRepository" autowire="true" autoconfigure="true" abstract="true"/>
-    <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\ChatRepository" class="App\Repository\ChatRepository" autowire="true" abstract="true"/>
-    <service id=".abstract.instanceof.App\Repository\ChatRepository" class="App\Repository\ChatRepository" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\CategoryRepository" class="App\Repository\CategoryRepository" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Repository\CategoryRepository" class="App\Repository\CategoryRepository" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\CommentRepository" class="App\Repository\CommentRepository" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Repository\CommentRepository" class="App\Repository\CommentRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\MediaRepository" class="App\Repository\MediaRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\MediaRepository" class="App\Repository\MediaRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\PasswordresetRepository" class="App\Repository\PasswordresetRepository" autowire="true" abstract="true"/>
@@ -6468,10 +6468,10 @@
       <argument type="service" id="debug.argument_resolver.not_tagged_controller.inner"/>
       <argument type="service" id="debug.stopwatch"/>
     </service>
-    <service id=".service_locator.YjAowuj" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.dVIvw84" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
-        <argument key="App\Form\CategorieType" type="service_closure" id="App\Form\CategorieType"/>
+        <argument key="App\Form\CategoryType" type="service_closure" id="App\Form\CategoryType"/>
         <argument key="App\Form\CommentType" type="service_closure" id="App\Form\CommentType"/>
         <argument key="App\Form\LoginType" type="service_closure" id="App\Form\LoginType"/>
         <argument key="App\Form\MediaType" type="service_closure" id="App\Form\MediaType"/>
@@ -6564,11 +6564,11 @@
         <argument key="turbo.doctrine.event_listener" type="service_closure" id="turbo.doctrine.event_listener"/>
       </argument>
     </service>
-    <service id=".service_locator.QsvsPkk" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.Kbu2ZWt" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
-        <argument key="App\Repository\CategorieRepository" type="service_closure" id="App\Repository\CategorieRepository"/>
-        <argument key="App\Repository\ChatRepository" type="service_closure" id="App\Repository\ChatRepository"/>
+        <argument key="App\Repository\CategoryRepository" type="service_closure" id="App\Repository\CategoryRepository"/>
+        <argument key="App\Repository\CommentRepository" type="service_closure" id="App\Repository\CommentRepository"/>
         <argument key="App\Repository\MediaRepository" type="service_closure" id="App\Repository\MediaRepository"/>
         <argument key="App\Repository\PasswordresetRepository" type="service_closure" id="App\Repository\PasswordresetRepository"/>
         <argument key="App\Repository\TrickRepository" type="service_closure" id="App\Repository\TrickRepository"/>
@@ -8186,7 +8186,7 @@
     <service id=".service_locator.0GV1BZZ" alias=".service_locator.gSv9zYw"/>
     <service id=".service_locator.uYp3OwG" alias=".service_locator._tHndrl"/>
     <service id=".service_locator.wKF4yn1" alias=".service_locator.19_mNxd"/>
-    <service id=".service_locator.X42uCEj" alias=".service_locator.YjAowuj"/>
+    <service id=".service_locator.7L.fAW2" alias=".service_locator.dVIvw84"/>
     <service id=".service_locator.uwh6Rke" alias=".service_locator.cgfzwmn"/>
     <service id=".service_locator.O24_MAy" alias=".service_locator.yY.p4P7"/>
     <service id=".service_locator._eRAkJb" alias=".service_locator.jIxfAsi"/>

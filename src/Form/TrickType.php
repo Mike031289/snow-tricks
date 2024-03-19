@@ -2,7 +2,7 @@
 
 namespace App\Form;
 
-use App\Entity\Categorie;
+use App\Entity\Category;
 use App\Entity\Trick;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -27,8 +27,8 @@ class TrickType extends AbstractType
                     new NotBlank(['message' => 'Veuillez entrer une description pour le trick']),
                 ],
             ])
-            ->add('categorie', EntityType::class, [
-                'class' => Categorie::class,
+            ->add('category', EntityType::class, [
+                'class' => Category::class,
                 'choice_label' => 'name',
                 'placeholder' => 'Sélectionner un groupe',
                 'required' => true,

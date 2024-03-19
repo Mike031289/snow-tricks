@@ -27,9 +27,9 @@ class Trick
     #[ORM\Column(length: 255)]
     private ?string $video = null;
 
-    #[ORM\ManyToOne(targetEntity: Categorie::class)]
-    #[ORM\JoinColumn(name: 'categorie_id', referencedColumnName: 'id')]
-    private ?Categorie $categorie = null;
+    #[ORM\ManyToOne(targetEntity: Category::class)]
+    #[ORM\JoinColumn(name: 'category_id', referencedColumnName: 'id')]
+    private ?Category $category = null;
 
     #[ORM\Column(name: 'user_id')]
     private ?int $userId = null;
@@ -93,14 +93,14 @@ class Trick
         return $this;
     }
 
-    public function getCategorie(): ?Categorie
+    public function getCategory(): ?Category
     {
-        return $this->categorie;
+        return $this->category;
     }
 
-    public function setCategorie(?Categorie $categorie): static
+    public function setCategory(?Category $category): static
     {
-        $this->categorie = $categorie;
+        $this->category = $category;
 
         return $this;
     }
