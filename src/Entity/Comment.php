@@ -30,7 +30,7 @@ class Comment
         return $this->content;
     }
 
-    public function setContent(?string $content): static
+    public function setContent(?string $content): self
     {
         $this->content = $content;
 
@@ -42,7 +42,7 @@ class Comment
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeImmutable $createdAt): static
+    public function setCreatedAt(\DateTimeImmutable $createdAt): self
     {
         $this->createdAt = $createdAt;
 

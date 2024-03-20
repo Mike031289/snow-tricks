@@ -33,7 +33,7 @@ class Category
         return $this->name;
     }
 
-    public function setName(string $name): static
+    public function setName(string $name): self
     {
         $this->name = $name;
 
@@ -45,7 +45,7 @@ class Category
         return $this->aboutCategory;
     }
 
-    public function setAboutCategory(?string $aboutCategory): static
+    public function setAboutCategory(?string $aboutCategory): self
     {
         $this->aboutCategory = $aboutCategory;
 
@@ -57,7 +57,7 @@ class Category
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeImmutable $createdAt): static
+    public function setCreatedAt(\DateTimeImmutable $createdAt): self
     {
         $this->createdAt = $createdAt;
 

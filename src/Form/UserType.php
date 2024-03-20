@@ -17,14 +17,38 @@ class UserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('firstName')
-            ->add('lastName')
-            ->add('userName')
-            ->add('email', EmailType::class)
-            ->add('password', PasswordType::class)
-            ->add('passwordConfirm', PasswordType::class)
+            ->add('firstName', null, [
+                'constraints' => [
+                    new NotBlank(['message' => 'Veuillez saisir votre prénom']),
+                ],
+            ])
+            ->add('lastName', null, [
+                'constraints' => [
+                    new NotBlank(['message' => 'Veuillez saisir votre nom de famille']),
+                ],
+            ])
+            ->add('userName', null, [
+                'constraints' => [
+                    new NotBlank(['message' => 'Veuillez saisir votre nom d\'utilisateur']),
+                ],
+            ])
+            ->add('email', EmailType::class, [
+                'constraints' => [
+                    new NotBlank(['message' => 'Veuillez saisir votre adresse email']),
+                ],
+            ])
+            ->add('password', PasswordType::class, [
+                'constraints' => [
+                    new NotBlank(['message' => 'Veuillez saisir votre mot de passe']),
+                ],
+            ])
+            ->add('passwordConfirm', PasswordType::class, [
+                'constraints' => [
+                    new NotBlank(['message' => 'Veuillez confirmer votre mot de passe']),
+                ],
+            ])
             ->add('userPicture', FileType::class, [
-                'label'       => 'Profile Picture',
+                'label'       => 'Photo de profil',
                 'mapped'      => false, // Since you handle file upload separately
                 'required'    => true,
                 'constraints' => [
@@ -35,10 +59,10 @@ class UserType extends AbstractType
                             'image/jpg',
                             'image/jpeg',
                         ],
-                        'mimeTypesMessage' => 'Seul les fichiers de type: PNG, JPG, JPEG sont acceptés',
+                        'mimeTypesMessage' => 'Seuls les fichiers de type: PNG, JPG, JPEG sont acceptés',
                     ]),
                     new NotBlank([
-                        'message' => 'veuillez importer votre photo',
+                        'message' => 'Veuillez importer votre photo de profil',
                     ]),
                 ],
             ]);

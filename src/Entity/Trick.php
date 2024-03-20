@@ -50,7 +50,7 @@ class Trick
         return $this->name;
     }
 
-    public function setName(string $name): static
+    public function setName(string $name): self
     {
         $this->name = $name;
 
@@ -62,7 +62,7 @@ class Trick
         return $this->description;
     }
 
-    public function setDescription(string $description): static
+    public function setDescription(string $description): self
     {
         $this->description = $description;
 
@@ -74,7 +74,7 @@ class Trick
         return $this->picture;
     }
 
-    public function setPicture(string $picture): static
+    public function setPicture(string $picture): self
     {
         $this->picture = $picture;
 
@@ -86,7 +86,7 @@ class Trick
         return $this->video;
     }
 
-    public function setVideo(string $video): static
+    public function setVideo(string $video): self
     {
         $this->video = $video;
 
@@ -98,7 +98,7 @@ class Trick
         return $this->category;
     }
 
-    public function setCategory(?Category $category): static
+    public function setCategory(?Category $category): self
     {
         $this->category = $category;
 
@@ -110,7 +110,7 @@ class Trick
         return $this->userId;
     }
 
-    public function setUserId(int $userId): static
+    public function setUserId(int $userId): self
     {
         $this->userId = $userId;
 
@@ -122,7 +122,7 @@ class Trick
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeInterface $createdAt): static
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
 
@@ -134,7 +134,7 @@ class Trick
         return $this->updatedAt;
     }
 
-    public function setUpdatedAt(\DateTimeInterface $updatedAt): static
+    public function setUpdatedAt(\DateTimeInterface $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
 

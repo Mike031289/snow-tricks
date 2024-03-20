@@ -21,11 +21,11 @@ class LoginLogoutController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            return $this->redirectToRoute('snow-tricks');
+            // return $this->redirectToRoute('homepage');
         }
 
         return $this->render('user/login.html.twig', [
-            'loginForm' => $form->createView(),
+            'form' => $form->createView(),
         ]);
     }
 

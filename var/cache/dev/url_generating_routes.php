@@ -16,7 +16,7 @@ return [
     '_profiler_router' => [['token'], ['_controller' => 'web_profiler.controller.router::panelAction'], [], [['text', '/router'], ['variable', '/', '[^/]++', 'token', true], ['text', '/_profiler']], [], [], []],
     '_profiler_exception' => [['token'], ['_controller' => 'web_profiler.controller.exception_panel::body'], [], [['text', '/exception'], ['variable', '/', '[^/]++', 'token', true], ['text', '/_profiler']], [], [], []],
     '_profiler_exception_css' => [['token'], ['_controller' => 'web_profiler.controller.exception_panel::stylesheet'], [], [['text', '/exception.css'], ['variable', '/', '[^/]++', 'token', true], ['text', '/_profiler']], [], [], []],
-    'add-group' => [[], ['_controller' => 'App\\Controller\\CategorieController::addCategorie'], [], [['text', '/nouveau-groupe']], [], [], []],
+    'add-group' => [[], ['_controller' => 'App\\Controller\\CategoryController::addCategory'], [], [['text', '/nouveau-groupe']], [], [], []],
     'connexion' => [[], ['_controller' => 'App\\Controller\\LoginLogoutController::login'], [], [['text', '/login']], [], [], []],
     'passwordreset' => [[], ['_controller' => 'App\\Controller\\PasswordResetController::passwordReset'], [], [['text', '/password-reset']], [], [], []],
     'resetpassword' => [[], ['_controller' => 'App\\Controller\\PasswordResetController::resetPassword'], [], [['text', '/reset-password']], [], [], []],

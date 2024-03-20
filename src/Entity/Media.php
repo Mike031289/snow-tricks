@@ -36,7 +36,7 @@ class Media
         return $this->type;
     }
 
-    public function setType(string $type): static
+    public function setType(string $type): self
     {
         $this->type = $type;
 
@@ -48,7 +48,7 @@ class Media
         return $this->url;
     }
 
-    public function setUrl(string $url): static
+    public function setUrl(string $url): self
     {
         $this->url = $url;
 
@@ -60,7 +60,7 @@ class Media
         return $this->trick;
     }
 
-    public function setTrick(?Trick $trick): static
+    public function setTrick(?Trick $trick): self
     {
         $this->trick = $trick;
 
