@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\TrickRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -21,15 +23,24 @@ class Trick
     #[ORM\Column(type: Types::TEXT)]
     private ?string $description = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $picture = null;
+    /**
+     * @var ArrayCollection|Media[]
+     */
+    #[ORM\OneToMany(mappedBy: 'trick', targetEntity: Media::class, cascade: ['persist', 'remove'])]
+    private ArrayCollection $medias;
 
-    #[ORM\Column(length: 255)]
-    private ?string $video = null;
+    /**
+     * @var ArrayCollection|Category[]
+     */
+    #[ORM\ManyToMany(targetEntity: Category::class)]
+    #[ORM\JoinTable(name: 'trick_id')]
+    private ArrayCollection $categories;
 
-    #[ORM\ManyToOne(targetEntity: Category::class)]
-    #[ORM\JoinColumn(name: 'category_id', referencedColumnName: 'id')]
-    private ?Category $category = null;
+    /**
+     * @var ArrayCollection|Comment[]
+     */
+    #[ORM\OneToMany(mappedBy: 'trick', targetEntity: Comment::class, cascade: ['persist', 'remove'])]
+    private ArrayCollection $comments;
 
     #[ORM\Column(name: 'user_id')]
     private ?int $userId = null;
@@ -39,6 +50,13 @@ class Trick
 
     #[ORM\Column(type: 'datetime')]
     private \DateTimeInterface $updatedAt;
+
+    public function __construct()
+    {
+        $this->medias = new ArrayCollection();
+        $this->categories = new ArrayCollection();
+        $this->comments = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -69,38 +87,81 @@ class Trick
         return $this;
     }
 
-    public function getPicture(): ?string
+    /**
+     * @return Collection|Media[]
+     */
+    public function getMedias(): Collection
     {
-        return $this->picture;
+        return $this->medias;
     }
 
-    public function setPicture(string $picture): self
+    public function addMedia(Media $media): self
     {
-        $this->picture = $picture;
+        if (!$this->medias->contains($media)) {
+            $this->medias[] = $media;
+            $media->setTrick($this);
+        }
 
         return $this;
     }
 
-    public function getVideo(): ?string
+    public function removeMedia(Media $media): self
     {
-        return $this->video;
-    }
-
-    public function setVideo(string $video): self
-    {
-        $this->video = $video;
+        if ($this->medias->removeElement($media)) {
+            // set the owning side to null (unless already changed)
+            if ($media->getTrick() === $this) {
+                $media->setTrick(null);
+            }
+        }
 
         return $this;
     }
 
-    public function getCategory(): ?Category
+    /**
+     * @return Collection|Category[]
+     */
+    public function getCategories(): Collection
     {
-        return $this->category;
+        return $this->categories;
     }
 
-    public function setCategory(?Category $category): self
+    public function addCategory(Category $category): self
     {
-        $this->category = $category;
+        if (!$this->categories->contains($category)) {
+            $this->categories[] = $category;
+        }
+
+        return $this;
+    }
+
+    public function removeCategory(Category $category): self
+    {
+        $this->categories->removeElement($category);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Comment[]
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function addComment(Comment $comment): self
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments[] = $comment;
+            $comment->setTrick($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComment(Comment $comment): self
+    {
+        $this->comments->removeElement($comment);
 
         return $this;
     }

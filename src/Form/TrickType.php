@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Category;
 use App\Entity\Trick;
+use App\Entity\Media;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -36,8 +37,26 @@ class TrickType extends AbstractType
                     new NotBlank(['message' => 'Veuillez sélectionner un groupe']),
                 ],
             ])
-            ->add('picture', FileType::class, [
-                'label' => 'Image du trick',
+            ->add('picture', EntityType::class, [
+                'class' => Media::class,
+                'choice_label' => 'name', // Assurez-vous d'avoir un champ 'name' dans l'entité Media pour afficher dans la liste déroulante
+                'placeholder' => 'Sélectionner une image',
+                'required' => false,
+                'constraints' => [
+                    new NotBlank(['message' => 'Veuillez sélectionner une image']),
+                ],
+            ])
+            ->add('video', EntityType::class, [
+                'class' => Media::class,
+                'choice_label' => 'name', // Assurez-vous d'avoir un champ 'name' dans l'entité Media pour afficher dans la liste déroulante
+                'placeholder' => 'Sélectionner une vidéo',
+                'required' => false,
+                'constraints' => [
+                    new NotBlank(['message' => 'Veuillez sélectionner une vidéo']),
+                ],
+            ])
+                        ->add('newPicture', FileType::class, [
+                'label' => 'Nouvelle image du trick',
                 'required' => false,
                 'mapped' => false,
                 'constraints' => [
@@ -50,8 +69,8 @@ class TrickType extends AbstractType
                     ]),
                 ],
             ])
-            ->add('video', FileType::class, [
-                'label' => 'Vidéo du trick',
+            ->add('newVideo', FileType::class, [
+                'label' => 'Nouvelle vidéo du trick',
                 'required' => false,
                 'mapped' => false,
                 'constraints' => [
