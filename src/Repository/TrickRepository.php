@@ -17,7 +17,7 @@ class TrickRepository extends ServiceEntityRepository
 
     /**
      * @throws ORMException
-     * @throws OptimisticLockException
+    //  * @throws OptimisticLockException
      */
     public function add(Trick $trick): void
     {

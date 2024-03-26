@@ -12,6 +12,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class TrickType extends AbstractType
 {
@@ -33,6 +34,7 @@ class TrickType extends AbstractType
                 'choice_label' => 'name',
                 'placeholder' => 'Sélectionner un groupe',
                 'required' => true,
+                'multiple' => true,
                 'constraints' => [
                     new NotBlank(['message' => 'Veuillez sélectionner un groupe']),
                 ],
@@ -55,8 +57,9 @@ class TrickType extends AbstractType
                     new NotBlank(['message' => 'Veuillez sélectionner une vidéo']),
                 ],
             ])
-                        ->add('newPicture', FileType::class, [
+            ->add('newPicture', FileType::class, [
                 'label' => 'Nouvelle image du trick',
+                'help' => 'ajoutez une nouvelle image de la figure',
                 'required' => false,
                 'mapped' => false,
                 'constraints' => [
@@ -81,6 +84,12 @@ class TrickType extends AbstractType
                         ],
                         'mimeTypesMessage' => 'Veuillez télécharger une vidéo valide (format accepté : video/*)',
                     ]),
+                ],
+            ])
+            ->add('submit', SubmitType::class, [
+                'label' => 'Submit',
+                'attr' => [
+                    'class' => 'btn btn-primary',
                 ],
             ])
         ;
