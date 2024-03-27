@@ -1,34 +1,37 @@
 <?php
-
 namespace App\Form;
 
 use App\Entity\Media;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\UrlType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\NotBlank;
-use Symfony\Component\Validator\Constraints\Url;
 
 class MediaType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options): void
+    public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('type', null, [
-                'constraints' => [
-                    new NotBlank(['message' => 'Veuillez saisir le type de média']),
-                ],
+            ->add('trick', EntityType::class, [
+                'class' => 'App\Entity\Trick',
+                'choice_label' => 'name',
             ])
-            ->add('url', UrlType::class, [
-                'constraints' => [
-                    new NotBlank(['message' => 'Télécharger un média']),
-                    new Url(['message' => 'Veuillez saisir une URL valide']),
-                ],
+            ->add('picture', CollectionType::class, [
+                'entry_type' => PictureType::class,
+                'allow_add' => true,
+                'allow_delete' => true,
+                'by_reference' => false,
+            ])
+            ->add('video', CollectionType::class, [
+                'entry_type' => VideoType::class,
+                'allow_add' => true,
+                'allow_delete' => true,
+                'by_reference' => false,
             ]);
     }
 
-    public function configureOptions(OptionsResolver $resolver): void
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
             'data_class' => Media::class,

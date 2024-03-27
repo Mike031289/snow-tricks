@@ -49,6 +49,34 @@ class Trick
         $this->comment = new ArrayCollection();
     }
 
+       /**
+     * @return Collection<Picture>
+     */
+    public function getPictures(): Collection
+    {
+        $pictures = new ArrayCollection();
+        foreach ($this->media as $medium) {
+            if ($medium instanceof Picture) {
+                $pictures[] = $medium;
+            }
+        }
+        return $pictures;
+    }
+
+    /**
+     * @return Collection<Video>
+     */
+    public function getVideos(): Collection
+    {
+        $videos = new ArrayCollection();
+        foreach ($this->media as $medium) {
+            if ($medium instanceof Video) {
+                $videos[] = $medium;
+            }
+        }
+        return $videos;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -119,7 +147,7 @@ class Trick
         return $this->category;
     }
 
-    public function setCategory(?Category $category): static
+    public function setCategory(?Category $category): self
     {
         $this->category = $category;
 
@@ -134,17 +162,17 @@ class Trick
         return $this->media;
     }
 
-    public function addMedium(Media $medium): static
+    public function addMedium(Media $medium): self
     {
         if (!$this->media->contains($medium)) {
-            $this->media->add($medium);
+            $this->media[] = $medium;
             $medium->setTrick($this);
         }
 
         return $this;
     }
 
-    public function removeMedium(Media $medium): static
+    public function removeMedium(Media $medium): self
     {
         if ($this->media->removeElement($medium)) {
             // set the owning side to null (unless already changed)
@@ -164,17 +192,17 @@ class Trick
         return $this->comment;
     }
 
-    public function addComment(Comment $comment): static
+    public function addComment(Comment $comment): self
     {
         if (!$this->comment->contains($comment)) {
-            $this->comment->add($comment);
+            $this->comment[] = $comment;
             $comment->setTrick($this);
         }
 
         return $this;
     }
 
-    public function removeComment(Comment $comment): static
+    public function removeComment(Comment $comment): self
     {
         if ($this->comment->removeElement($comment)) {
             // set the owning side to null (unless already changed)
@@ -185,5 +213,4 @@ class Trick
 
         return $this;
     }
-
 }

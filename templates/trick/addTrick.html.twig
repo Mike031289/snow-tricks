@@ -52,7 +52,7 @@
                         </span>
                       </div>
                     </div>
-                    <div class="{{ form.picture.vars.errors ? 'has-error' : '' }}">
+                    {# <div class="{{ form.picture.vars.errors ? 'has-error' : '' }}">
                       <!-- Form Trick (picture)-->
                       <div class="mb-3">
                         {{ form_label(form.picture, 'Image du trick *', {'label_attr': {'class': 'small mb-1'}}) }}
@@ -92,7 +92,7 @@
                           {{ form_errors(form.newVideo) }}
                         </span>
                       </div>
-                    </div>
+                    </div> #}
                   </div>
                   <div class="d-flex align-items-center justify-content-between p-5 pb-2 pt-2">
                     <a class="small text-black" href="{{ path('homepage') }}">Retour à l'accueil</a>
