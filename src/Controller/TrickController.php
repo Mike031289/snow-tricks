@@ -5,6 +5,7 @@ namespace App\Controller;
 
 use App\Entity\Trick;
 use App\Form\TrickType;
+use App\Entity\Media;
 use App\Service\FileService;
 use App\Repository\TrickRepository;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,7 +17,6 @@ class TrickController extends AbstractController
 {
     private $fileService;
     private $trickRepository;
-
     public function __construct(FileService $fileService, TrickRepository $trickRepository)
     {
         $this->fileService = $fileService;
@@ -24,27 +24,24 @@ class TrickController extends AbstractController
     }
 
     #[Route(path: '/ajout-figure', name: 'add-trick', methods: ['GET', 'POST'])]
-    public function addTrick(Request $request): Response
+    public function addTrick(Request $request, TrickRepository $trickRepository): Response
     {
         $trick = new Trick();
-        $form = $this->createForm(TrickType::class, $trick);
+        $media = Media::class;
+        $form  = $this->createForm(TrickType::class, $trick);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // Get picture and video files
-            $newPictureFile = $form->get('picture')->getData();
-            $newVideoFile = $form->get('video')->getData();
+            // Handle multiple media files
+            $media = $form->get('medias')->getData();
+            foreach ($media as $medias) {
+                dd($medias);
+                // Handle each media file (you can upload them, etc.)
+            }
 
-            // Upload files and get uploaded file names using FileService
-            $pictureFileName = $this->fileService->uploadFile($newPictureFile);
-            $videoFileName = $this->fileService->uploadFile($newVideoFile);
-
-            // Set file names to corresponding properties of Trick entity
-            $trick->setPicture($pictureFileName);
-            $trick->setVideo($videoFileName);
-
-            // Call the add method of TrickRepository to persist the Trick entity
-            $this->trickRepository->add($trick);
+            // Persist the Trick entity
+            $trickRepository->persist($trick);
+            $trickRepository->flush();
 
             // Redirect to home page
             return $this->redirectToRoute('home');

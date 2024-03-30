@@ -3,6 +3,8 @@
 namespace App\Form;
 
 use App\Entity\Trick;
+use App\Entity\Picture;
+use App\Entity\Media;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -10,6 +12,8 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+
 
 class TrickType extends AbstractType
 {
@@ -19,28 +23,24 @@ class TrickType extends AbstractType
             ->add('name', TextType::class)
             ->add('description', TextareaType::class)
             ->add('category', EntityType::class, [
-                'class' => 'App\Entity\Category',
+                'class'        => 'App\Entity\Category',
                 'choice_label' => 'name',
             ])
-            ->add('media', CollectionType::class, [
-                'entry_type' => MediaType::class, // Assuming you have a MediaType form type
-                'allow_add' => true,
-                'allow_delete' => true,
-                'by_reference' => false,
+            ->add('medias', CollectionType::class, [
+                'entry_type'    => TextType::class, // Pour les liens
+                'entry_options' => [
+                    'label' => false,
+                    'attr'  => [
+                        'placeholder' => 'Entrez un lien URL ou un code embed',
+                    ],
+                ],
+                'allow_add'     => true,
+                'allow_delete'  => true,
+                'required'      => false,
+                'label'         => 'Médias du trick',
             ])
-            // ->add('picture', CollectionType::class, [
-            //     'entry_type' => MediaType::class, // Assuming MediaType form type is used for picture
-            //     'allow_add' => true,
-            //     'allow_delete' => true,
-            //     'by_reference' => false,
-            // ])
-            // ->add('video', CollectionType::class, [
-            //     'entry_type' => MediaType::class, // Assuming MediaType form type is used for video
-            //     'allow_add' => true,
-            //     'allow_delete' => true,
-            //     'by_reference' => false,
-            // ])
-            ;
+            
+        ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
@@ -50,4 +50,3 @@ class TrickType extends AbstractType
         ]);
     }
 }
-

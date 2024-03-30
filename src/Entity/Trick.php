@@ -8,21 +8,24 @@ use Doctrine\Common\Collections\Collection;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: TrickRepository::class)]
 #[ORM\Table(name: 'trick')]
-#[UniqueEntity(fields:'name', message:'Cette figure à déjà été enregistrée')]
+#[UniqueEntity(fields: 'name', message: 'Cette figure a déjà été enregistrée')]
 class Trick
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
+    #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: 'Le nom ne peut pas être vide')]
     private ?string $name = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Assert\NotBlank(message: 'La description ne peut pas être vide')]
     private ?string $description = null;
 
     #[ORM\Column(name: 'user_id')]
@@ -34,30 +37,32 @@ class Trick
     #[ORM\Column(type: 'datetime')]
     private \DateTimeInterface $updatedAt;
 
-    #[ORM\ManyToOne(inversedBy: 'tricks')]
+    #[ORM\ManyToOne(targetEntity: Category::class, inversedBy: 'tricks')]
     private ?Category $category = null;
 
     #[ORM\OneToMany(targetEntity: Media::class, mappedBy: 'trick', orphanRemoval: true)]
-    private Collection $media;
+    private Collection $medias;
 
     #[ORM\OneToMany(targetEntity: Comment::class, mappedBy: 'trick')]
-    private Collection $comment;
+    private Collection $comments;
 
     public function __construct()
     {
-        $this->media = new ArrayCollection();
-        $this->comment = new ArrayCollection();
+        $this->medias   = new ArrayCollection();
+        $this->comments = new ArrayCollection();
+        $this->pictures = new ArrayCollection();
+        $this->videos = new ArrayCollection();
     }
 
-       /**
+    /**
      * @return Collection<Picture>
      */
     public function getPictures(): Collection
     {
         $pictures = new ArrayCollection();
-        foreach ($this->media as $medium) {
-            if ($medium instanceof Picture) {
-                $pictures[] = $medium;
+        foreach ($this->medias as $media) {
+            if ($media instanceof Picture) {
+                $pictures[] = $media;
             }
         }
         return $pictures;
@@ -69,9 +74,9 @@ class Trick
     public function getVideos(): Collection
     {
         $videos = new ArrayCollection();
-        foreach ($this->media as $medium) {
-            if ($medium instanceof Video) {
-                $videos[] = $medium;
+        foreach ($this->medias as $media) {
+            if ($media instanceof Video) {
+                $videos[] = $media;
             }
         }
         return $videos;
@@ -86,6 +91,10 @@ class Trick
     {
         return $this->name;
     }
+    public function __toString()
+    {
+        return $this->getName();
+    }
 
     public function setName(string $name): self
     {
@@ -93,7 +102,7 @@ class Trick
 
         return $this;
     }
-    
+
     public function getDescription(): ?string
     {
         return $this->description;
@@ -157,27 +166,27 @@ class Trick
     /**
      * @return Collection<int, Media>
      */
-    public function getMedia(): Collection
+    public function getMedias(): Collection
     {
-        return $this->media;
+        return $this->medias;
     }
 
-    public function addMedium(Media $medium): self
+    public function addmedia(Media $media): self
     {
-        if (!$this->media->contains($medium)) {
-            $this->media[] = $medium;
-            $medium->setTrick($this);
+        if (!$this->medias->contains($media)) {
+            $this->medias[] = $media;
+            $media->setTrick($this);
         }
 
         return $this;
     }
 
-    public function removeMedium(Media $medium): self
+    public function removemedia(Media $media): self
     {
-        if ($this->media->removeElement($medium)) {
+        if ($this->medias->removeElement($media)) {
             // set the owning side to null (unless already changed)
-            if ($medium->getTrick() === $this) {
-                $medium->setTrick(null);
+            if ($media->getTrick() === $this) {
+                $media->setTrick(null);
             }
         }
 
@@ -187,15 +196,15 @@ class Trick
     /**
      * @return Collection<int, Comment>
      */
-    public function getComment(): Collection
+    public function getComments(): Collection
     {
-        return $this->comment;
+        return $this->comments;
     }
 
     public function addComment(Comment $comment): self
     {
-        if (!$this->comment->contains($comment)) {
-            $this->comment[] = $comment;
+        if (!$this->comments->contains($comment)) {
+            $this->comments[] = $comment;
             $comment->setTrick($this);
         }
 
@@ -204,7 +213,7 @@ class Trick
 
     public function removeComment(Comment $comment): self
     {
-        if ($this->comment->removeElement($comment)) {
+        if ($this->comments->removeElement($comment)) {
             // set the owning side to null (unless already changed)
             if ($comment->getTrick() === $this) {
                 $comment->setTrick(null);
