@@ -17,9 +17,9 @@ abstract class Media
     #[ORM\Column]
     protected ?int $id = null;
 
-    #[ORM\ManyToOne(targetEntity: Trick::class, inversedBy: 'medias')]
-    #[ORM\JoinColumn(nullable: false)]
-    protected ?Trick $trick = null;
+    // #[ORM\ManyToOne(targetEntity: Trick::class, inversedBy: 'medias')]
+    // #[ORM\JoinColumn(nullable: false)]
+    // protected ?Trick $trick = null;
 
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank(message: 'Le nom ne peut pas être vide')]
@@ -31,23 +31,23 @@ abstract class Media
         return $this->id;
     }
 
-    /**
-     * Get the value of trick
-     */
-    public function getTrick(): ?Trick
-    {
-        return $this->trick;
-    }
+    // /**
+    //  * Get the value of trick
+    //  */
+    // public function getTrick(): ?Trick
+    // {
+    //     return $this->trick;
+    // }
 
-    /**
-     * Set the value of trick
-     */
-    public function setTrick(?Trick $trick): self
-    {
-        $this->trick = $trick;
+    // /**
+    //  * Set the value of trick
+    //  */
+    // public function setTrick(?Trick $trick): self
+    // {
+    //     $this->trick = $trick;
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
     /**
      * Get the value of name

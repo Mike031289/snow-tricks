@@ -15,16 +15,23 @@ class VideoType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', TextType::class)
-            ->add('videos', CollectionType::class, [
-                'label' => 'vidéo',
-                'mapped' => true, // Ne doit pas être mappé à l'entité Media
-                'required' => false, // Facultatif
+            ->add('name', TextType::class, [
+                'label' => 'Nom de la vidéo',
+            ])
+            ->add('url', TextType::class, [
+                'label' => 'URL de la vidéo',
             ])
             ->add('trick', EntityType::class, [
                 'class' => 'App\Entity\Trick',
                 'choice_label' => 'name',
-            ]);
+            ])
+        ;
+            // ->add('videos', CollectionType::class, [
+            //     'label' => 'vidéo',
+            //     'mapped' => true, // Ne doit pas être mappé à l'entité Media
+            //     'required' => false, // Facultatif
+            // ])
+        
     }
 
     public function configureOptions(OptionsResolver $resolver)

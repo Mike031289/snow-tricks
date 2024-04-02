@@ -18,21 +18,30 @@ class MediaType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', TextType::class)
-            ->add('trick', EntityType::class, [
-                'class' => 'App\Entity\Trick',
-                'choice_label' => 'name',
+            ->add('name', TextType::class, [
+                'label'    => 'Nom du média',
+                'required' => true,
             ])
-            ->add('picture', CollectionType::class, [
-                'label' => 'Image',
-                'mapped' => true, // Ne doit pas être mappé à l'entité Media
-                'required' => false, // Facultatif
-            ])
-            ->add('video', CollectionType::class, [
-                'label' => 'vidéo',
-                'mapped' => true, // Ne doit pas être mappé à l'entité Media
-                'required' => false, // Facultatif
-            ]);
+        ;
+
+            // ->add('pictures', CollectionType::class, [
+            //     'entry_type'   => PictureType::class,
+            //     'label'        => false,
+            //     'allow_add'    => true,
+            //     'allow_delete' => true,
+            //     'by_reference' => false,
+            // ])
+            // ->add('videos', CollectionType::class, [
+            //     'entry_type'   => VideoType::class,
+            //     'label'        => false,
+            //     'allow_add'    => true,
+            //     'allow_delete' => true,
+            //     'by_reference' => false,
+            // ])
+            // ->add('trick', EntityType::class, [
+            //     'class'        => 'App\Entity\Trick',
+            //     'choice_label' => 'name',
+            // ])
     }
 
     public function configureOptions(OptionsResolver $resolver)

@@ -26,7 +26,20 @@ class TrickType extends AbstractType
                 'class'        => 'App\Entity\Category',
                 'choice_label' => 'name',
             ])
-            ->add('medias', CollectionType::class, [
+            ->add('pictures', CollectionType::class, [
+                'entry_type'    => FileType::class, // Pour les liens
+                'entry_options' => [
+                    'label' => false,
+                    'attr'  => [
+                        'placeholder' => 'Entrez un lien URL ou un code embed',
+                    ],
+                ],
+                'label'         => 'Fichier de l\'image',
+                'required'      => false,
+                'allow_add'     => true,
+                'allow_delete'  => true,
+            ])
+            ->add('videos', CollectionType::class, [
                 'entry_type'    => TextType::class, // Pour les liens
                 'entry_options' => [
                     'label' => false,
@@ -34,11 +47,58 @@ class TrickType extends AbstractType
                         'placeholder' => 'Entrez un lien URL ou un code embed',
                     ],
                 ],
+                'label' => 'URL de la vidéo',
+                'required' => false,
                 'allow_add'     => true,
                 'allow_delete'  => true,
-                'required'      => false,
-                'label'         => 'Médias du trick',
             ])
+            // ->add('medias', CollectionType::class, [
+            //     'entry_type'    => TextType::class, // Pour les liens
+            //     'entry_options' => [
+            //         'label' => false,
+            //         'attr'  => [
+            //             'placeholder' => 'Entrez un lien URL ou un code embed',
+            //         ],
+            //     ],
+            //     'allow_add'     => true,
+            //     'allow_delete'  => true,
+            //     'required'      => false,
+            //     'label'         => 'Médias du trick',
+            // ])
+            // Ajoutez le champ pour les médias
+            // ->add('medias', CollectionType::class, [
+            //     'entry_type'    => MediaType::class, // Utilisez le MediaType pour ajouter des images ou des vidéos
+            //     'entry_options' => ['label' => false], // Masquez le label pour chaque champ média
+            //     'allow_add'     => true, // Autorise l'ajout dynamique de nouveaux champs média
+            //     'allow_delete'  => true, // Autorise la suppression de champs média existants
+            //     'by_reference'  => false, // Oblige à utiliser le setter pour chaque média
+            // ])
+            // ->add('pictures', CollectionType::class, [
+            //     'entry_type'    => FileType::class, // Pour les liens
+            //     'entry_options' => [
+            //         'label' => false,
+            //         'attr'  => [
+            //             'placeholder' => 'Télécharger les images de la figure',
+            //         ],
+            //     ],
+            //     'allow_add'     => true,
+            //     'allow_delete'  => true,
+            //     'required'      => false,
+            //     'label'         => 'Images du trick',
+            // ])
+            // ->add('videos', CollectionType::class, [
+            //     'entry_type'    => TextType::class, // Pour les liens
+            //     'entry_options' => [
+            //         'label' => false,
+            //         'attr'  => [
+            //             'placeholder' => 'Entrez un lien URL ou un code embed',
+            //         ],
+            //     ],
+            //     'allow_add'     => true,
+            //     'allow_delete'  => true,
+            //     'required'      => false,
+            //     'label'         => 'Vidéos du trick',
+            // ])
             
         ;
     }

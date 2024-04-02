@@ -33,9 +33,14 @@ class TrickController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             // Handle multiple media files
-            $media = $form->get('medias')->getData();
-            foreach ($media as $medias) {
-                dd($medias);
+            $trick = $form->getData();
+            // dd($trick);
+            $pictures = $trick->getPictures();
+            // dd($pictures);
+
+            foreach ($pictures as $picture) {
+            dd($picture);
+
                 // Handle each media file (you can upload them, etc.)
             }
 
@@ -48,6 +53,36 @@ class TrickController extends AbstractController
         }
 
         return $this->render('trick/addTrick.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+    public function new(Request $request, TrickRepository $trickRepository): Response
+    {
+        $trick = new Trick();
+        $form  = $this->createForm(TrickType::class, $trick);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // Gérer les fichiers d'images
+            foreach ($trick->getPictures() as $picture) {
+                // Traiter chaque fichier d'image ici (téléchargement, enregistrement en base de données, etc.)
+            }
+
+            // Gérer les liens vidéo
+            foreach ($trick->getVideos() as $video) {
+                // Traiter chaque lien vidéo ici (validation, enregistrement en base de données, etc.)
+            }
+
+            // Enregistrer le Trick en base de données
+            // $entityManager = $this->getDoctrine()->getManager();
+            $trickRepository->persist($trick);
+            $trickRepository->flush();
+
+            // Rediriger l'utilisateur vers une autre page, par exemple la page d'accueil
+            return $this->redirectToRoute('home');
+        }
+
+        return $this->render('trick/new.html.twig', [
             'form' => $form->createView(),
         ]);
     }
