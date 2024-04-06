@@ -1,12 +1,11 @@
-<?php
+<?php 
 // src/Controller/TrickController.php
 
 namespace App\Controller;
 
 use App\Entity\Trick;
 use App\Form\TrickType;
-use App\Entity\Media;
-use App\Service\FileService;
+use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\TrickRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,70 +14,77 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class TrickController extends AbstractController
 {
-    private $fileService;
     private $trickRepository;
-    public function __construct(FileService $fileService, TrickRepository $trickRepository)
+
+    public function __construct(TrickRepository $trickRepository)
     {
-        $this->fileService = $fileService;
         $this->trickRepository = $trickRepository;
     }
 
-    #[Route(path: '/ajout-figure', name: 'add-trick', methods: ['GET', 'POST'])]
-    public function addTrick(Request $request, TrickRepository $trickRepository): Response
+    #[Route(path: 'tricks/ajout-figure', name: 'add-trick', methods: ['GET', 'POST'])]
+    public function addTrick(Request $request, EntityManagerInterface $em, TrickRepository $trickRepository): Response
     {
+        // $createdAt   = new \DateTimeImmutable();
         $trick = new Trick();
-        $media = Media::class;
+        $trick->setCreatedAt(new \DateTimeImmutable());
+        $trick->setUpdatedAt(new \DateTimeImmutable());
         $form  = $this->createForm(TrickType::class, $trick);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
-            // Handle multiple media files
+            // retrive trick from form
             $trick = $form->getData();
-            // dd($trick);
+            // Récupérer la date de création réelle de l'entité Trick
+            $createdAt = $trick->getCreatedAt();
             $pictures = $trick->getPictures();
-            // dd($pictures);
+            $videos = $trick->getVideos();
 
+            // Handle media files
             foreach ($pictures as $picture) {
-            dd($picture);
-
-                // Handle each media file (you can upload them, etc.)
+                // Handle each picture file here (upload, etc.)
             }
 
-            // Persist the Trick entity
-            $trickRepository->persist($trick);
-            $trickRepository->flush();
+            foreach ($videos as $video) {
+
+                // Handle each video link here (validation, etc.)
+            }
+
+            $this->trickRepository->add($trick);
+
+            $this->addFlash('success', 'Votre Figure a bien été ajouté');
 
             // Redirect to home page
-            return $this->redirectToRoute('home');
+            return $this->redirectToRoute('homepage', ['page' => 1], Response::HTTP_SEE_OTHER);
+
         }
 
         return $this->render('trick/addTrick.html.twig', [
             'form' => $form->createView(),
         ]);
     }
-    public function new(Request $request, TrickRepository $trickRepository): Response
+
+    #[Route(path: '/nouvelle-figure', name: 'new-trick', methods: ['GET', 'POST'])]
+    public function new(Request $request): Response
     {
         $trick = new Trick();
         $form  = $this->createForm(TrickType::class, $trick);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // Gérer les fichiers d'images
-            foreach ($trick->getPictures() as $picture) {
-                // Traiter chaque fichier d'image ici (téléchargement, enregistrement en base de données, etc.)
+            // Handle media files
+            $pictures = $trick->getPictures();
+            foreach ($pictures as $picture) {
+                // Handle each picture file here (upload, etc.)
             }
 
-            // Gérer les liens vidéo
-            foreach ($trick->getVideos() as $video) {
-                // Traiter chaque lien vidéo ici (validation, enregistrement en base de données, etc.)
+            $videos = $trick->getVideos();
+            foreach ($videos as $video) {
+                // Handle each video link here (validation, etc.)
             }
 
-            // Enregistrer le Trick en base de données
-            // $entityManager = $this->getDoctrine()->getManager();
-            $trickRepository->persist($trick);
-            $trickRepository->flush();
+            // Persist the Trick entity
+            $this->trickRepository->add($trick);
 
-            // Rediriger l'utilisateur vers une autre page, par exemple la page d'accueil
+            // Redirect to home page
             return $this->redirectToRoute('home');
         }
 

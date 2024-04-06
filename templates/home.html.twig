@@ -6,6 +6,11 @@
   <body>
     <div class="container">
       <div class="jumbotron bg-white mt-5">
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success text-center">
+                {{ message }}
+            </div>
+        {% endfor %}
         <div class="row m-auto align-items-center justify-content-between pt-3">
           <div class="col-auto mb-3">
             <div class="page-header-icon">

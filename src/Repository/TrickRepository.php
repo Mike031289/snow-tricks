@@ -5,14 +5,19 @@ namespace App\Repository;
 use App\Entity\Trick;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
+use Doctrine\ORM\emInterface;
 use Doctrine\ORM\ORMException;
+use Doctrine\ORM\Query\Expr\OrderBy;
 use Doctrine\Persistence\ManagerRegistry;
 
 class TrickRepository extends ServiceEntityRepository
 {
+    private $managerRegistry;
+
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Trick::class);
+        $this->managerRegistry = $registry;
     }
 
     /**
@@ -21,8 +26,9 @@ class TrickRepository extends ServiceEntityRepository
      */
     public function add(Trick $trick): void
     {
-        $this->_em->persist($trick);
-        $this->_em->flush();
+        $em = $this->managerRegistry->getManager();
+        $em->persist($trick);
+        $em->flush();
     }
 
     /**
@@ -30,7 +36,7 @@ class TrickRepository extends ServiceEntityRepository
      */
     public function update(Trick $trick): void
     {
-        $this->_em->flush();
+        $this->em->flush();
     }
 
     /**
@@ -38,8 +44,8 @@ class TrickRepository extends ServiceEntityRepository
      */
     public function delete(Trick $trick): void
     {
-        $this->_em->remove($trick);
-        $this->_em->flush();
+        $this->em->remove($trick);
+        $this->em->flush();
     }
 
     // Find a Trick by its ID
@@ -48,9 +54,13 @@ class TrickRepository extends ServiceEntityRepository
         return $this->find($id);
     }
 
-    // Find all Tricks
-    public function findAll(): array
+    // Find all Tricks ordered by creation date (most recent first)
+    public function findAllOrderByCreationDate(): array
     {
-        return $this->findAll();
+        return $this->createQueryBuilder('t')
+            ->orderBy('t.createdAt', 'DESC') // Trie par date de création (plus récent d'abord)
+            ->getQuery()
+            ->getResult();
     }
+
 }

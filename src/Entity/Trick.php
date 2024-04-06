@@ -27,8 +27,8 @@ class Trick
     #[Assert\NotBlank(message: 'La description ne peut pas être vide')]
     private ?string $description = null;
 
-    #[ORM\Column(name: 'user_id')]
-    private ?int $userId = null;
+    // #[ORM\Column(name: 'user_id')]
+    // private ?int $userId = null;
 
     #[ORM\Column(type: 'datetime')]
     private \DateTimeInterface $createdAt;
@@ -38,9 +38,6 @@ class Trick
 
     #[ORM\ManyToOne(targetEntity: Category::class, inversedBy: 'tricks')]
     private ?Category $category = null;
-
-    // #[ORM\OneToMany(targetEntity: Media::class, mappedBy: 'trick', orphanRemoval: true)]
-    // private Collection $medias;
 
     #[ORM\OneToMany(targetEntity: Comment::class, mappedBy: 'trick')]
     private Collection $comments;
@@ -53,7 +50,6 @@ class Trick
 
     public function __construct()
     {
-        // $this->medias   = new ArrayCollection();
         $this->comments = new ArrayCollection();
         $this->pictures = new ArrayCollection();
         $this->videos   = new ArrayCollection();
@@ -88,17 +84,17 @@ class Trick
         return $this;
     }
 
-    public function getUserId(): ?int
-    {
-        return $this->userId;
-    }
+    // public function getUserId(): ?int
+    // {
+    //     return $this->userId;
+    // }
 
-    public function setUserId(int $userId): self
-    {
-        $this->userId = $userId;
+    // public function setUserId(int $userId): self
+    // {
+    //     $this->userId = $userId;
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
     public function getCreatedAt(): \DateTimeInterface
     {

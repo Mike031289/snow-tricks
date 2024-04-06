@@ -11,7 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class LoginLogoutController extends AbstractController
 {
-    #[Route(path: '/login', name: 'connexion')]
+    #[Route(path: 'user/login', name: 'connexion')]
     public function login(Request $request): Response
     {
         $user = new User();

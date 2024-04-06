@@ -13,7 +13,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class PasswordResetController extends AbstractController
 {
-    #[Route(path: '/password-reset', name: 'passwordreset')]
+    #[Route(path: 'user/password-reset', name: 'passwordreset')]
     public function passwordReset(Request $request): Response
     {
         $passwordReset = new PasswordReset();

@@ -4,5 +4,10 @@ controllers:
 
 # Set route for home page
 homepage:
-    path: /
+    path: /tricks
     controller: App\Controller\HomeController::index
+
+# Set route for user
+useradim:
+    path: /user
+    controller: App\Controller\UserController::index

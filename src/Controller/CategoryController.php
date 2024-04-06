@@ -12,7 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class CategoryController extends AbstractController
 {
-    #[Route(path: '/nouveau-groupe', name: 'add-group',  methods: ['GET', 'POST'])]
+    #[Route(path: 'tricks/nouveau-groupe', name: 'add-group',  methods: ['GET', 'POST'])]
     public function addCategory(Request $request): Response
     {
         $category = new Category();

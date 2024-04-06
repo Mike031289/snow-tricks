@@ -3,8 +3,6 @@
 namespace App\Form;
 
 use App\Entity\Trick;
-use App\Entity\Picture;
-use App\Entity\Media;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -26,32 +24,19 @@ class TrickType extends AbstractType
                 'class'        => 'App\Entity\Category',
                 'choice_label' => 'name',
             ])
-            ->add('pictures', CollectionType::class, [
-                'entry_type'    => FileType::class, // Pour les liens
-                'entry_options' => [
-                    'label' => false,
-                    'attr'  => [
-                        'placeholder' => 'Entrez un lien URL ou un code embed',
-                    ],
-                ],
-                'label'         => 'Fichier de l\'image',
-                'required'      => false,
-                'allow_add'     => true,
-                'allow_delete'  => true,
+            ->add('pictures', FileType::class, [
+                'label'    => 'Fichiers de l\'image',
+                'required' => false,
+                'mapped'   => false,
+                'multiple' => true,
             ])
             ->add('videos', CollectionType::class, [
-                'entry_type'    => TextType::class, // Pour les liens
-                'entry_options' => [
-                    'label' => false,
-                    'attr'  => [
-                        'placeholder' => 'Entrez un lien URL ou un code embed',
-                    ],
-                ],
-                'label' => 'URL de la vidéo',
-                'required' => false,
-                'allow_add'     => true,
-                'allow_delete'  => true,
-            ])
+                'entry_type'   => VideoType::class, // Utilisez le VideoType pour les vidéos
+                'allow_add'    => true,
+                'allow_delete' => true,
+                'by_reference' => false,
+                'label'        => 'Vidéos du trick',
+            ]);
             // ->add('medias', CollectionType::class, [
             //     'entry_type'    => TextType::class, // Pour les liens
             //     'entry_options' => [
@@ -98,9 +83,7 @@ class TrickType extends AbstractType
             //     'allow_delete'  => true,
             //     'required'      => false,
             //     'label'         => 'Vidéos du trick',
-            // ])
-            
-        ;
+            // ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
