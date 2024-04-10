@@ -45,7 +45,7 @@ class Trick
     #[ORM\OneToMany(targetEntity: Picture::class, mappedBy: 'trick', cascade: ['persist', 'remove'])]
     private Collection $pictures;
 
-    #[ORM\OneToMany(targetEntity: Video::class, mappedBy: 'trick', orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: Video::class, mappedBy: 'trick', cascade: ['persist', 'remove'])]
     private Collection $videos;
 
     public function __construct()
@@ -248,6 +248,16 @@ class Trick
                 $video->setTrick(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * Set the value of pictures
+     */
+    public function setPictures(Collection $pictures): self
+    {
+        $this->pictures = $pictures;
 
         return $this;
     }

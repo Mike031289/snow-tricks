@@ -24,73 +24,41 @@ class TrickType extends AbstractType
                 'class'        => 'App\Entity\Category',
                 'choice_label' => 'name',
             ])
-            ->add('image', FileType::class, [
-                'label'    => 'Fichiers de l\'image',
+            ->add('image', CollectionType::class, [
+                'label' => 'Fichiers de l\'image',
+                'entry_type' => FileType::class,
+                'entry_options' => [
+                    'attr' => ['class' => 'form-control mb-3'],
+                ],
+                'allow_add' => true,
+                'allow_delete' => true,
                 'required' => false,
-                'mapped'   => false,
-                'multiple' => true,
+                'mapped' => false,
             ])
-            ->add('videoUrl', TextType::class, [
-                'label'    => 'Lien de la video',
+            ->add('videoUrl', CollectionType::class, [
+                'label' => 'Lien de la vidéo',
+                'entry_type' => TextType::class,
+                'entry_options' => [
+                    'attr' => ['class' => 'form-control mb-3'],
+                ],
+                'allow_add' => true,
+                'allow_delete' => true,
                 'required' => false,
-                'mapped'   => false,
-                // 'multiple' => true,
+                'mapped' => false,
             ])
-            // ->add('videos', CollectionType::class, [
-            //     'entry_type'   => VideoType::class, // Utilisez le VideoType pour les vidéos
-            //     'allow_add'    => true,
-            //     'allow_delete' => true,
-            //     'by_reference' => false,
-            //     'label'        => 'Vidéos du trick',
+            // ->add('image', FileType::class, [
+            //     'label'    => 'Fichiers de l\'image',
+            //     'required' => false,
+            //     'mapped'   => false,
+            //     'multiple' => true,
+            // ])
+            
+            // ->add('videoUrl', TextType::class, [
+            //     'label'    => 'Lien de la video',
+            //     'required' => false,
+            //     'mapped'   => false,
             // ])
         ;
-            // ->add('medias', CollectionType::class, [
-            //     'entry_type'    => TextType::class, // Pour les liens
-            //     'entry_options' => [
-            //         'label' => false,
-            //         'attr'  => [
-            //             'placeholder' => 'Entrez un lien URL ou un code embed',
-            //         ],
-            //     ],
-            //     'allow_add'     => true,
-            //     'allow_delete'  => true,
-            //     'required'      => false,
-            //     'label'         => 'Médias du trick',
-            // ])
-            // Ajoutez le champ pour les médias
-            // ->add('medias', CollectionType::class, [
-            //     'entry_type'    => MediaType::class, // Utilisez le MediaType pour ajouter des images ou des vidéos
-            //     'entry_options' => ['label' => false], // Masquez le label pour chaque champ média
-            //     'allow_add'     => true, // Autorise l'ajout dynamique de nouveaux champs média
-            //     'allow_delete'  => true, // Autorise la suppression de champs média existants
-            //     'by_reference'  => false, // Oblige à utiliser le setter pour chaque média
-            // ])
-            // ->add('pictures', CollectionType::class, [
-            //     'entry_type'    => FileType::class, // Pour les liens
-            //     'entry_options' => [
-            //         'label' => false,
-            //         'attr'  => [
-            //             'placeholder' => 'Télécharger les images de la figure',
-            //         ],
-            //     ],
-            //     'allow_add'     => true,
-            //     'allow_delete'  => true,
-            //     'required'      => false,
-            //     'label'         => 'Images du trick',
-            // ])
-            // ->add('videos', CollectionType::class, [
-            //     'entry_type'    => TextType::class, // Pour les liens
-            //     'entry_options' => [
-            //         'label' => false,
-            //         'attr'  => [
-            //             'placeholder' => 'Entrez un lien URL ou un code embed',
-            //         ],
-            //     ],
-            //     'allow_add'     => true,
-            //     'allow_delete'  => true,
-            //     'required'      => false,
-            //     'label'         => 'Vidéos du trick',
-            // ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

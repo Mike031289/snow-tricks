@@ -1,11 +1,13 @@
 // media_form.js
 
-document.getElementById('add-image-btn').addEventListener('click', function () {
-  document.getElementById('trick_pictures').style.display = 'block';
-  document.getElementById('trick_videos').style.display = 'none';
-});
+$(document).ready(function () {
+  // Function to add additional file input for images
+  $('#add-image-btn').click(function () {
+    $('#image-field').append('<input type="file" name="trick[image][]" class="form-control mb-3">');
+  });
 
-document.getElementById('add-video-btn').addEventListener('click', function () {
-  document.getElementById('trick_videos').style.display = 'block';
-  document.getElementById('trick_pictures').style.display = 'none';
+  // Function to add additional file input for videos
+  $('#add-video-btn').click(function () {
+    $('#videoUrl-field').append('<input type="text" name="trick[videoUrl][]" class="form-control mb-3">');
+  });
 });

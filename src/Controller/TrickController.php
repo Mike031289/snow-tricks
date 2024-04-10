@@ -5,6 +5,7 @@ namespace App\Controller;
 
 use App\Entity\Trick;
 use App\Entity\Picture;
+use App\Entity\Video;
 use App\Form\TrickType;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\TrickRepository;
@@ -26,77 +27,68 @@ class TrickController extends AbstractController
     #[Route(path: 'tricks/ajout-figure', name: 'add-trick', methods: ['GET', 'POST'])]
     public function addTrick(Request $request, EntityManagerInterface $em, TrickRepository $trickRepository, SluggerInterface $slugger): Response
     {
-        // $createdAt   = new \DateTimeImmutable();
+        $dateTime = new \DateTimeImmutable('now', new \DateTimeZone('Europe/Paris'));
+        $formattedDateTime = $dateTime->format('d/m/Y');
         $trick = new Trick();
-        $trick->setCreatedAt(new \DateTimeImmutable());
-        $trick->setUpdatedAt(new \DateTimeImmutable());
+        $trick->setCreatedAt($dateTime);
+        $trick->setUpdatedAt($dateTime);
         $form  = $this->createForm(TrickType::class, $trick);
         $form->handleRequest($request);
-        
+        $trick = $form->getData();
         if ($form->isSubmitted() && $form->isValid()) {
-            /**@var UploadFile $file */
-            dd($form->get('image')->getData());
+
+             // Retrive pictures from form if not null
+            if ($form->get('image')->getData() !== null) {
+
+                /** @var UploadedFile[] $files */
+                $files = $form->get('image')->getData();
+
+                foreach ($files as $file) {
+                    // Access properties of each file
+                    $fileName = $trick->getId() .uniqid(). '.' . $file->getClientOriginalExtension();
+                    // mooving upload file to the project directory 
+                    $filePath = $file->move($this->getParameter('kernel.project_dir').'/public/media/pictures', $fileName);
+
+                    $picture = new Picture();
+                    $picture->setName($fileName);
+                    $picture->setPath($filePath);
+                    $picture->setTrick($trick);
+                    // Associate the picture with your trick
+                    $trick->addPicture($picture);
+                }
+            }
+
+             // Retrive videoUrl from form if not null
+            if ($form->get('videoUrl')->getData() !== null) {
+
+                /** @var UploadedFile[] $urls */
+                $urls = $form->get('videoUrl')->getData();
+
+                foreach ($urls as $videoUrl) {
+                    // Access properties of each url
+                    // dd($videoUrl);
 
 
+                    // Save the video content to your desired directory
+                    $videos = $videoUrl;
+                    // dd($videoPath);
 
-            /**@var UploadUrl $url */
-            dd($form->get('videoUrl')->getData());
+                    $video = new Video();
+                    $video->setName($videos);
+                    $video->setUrl($videos);
+                    $video->setTrick($trick);
+                    // Associate the video with your trick
+                    $trick->addVideo($video);
+                  
+                }
+            }
 
+            $this->trickRepository->add($trick);
 
-            
-            // Convert uploaded files to Picture entities
-            // foreach ($form->get('pictures')->getData() as $uploadedFile) {
-            //     $picture = new Picture();
-            //     $picture->setPath($uploadedFile); // You need to define a 'setFile' method in your Picture entity to handle uploaded files
-            //     $trick->addPicture($picture);
-            // }
-            // // retrive trick from form
-            // $trick = $form->getData();
-            // // Récupérer la date de création réelle de l'entité Trick
-            // $createdAt = $trick->getCreatedAt();
-            // $pictures = $trick->getPictures();
-            // $videos = $trick->getVideos();
-            // $picture  = $form->get('pictures')->getData();
-            // dd($picture);
-            // // Inject the SluggerInterface service into your class if you haven't already done so
+            $this->addFlash('success', 'Votre Figure a bien été ajouté');
 
-            // foreach ($pictures as $picture) {
-            //     // Handle each picture file here (upload, etc.)
-            //     $originalFilename = pathinfo($picture->getClientOriginalName(), PATHINFO_FILENAME);
-            //     // Secure the filename to prevent security issues
-            //     $safeFilename = $slugger->slug($originalFilename);
-            //     $newFilename = $safeFilename.'-'.uniqid().'.'.$picture->guessExtension();
-
-            //     // Check if the destination directory exists, if not, create it
-            //     $uploadDir = $this->getParameter('/tricks/public/media/picture/');
-            //     if (!file_exists($uploadDir)) {
-            //         mkdir($uploadDir, 0777, true);
-            //     }
-
-            //     // Move the uploaded file to the destination directory with the correct path
-            //     $picture->move(
-            //         $uploadDir,
-            //         $newFilename
-            //     );
-
-            //     // Create a new Picture entity and save the filename
-            //     $pictureEntity = new Picture();
-            //     $pictureEntity->setName($newFilename);
-            //     // Associate the picture with your trick
-            //     $trick->addPicture($pictureEntity);
-            // }
-
-            // foreach ($videos as $video) {
-
-            //     // Handle each video link here (validation, etc.)
-            // }
-
-            // $this->trickRepository->add($trick);
-
-            // $this->addFlash('success', 'Votre Figure a bien été ajouté');
-
-            // // Redirect to home page
-            // return $this->redirectToRoute('homepage', ['page' => 1], Response::HTTP_SEE_OTHER);
+            // Redirect to home page
+            return $this->redirectToRoute('homepage', ['page' => 1], Response::HTTP_SEE_OTHER);
 
         }
 

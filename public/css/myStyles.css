@@ -40,3 +40,7 @@
 ::marker {
   color: red;
 }
+
+#trick_image, #trick_videoUrl{
+  display: none;
+}
