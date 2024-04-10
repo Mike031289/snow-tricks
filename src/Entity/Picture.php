@@ -4,14 +4,15 @@ namespace App\Entity;
 
 use App\Repository\PictureRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 #[ORM\Entity(repositoryClass: PictureRepository::class)]
 class Picture extends Media
 {
-    #[ORM\Column(type: 'string')]
-    #[Assert\NotBlank(message: 'Le chemin ne peut pas être vide')]
+    #[ORM\Column(type: 'string', nullable: true)]
     protected ?string $path = null;
+
+    protected ?UploadedFile $file = null; // New property to hold the uploaded file
 
     #[ORM\ManyToOne(targetEntity: Trick::class, inversedBy: 'pictures')]
     #[ORM\JoinColumn(nullable: false)]
@@ -36,6 +37,24 @@ class Picture extends Media
     }
 
     /**
+     * Get the uploaded file
+     */
+    public function getFile(): ?UploadedFile
+    {
+        return $this->file;
+    }
+
+    /**
+     * Set the uploaded file
+     */
+    public function setFile(?UploadedFile $file): self
+    {
+        $this->file = $file;
+
+        return $this;
+    }
+
+    /**
      * Get the value of trick
      */
     public function getTrick(): ?Trick
@@ -52,4 +71,5 @@ class Picture extends Media
 
         return $this;
     }
+    
 }

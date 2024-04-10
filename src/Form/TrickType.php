@@ -24,19 +24,26 @@ class TrickType extends AbstractType
                 'class'        => 'App\Entity\Category',
                 'choice_label' => 'name',
             ])
-            ->add('pictures', FileType::class, [
+            ->add('image', FileType::class, [
                 'label'    => 'Fichiers de l\'image',
                 'required' => false,
                 'mapped'   => false,
                 'multiple' => true,
             ])
-            ->add('videos', CollectionType::class, [
-                'entry_type'   => VideoType::class, // Utilisez le VideoType pour les vidéos
-                'allow_add'    => true,
-                'allow_delete' => true,
-                'by_reference' => false,
-                'label'        => 'Vidéos du trick',
-            ]);
+            ->add('videoUrl', TextType::class, [
+                'label'    => 'Lien de la video',
+                'required' => false,
+                'mapped'   => false,
+                // 'multiple' => true,
+            ])
+            // ->add('videos', CollectionType::class, [
+            //     'entry_type'   => VideoType::class, // Utilisez le VideoType pour les vidéos
+            //     'allow_add'    => true,
+            //     'allow_delete' => true,
+            //     'by_reference' => false,
+            //     'label'        => 'Vidéos du trick',
+            // ])
+        ;
             // ->add('medias', CollectionType::class, [
             //     'entry_type'    => TextType::class, // Pour les liens
             //     'entry_options' => [

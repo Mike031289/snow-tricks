@@ -65,29 +65,29 @@
                         </span>
                       </div>
                     </div> #}
-                    <div id="medias" class="{{ form.pictures.vars.errors ? 'has-error' : '' }}">
+                    <div id="medias" class="{{ form.image.vars.errors ? 'has-error' : '' }}">
                       <!-- Form Trick (medias) -->
                       <div class="mb-3">
                         <div class="d-flex justify-content-between align-items-center">
                           <label class="small mb-1">Médias du trick</label>
                           <button type="button" class="btn btn-success" id="add-image-btn">Ajouter des images</button>
                         </div>
-                        {{ form_widget(form.pictures, {'attr': {'class': 'form-control', 'style': 'display: none;' } }) }}
+                        {{ form_widget(form.image, {'attr': {'class': 'form-control'} }) }}
                         <span class="error-message">
-                          {{ form_errors(form.pictures) }}
+                          {{ form_errors(form.image) }}
                         </span>
                       </div>
                     </div>
-                    <div id="videos" class="{{ form.videos.vars.errors ? 'has-error' : '' }}">
+                    <div id="videoUrl" class="{{ form.videoUrl.vars.errors ? 'has-error' : '' }}">
                       <!-- Form Trick (medias) -->
                       <div class="mb-3">
                         <div class="d-flex justify-content-between align-items-center">
                           <label class="small mb-1">Médias du trick</label>
                           <button type="button" class="btn btn-success" id="add-video-btn">Ajouter des vidéos</button>
                         </div>
-                        {{ form_widget(form.videos, {'attr': {'class': 'form-control', 'style': 'display: none;' } }) }}
+                        {{ form_widget(form.videoUrl, {'attr': {'class': 'form-control'} }) }}
                         <span class="error-message">
-                          {{ form_errors(form.videos) }}
+                          {{ form_errors(form.videoUrl) }}
                         </span>
                       </div>
                     </div>
