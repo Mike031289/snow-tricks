@@ -52,6 +52,9 @@
               <p class="card-text">
                 <div id="carouselExampleSlidesOnly trick-media-picture" class="carousel slide carousel-fade" data-bs-ride="carousel">
                   <div class="carousel-inner">
+                    {# {% for picture in pictures %}
+                        <img src="{{ asset(picture.path) }}" alt="{{ picture.name }}">
+                    {% endfor %} #}
                     <div class="carousel-item active">
                       <img class="picture" src="{{ asset('pictures/snow-trickers-img.jpeg') }}" alt="tricks">
                     </div>
@@ -74,6 +77,9 @@
               <p class="card-text">
                 <div id="carouselExampleSlidesOnly trick-media-video" class="carousel slide carousel-fade" data-bs-ride="carousel">
                   <div class="carousel-inner">
+                   {# {% for video in videos %}
+                        <iframe width="560" height="315" src="{{ video.url }}" frameborder="0" allowfullscreen></iframe>
+                    {% endfor %} #}
                     <div class="carousel-item active">
                       <!-- Vidéo YouTube -->
                       <iframe class="video" src="https://www.youtube.com/embed/aINlzgrOovI?si=F8L2Y0av4zk5CuF1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="allowfullscreen"></iframe>
@@ -106,7 +112,8 @@
     <div class="row gx-5 justify-content-center">
       <div class="col-lg-10 col-xl-8">
         <div class="single-post">
-          <h1 class="mt-5">Titre de la figure</h1>
+        {% if  trick is defined %}
+          <h1 class="mt-5">{{trick.name}}</h1>
           <div class="d-flex align-items-center justify-content-between mb-5">
             <div class="single-post-meta me-4">
               <div class="single-post-meta-details">
@@ -118,15 +125,16 @@
               </div>
             </div>
           </div>
-          <div class="small text-gray-500 text-center">Nom du groupe : groupe 5</div>
+          <div class="small text-gray-500 text-center">{{ trick.id }}</div>
           <div class="single-post-text my-5">
-            <p>suivante :Nettoyez le Cache : Si toutes les autres étapes échouent, essayez de nettoyer le cache Symfony avec la commande suivante :Nettoyez le Cache : Si toutes les autres étapes échouent, essayez de nettoyer le cache Symfony avec la commande suivante :Nettoyez le Cache : Si toutes les autres étapes échouent, essayez de nettoyer le cache Symfony avec la commande suivante :Nettoyez le Cache : Si toutes les autres étapes échouent, essayez de nettoyer le cache Symfony avec la commande suivante</p>
+            <p>{{ trick.description }}</p>
             <hr class="my-5"/>
             <div class="text-center">
               <a class="btn btn-outline-dark" href="{{ path('homepage')}}">Retour à la Liste des Figures</a>
             </div>
           </div>
         </div>
+        {% endif %}
 
         <!-- formulaire d'ajout de commentaires -->
         <form class="mt-5" method="POST">

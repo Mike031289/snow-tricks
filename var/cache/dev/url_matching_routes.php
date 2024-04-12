@@ -20,7 +20,6 @@ return [
         '/reset-password' => [[['_route' => 'resetpassword', '_controller' => 'App\\Controller\\PasswordResetController::resetPassword'], null, null, null, false, false, null]],
         '/tricks/ajout-figure' => [[['_route' => 'add-trick', '_controller' => 'App\\Controller\\TrickController::addTrick'], null, ['GET' => 0, 'POST' => 1], null, false, false, null]],
         '/nouvelle-figure' => [[['_route' => 'new-trick', '_controller' => 'App\\Controller\\TrickController::new'], null, ['GET' => 0, 'POST' => 1], null, false, false, null]],
-        '/page-figure' => [[['_route' => 'show-trick', '_controller' => 'App\\Controller\\TrickController::showTrick'], null, null, null, false, false, null]],
         '/user/inscription' => [[['_route' => 'register', '_controller' => 'App\\Controller\\UserController::register'], null, null, null, false, false, null]],
         '/tricks' => [[['_route' => 'homepage', '_controller' => 'App\\Controller\\HomeController::index'], null, null, null, false, false, null]],
         '/user' => [[['_route' => 'useradim', '_controller' => 'App\\Controller\\UserController::index'], null, null, null, false, false, null]],
@@ -42,6 +41,7 @@ return [
                         .'|(*:159)'
                     .')'
                 .')'
+                .'|/trick\\-detail/([^/_]++)_\\{trick\\.id\\}(*:207)'
             .')/?$}sDu',
     ],
     [ // $dynamicRoutes
@@ -51,8 +51,9 @@ return [
         116 => [[['_route' => '_profiler_router', '_controller' => 'web_profiler.controller.router::panelAction'], ['token'], null, null, false, false, null]],
         136 => [[['_route' => '_profiler_exception', '_controller' => 'web_profiler.controller.exception_panel::body'], ['token'], null, null, false, false, null]],
         149 => [[['_route' => '_profiler_exception_css', '_controller' => 'web_profiler.controller.exception_panel::stylesheet'], ['token'], null, null, false, false, null]],
-        159 => [
-            [['_route' => '_profiler', '_controller' => 'web_profiler.controller.profiler::panelAction'], ['token'], null, null, false, true, null],
+        159 => [[['_route' => '_profiler', '_controller' => 'web_profiler.controller.profiler::panelAction'], ['token'], null, null, false, true, null]],
+        207 => [
+            [['_route' => 'show-trick', '_controller' => 'App\\Controller\\TrickController::showTrick'], ['slug'], ['GET' => 0, 'POST' => 1], null, false, false, null],
             [null, null, null, null, false, false, 0],
         ],
     ],

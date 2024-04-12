@@ -63,4 +63,19 @@ class TrickRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+        /**
+     * Find a Trick by its name.
+     *
+     * @param string $name The name of the trick to find.
+     * @return Trick|null The Trick entity if found, null otherwise.
+     */
+    public function findByName(string $name): ?Trick
+    {
+        return $this->createQueryBuilder('t')
+            ->andWhere('t.name = :name')
+            ->setParameter('name', $name)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
 }

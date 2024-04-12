@@ -22,7 +22,7 @@ return [
     'resetpassword' => [[], ['_controller' => 'App\\Controller\\PasswordResetController::resetPassword'], [], [['text', '/reset-password']], [], [], []],
     'add-trick' => [[], ['_controller' => 'App\\Controller\\TrickController::addTrick'], [], [['text', '/tricks/ajout-figure']], [], [], []],
     'new-trick' => [[], ['_controller' => 'App\\Controller\\TrickController::new'], [], [['text', '/nouvelle-figure']], [], [], []],
-    'show-trick' => [[], ['_controller' => 'App\\Controller\\TrickController::showTrick'], [], [['text', '/page-figure']], [], [], []],
+    'show-trick' => [['slug'], ['_controller' => 'App\\Controller\\TrickController::showTrick'], [], [['text', '_{trick.id}'], ['variable', '/', '[^/_]++', 'slug', true], ['text', '/trick-detail']], [], [], []],
     'register' => [[], ['_controller' => 'App\\Controller\\UserController::register'], [], [['text', '/user/inscription']], [], [], []],
     'homepage' => [[], ['_controller' => 'App\\Controller\\HomeController::index'], [], [['text', '/tricks']], [], [], []],
     'useradim' => [[], ['_controller' => 'App\\Controller\\UserController::index'], [], [['text', '/user']], [], [], []],

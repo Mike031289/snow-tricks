@@ -7,12 +7,15 @@ use App\Entity\Trick;
 use App\Entity\Picture;
 use App\Entity\Video;
 use App\Form\TrickType;
+use App\Repository\CategoryRepository;
+use App\Repository\CommentRepository;
+use App\Repository\PictureRepository;
+use App\Repository\VideoRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\TrickRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class TrickController extends AbstractController
@@ -25,7 +28,7 @@ class TrickController extends AbstractController
     }
 
     #[Route(path: 'tricks/ajout-figure', name: 'add-trick', methods: ['GET', 'POST'])]
-    public function addTrick(Request $request, EntityManagerInterface $em, TrickRepository $trickRepository, SluggerInterface $slugger): Response
+    public function addTrick(Request $request, EntityManagerInterface $em, TrickRepository $trickRepository): Response
     {
         $dateTime = new \DateTimeImmutable('now', new \DateTimeZone('Europe/Paris'));
         $formattedDateTime = $dateTime->format('d/m/Y');
@@ -128,9 +131,28 @@ class TrickController extends AbstractController
         ]);
     }
 
-    #[Route(path:"/page-figure", name:"show-trick")]
-    public function showTrick(): Response
+    #[Route(path:"/trick-detail/{slug}_{trick.id}", name:"show-trick", methods: ['GET', 'POST'])]
+    public function showTrick(Request $request, TrickRepository $trickRepository, CommentRepository $commentRepository, CategoryRepository $categoryRepository, PictureRepository $pictureRepository, VideoRepository $videoRepository, string $slug): Response
     {
-        return $this->render('trick/showTrick.html.twig');
+        // Assuming slug is the name of the trick
+        $trick = $trickRepository->findByName($slug);
+        if (!$trick) {
+            throw $this->createNotFoundException('Trick not found');
+        }
+
+        // Retrieve related entities (comments, category, pictures, videos)
+        $comments = $commentRepository->findBy(['trick' => $trick]);
+        // $category = $categoryRepository->findOneBy(['trick' => $trick]);
+        // $pictures = $pictureRepository->findBy(['trick' => $trick]);
+        // $videos   = $videoRepository->findBy(['trick' => $trick]);
+
+        // Pass the trick entity and related entities to the Twig template
+        return $this->render('trick/showTrick.html.twig', [
+            'trick'    => $trick,
+            'comments' => $comments,
+            // 'category' => $category,
+            // 'pictures' => $pictures,
+            // 'videos'   => $videos,
+        ]);
     }
 }

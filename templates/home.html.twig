@@ -27,9 +27,13 @@
         </div>
         <p class="lead">
           <div class="row gx-5">
+          {% if  tricks is defined %}
+            {% for trick in tricks %}
             <div class="col-md-6 col-xl-4 mb-5">
-              <a class="card post-preview lift {% if page == 'showtrick' %}active{% endif %}" href="{{ path('show-trick', { 'slug': 'nom de la figure'}) }}">
-                <img class="card-img-top" src="{{ asset('pictures/snow-trickers-img.jpeg') }}"alt="trick"/>
+              <a class="card post-preview lift {% if page == 'showtrick' %}active{% endif %}" href="{{  path('show-trick', { 'slug':trick.name|lower, 'id': trick.id}) }}">
+                 <h2>{{ trick.id }}</h2>
+                {# <img class="card-img-top" src="{{ trick/(trick.pictures) }}"alt="trick"/> #}
+                {# <img class="card-img-top" src="{{ asset('pictures/') }}{{ trick.media }}"alt="trick"/> #}
                 <div class="card-body">
                   <h5 class="card-title">Trick-1</h5>
                 </div>
@@ -38,7 +42,7 @@
                     <div class="post-preview-meta-details col-lg col-md col-sm">
                       <div class="post-preview-meta-details-date">Créer par le 12/02/2024</div>
                     </div>
-                    <button class="btn btn-black btn-sm col-lg-3" href="">Afficher</button>
+                    <button class="btn btn-black btn-sm col-lg-3" href="{{ path('show-trick', { 'slug': trick.name,'id': trick.id}) }}">Afficher</button>
                   </div>
                 </div>
               </a>
@@ -47,6 +51,8 @@
                 <a class="btn danger btn-sm" href="">Supp <i class="text-danger ml-1" data-feather="trash"></i></a>
               </div>
             </div>
+            {% endfor %}
+          {% endif %}
             <div class="col-md-6 col-xl-4 mb-5">
               <a class="card post-preview lift" href="{{ path('show-trick', { 'slug': 'nom de la figure'}) }}">
                 <img class="card-img-top" src="{{ asset('pictures/trick1.jpeg') }}"alt="trick"/>

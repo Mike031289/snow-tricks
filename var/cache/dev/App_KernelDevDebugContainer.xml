@@ -6309,23 +6309,42 @@
         <argument key="loader" type="service_closure" id=".errored..service_locator.xUrKPVU.Symfony\Component\Config\Loader\LoaderInterface"/>
       </argument>
     </service>
-    <service id=".service_locator.5ERHJlV" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.Rryd9QW" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
-        <argument key="em" type="service_closure" id="doctrine.orm.default_entity_manager"/>
-        <argument key="slugger" type="service_closure" id="slugger"/>
         <argument key="trickRepository" type="service_closure" id="App\Repository\TrickRepository"/>
       </argument>
     </service>
-    <service id=".service_locator.kFBXo0A" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.DUxBSjH" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
-        <argument key="App\Controller\TrickController::addTrick" type="service_closure" id=".service_locator.5ERHJlV"/>
+        <argument key="em" type="service_closure" id="doctrine.orm.default_entity_manager"/>
+        <argument key="trickRepository" type="service_closure" id="App\Repository\TrickRepository"/>
+      </argument>
+    </service>
+    <service id=".service_locator.AN2Gehz" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="categoryRepository" type="service_closure" id="App\Repository\CategoryRepository"/>
+        <argument key="commentRepository" type="service_closure" id="App\Repository\CommentRepository"/>
+        <argument key="pictureRepository" type="service_closure" id="App\Repository\PictureRepository"/>
+        <argument key="trickRepository" type="service_closure" id="App\Repository\TrickRepository"/>
+        <argument key="videoRepository" type="service_closure" id="App\Repository\VideoRepository"/>
+      </argument>
+    </service>
+    <service id=".service_locator.VNNoP_j" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="App\Controller\HomeController::index" type="service_closure" id=".service_locator.Rryd9QW"/>
+        <argument key="App\Controller\TrickController::addTrick" type="service_closure" id=".service_locator.DUxBSjH"/>
+        <argument key="App\Controller\TrickController::showTrick" type="service_closure" id=".service_locator.AN2Gehz"/>
         <argument key="App\Kernel::loadRoutes" type="service_closure" id=".service_locator.xUrKPVU"/>
         <argument key="App\Kernel::registerContainerConfiguration" type="service_closure" id=".service_locator.xUrKPVU"/>
         <argument key="kernel::loadRoutes" type="service_closure" id=".service_locator.xUrKPVU"/>
         <argument key="kernel::registerContainerConfiguration" type="service_closure" id=".service_locator.xUrKPVU"/>
-        <argument key="App\Controller\TrickController:addTrick" type="service_closure" id=".service_locator.5ERHJlV"/>
+        <argument key="App\Controller\HomeController:index" type="service_closure" id=".service_locator.Rryd9QW"/>
+        <argument key="App\Controller\TrickController:addTrick" type="service_closure" id=".service_locator.DUxBSjH"/>
+        <argument key="App\Controller\TrickController:showTrick" type="service_closure" id=".service_locator.AN2Gehz"/>
         <argument key="kernel:loadRoutes" type="service_closure" id=".service_locator.xUrKPVU"/>
         <argument key="kernel:registerContainerConfiguration" type="service_closure" id=".service_locator.xUrKPVU"/>
       </argument>
@@ -7164,12 +7183,12 @@
       <argument type="service" id="security.token_storage"/>
     </service>
     <service id="debug.argument_resolver.service.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">
-      <argument type="service" id=".service_locator.kFBXo0A"/>
+      <argument type="service" id=".service_locator.VNNoP_j"/>
     </service>
     <service id="debug.argument_resolver.default.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver"/>
     <service id="debug.argument_resolver.variadic.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\VariadicValueResolver"/>
     <service id="debug.argument_resolver.not_tagged_controller.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\NotTaggedControllerValueResolver">
-      <argument type="service" id=".service_locator.kFBXo0A"/>
+      <argument type="service" id=".service_locator.VNNoP_j"/>
     </service>
     <service id="debug.traced.messenger.bus.default.inner" class="Symfony\Component\Messenger\MessageBus">
       <argument type="iterator">
@@ -8191,7 +8210,7 @@
     <service id="Psr\Log\LoggerInterface" alias="monolog.logger"/>
     <service id="container.env_var_processors_locator" alias=".service_locator.gSv9zYw" public="true"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.kFBXo0A"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.VNNoP_j"/>
     <service id="doctrine.id_generator_locator" alias=".service_locator.KLVvNIq"/>
     <service id="twig.loader" alias="twig.loader.native_filesystem"/>
     <service id="Psr\Log\LoggerInterface $requestLogger" alias="monolog.logger.request"/>
@@ -8212,8 +8231,8 @@
     <service id=".service_locator.80edgLI" alias="messenger.receiver_locator"/>
     <service id=".service_locator.h8Jkkd2" alias="messenger.retry_strategy_locator"/>
     <service id=".service_locator.0GV1BZZ" alias=".service_locator.gSv9zYw"/>
-    <service id=".service_locator.hP3bjoe" alias=".service_locator.5ERHJlV"/>
-    <service id=".service_locator.B_A3bcJ" alias=".service_locator.kFBXo0A"/>
+    <service id=".service_locator.fbN8vRP" alias=".service_locator.AN2Gehz"/>
+    <service id=".service_locator.bpXtxln" alias=".service_locator.VNNoP_j"/>
     <service id=".service_locator.wKF4yn1" alias=".service_locator.19_mNxd"/>
     <service id=".service_locator.LbkafPF" alias=".service_locator.mxJ16eM"/>
     <service id=".service_locator.uwh6Rke" alias=".service_locator.cgfzwmn"/>
@@ -8264,7 +8283,9 @@
     <service id="messenger.bus.default" alias="debug.traced.messenger.bus.default"/>
     <service id="doctrine.orm.default_metadata_driver" alias=".doctrine.orm.default_metadata_driver"/>
     <service id=".service_locator.uo5c0SP" alias=".service_locator.xUrKPVU"/>
-    <service id=".service_locator.9iZ4x.2" alias=".service_locator.5ERHJlV"/>
+    <service id=".service_locator.0jwyZHx" alias=".service_locator.Rryd9QW"/>
+    <service id=".service_locator.bEVSS48" alias=".service_locator.DUxBSjH"/>
+    <service id=".service_locator._G_0_Fk" alias=".service_locator.AN2Gehz"/>
     <service id=".service_locator.eAaUVIw" alias=".service_locator.jIxfAsi"/>
     <service id=".service_locator.u6DWx23" alias=".service_locator.cXsfP3P"/>
     <service id=".service_locator.pFwChgS" alias=".service_locator.UkE3SaZ"/>
