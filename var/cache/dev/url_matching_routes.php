@@ -43,6 +43,7 @@ return [
                     .')'
                 .')'
                 .'|/trick\\-detail/([^/]++)/([^/]++)(*:201)'
+                .'|/delete\\-trick/([^/]++)(*:232)'
             .')/?$}sDu',
     ],
     [ // $dynamicRoutes
@@ -53,8 +54,9 @@ return [
         136 => [[['_route' => '_profiler_exception', '_controller' => 'web_profiler.controller.exception_panel::body'], ['token'], null, null, false, false, null]],
         149 => [[['_route' => '_profiler_exception_css', '_controller' => 'web_profiler.controller.exception_panel::stylesheet'], ['token'], null, null, false, false, null]],
         159 => [[['_route' => '_profiler', '_controller' => 'web_profiler.controller.profiler::panelAction'], ['token'], null, null, false, true, null]],
-        201 => [
-            [['_route' => 'show-trick', '_controller' => 'App\\Controller\\TrickController::showTrick'], ['slug', 'id'], ['GET' => 0, 'POST' => 1], null, false, true, null],
+        201 => [[['_route' => 'show-trick', '_controller' => 'App\\Controller\\TrickController::showTrick'], ['slug', 'id'], ['GET' => 0, 'POST' => 1], null, false, true, null]],
+        232 => [
+            [['_route' => 'delete-trick', '_controller' => 'App\\Controller\\TrickController::deleteTrick'], ['id'], ['GET' => 0, 'POST' => 1], null, false, true, null],
             [null, null, null, null, false, false, 0],
         ],
     ],

@@ -24,6 +24,7 @@ return [
     'app_picture' => [[], ['_controller' => 'App\\Controller\\PictureController::index'], [], [['text', '/picture']], [], [], []],
     'add-trick' => [[], ['_controller' => 'App\\Controller\\TrickController::addTrick'], [], [['text', '/tricks/ajout-figure']], [], [], []],
     'show-trick' => [['slug', 'id'], ['_controller' => 'App\\Controller\\TrickController::showTrick'], [], [['variable', '/', '[^/]++', 'id', true], ['variable', '/', '[^/]++', 'slug', true], ['text', '/trick-detail']], [], [], []],
+    'delete-trick' => [['id'], ['_controller' => 'App\\Controller\\TrickController::deleteTrick'], [], [['variable', '/', '[^/]++', 'id', true], ['text', '/delete-trick']], [], [], []],
     'register' => [[], ['_controller' => 'App\\Controller\\UserController::register'], [], [['text', '/user/inscription']], [], [], []],
     'homepage' => [[], ['_controller' => 'App\\Controller\\HomeController::index'], [], [['text', '/tricks']], [], [], []],
     'useradim' => [[], ['_controller' => 'App\\Controller\\UserController::index'], [], [['text', '/user']], [], [], []],

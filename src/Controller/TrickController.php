@@ -1,4 +1,4 @@
-<?php 
+<?php
 // src/Controller/TrickController.php
 
 namespace App\Controller;
@@ -39,12 +39,12 @@ class TrickController extends AbstractController
         $trick = new Trick();
         $trick->setCreatedAt($createdAt);
         $trick->setUpdatedAt($createdAt);
-        $form  = $this->createForm(TrickType::class, $trick);
+        $form = $this->createForm(TrickType::class, $trick);
         $form->handleRequest($request);
         $trick = $form->getData();
         if ($form->isSubmitted() && $form->isValid()) {
 
-             // Retrive pictures from form if not null
+            // Retrive pictures from form if not null
             if ($form->get('image')->getData() !== null) {
 
                 /** @var UploadedFile[] $files */
@@ -52,9 +52,9 @@ class TrickController extends AbstractController
 
                 foreach ($files as $file) {
                     // Access properties of each file
-                    $fileName = $trick->getId() .uniqid(). '.' . $file->getClientOriginalExtension();
+                    $fileName = $trick->getId() . uniqid() . '.' . $file->getClientOriginalExtension();
                     // mooving upload file to the project directory 
-                    $filePath = $file->move($this->getParameter('kernel.project_dir').'/public/media/pictures', $fileName);
+                    $filePath = $file->move($this->getParameter('kernel.project_dir') . '/public/media/pictures', $fileName);
 
                     $picture = new Picture();
                     $picture->setName($fileName);
@@ -65,7 +65,7 @@ class TrickController extends AbstractController
                 }
             }
 
-             // Retrive videoUrl from form if not null
+            // Retrive videoUrl from form if not null
             if ($form->get('videoUrl')->getData() !== null) {
 
                 /** @var UploadedFile[] $urls */
@@ -73,7 +73,7 @@ class TrickController extends AbstractController
 
                 // Access properties of each url
                 foreach ($urls as $url) {
-                    $path = parse_url((string)$url)['path'];
+                    $path = parse_url((string) $url)['path'];
 
                     $id = substr($path, 1);
                     // Save the video content to your desired directory
@@ -85,7 +85,7 @@ class TrickController extends AbstractController
                     $video->setTrick($trick);
                     // Associate the video with your trick
                     $trick->addVideo($video);
-                  
+
                 }
             }
 
@@ -104,7 +104,7 @@ class TrickController extends AbstractController
     }
 
     // show-trick detail
-    #[Route(path:"/trick-detail/{slug}/{id}", name:"show-trick", methods: ['GET', 'POST'])]
+    #[Route(path: "/trick-detail/{slug}/{id}", name: "show-trick", methods: ['GET', 'POST'])]
     public function showTrick(Request $request, TrickRepository $trickRepository, CommentRepository $commentRepository, CategoryRepository $categoryRepository, PictureRepository $pictureRepository, VideoRepository $videoRepository, EntityManagerInterface $em, int $id): Response
     {
         // get the id of the curent Trick
@@ -120,8 +120,8 @@ class TrickController extends AbstractController
         $form = $this->createForm(CommentType::class, $comment);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            
-             // Retrive comment from form if not null
+
+            // Retrive comment from form if not null
             if ($form->get('content')->getData() !== null) {
                 $content = $form->get('content')->getData();
 
@@ -137,13 +137,31 @@ class TrickController extends AbstractController
         // Retrieve related entities (comments, category, pictures, videos)
         // Pass the trick entity and related entities to the Twig template
         return $this->render('trick/showTrick.html.twig', [
-            'form'     => $form->createView(),
-            'trick'    => $trick,
-            'comments' => $trick->getComments(),
-            'category' => $trick->getCategory(),
-            'pictures' => $trick->getPictures(),
-            'videos'   => $trick->getVideos(),
-            'latestPicture'   => $trick->getPictures()->offsetGet(0),
+            'form'          => $form->createView(),
+            'trick'         => $trick,
+            'comments'      => $trick->getComments(),
+            'category'      => $trick->getCategory(),
+            'pictures'      => $trick->getPictures(),
+            'videos'        => $trick->getVideos(),
+            'latestPicture' => $trick->getPictures()->offsetGet(0),
         ]);
+    }
+    // show-trick detail
+    #[Route(path: "/delete-trick/{id}", name: "delete-trick", methods: ['GET', 'POST'])]
+    public function deleteTrick(Request $request, TrickRepository $trickRepository, CommentRepository $commentRepository, CategoryRepository $categoryRepository, PictureRepository $pictureRepository, VideoRepository $videoRepository, EntityManagerInterface $em, int $id): Response
+    {
+
+        // get the id of the curent Trick
+        $trick = $trickRepository->findById($id);
+        if (!$trick) {
+            throw $this->createNotFoundException('Trick not found');
+        }
+        // dd($trick);
+        $trickRepository->delete($trick);
+        $this->addFlash('success', 'Figure supprimée avec succès !');
+        
+        // Redirect to home page
+        return $this->redirectToRoute('homepage', ['page' => 1], Response::HTTP_SEE_OTHER);
+
     }
 }

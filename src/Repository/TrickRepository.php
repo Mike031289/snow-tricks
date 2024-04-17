@@ -42,8 +42,9 @@ class TrickRepository extends ServiceEntityRepository
      */
     public function delete(Trick $trick): void
     {
-        $this->em->remove($trick);
-        $this->em->flush();
+        $em = $this->managerRegistry->getManager();
+        $em->remove($trick);
+        $em->flush();
     }
 
     // Find a Trick by its ID

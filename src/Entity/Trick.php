@@ -43,7 +43,7 @@ class Trick
     #[ORM\ManyToOne(targetEntity: Category::class, inversedBy: 'tricks')]
     private ?Category $category = null;
 
-    #[ORM\OneToMany(targetEntity: Comment::class, mappedBy: 'trick')]
+    #[ORM\OneToMany(targetEntity: Comment::class, mappedBy: 'trick', cascade: ['persist', 'remove'])]
     #[ORM\OrderBy(["createdAt" => "DESC"])]
     private Collection $comments;
 
