@@ -21,6 +21,10 @@ class Trick
 
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank(message: 'Le nom ne peut pas être vide')]
+    #[Assert\Regex(
+        pattern: '/^[a-zA-Z0-9\s]+$/',
+        message: 'Le nom ne peut contenir que des lettres, des chiffres et des espaces'
+    )]
     private ?string $name = null;
 
     #[ORM\Column(type: 'text')]
@@ -30,22 +34,25 @@ class Trick
     // #[ORM\Column(name: 'user_id')]
     // private ?int $userId = null;
 
-    #[ORM\Column(type: 'datetime')]
+    #[ORM\Column(type: "datetime_immutable")]
     private \DateTimeInterface $createdAt;
 
-    #[ORM\Column(type: 'datetime')]
+    #[ORM\Column(type: "datetime_immutable")]
     private \DateTimeInterface $updatedAt;
 
     #[ORM\ManyToOne(targetEntity: Category::class, inversedBy: 'tricks')]
     private ?Category $category = null;
 
     #[ORM\OneToMany(targetEntity: Comment::class, mappedBy: 'trick')]
+    #[ORM\OrderBy(["createdAt" => "DESC"])]
     private Collection $comments;
 
     #[ORM\OneToMany(targetEntity: Picture::class, mappedBy: 'trick', cascade: ['persist', 'remove'])]
+    #[ORM\OrderBy(["id" => "DESC"])]
     private Collection $pictures;
 
     #[ORM\OneToMany(targetEntity: Video::class, mappedBy: 'trick', cascade: ['persist', 'remove'])]
+    #[ORM\OrderBy(["id" => "DESC"])]
     private Collection $videos;
 
     public function __construct()
@@ -261,4 +268,8 @@ class Trick
 
         return $this;
     }
+    // public function __toString()
+    // {
+    //     return $this->getName();
+    // }
 }

@@ -16,11 +16,11 @@ class Comment
     private ?int $id = null;
 
     #[ORM\Column(type: 'text', nullable: true)]
-    #[Assert\NotBlank(message: 'Le contenu ne peut pas être vide')]
+    #[Assert\NotBlank(message: 'Veuillez ajouter un commentaire')]
     #[Assert\Length(max: 1000, maxMessage: 'Le contenu ne peut pas dépasser {{ limit }} caractères')]
     private ?string $content = null;
 
-    #[ORM\Column(type: 'datetime_immutable')]
+    #[ORM\Column(type: "datetime_immutable")]
     private ?\DateTimeImmutable $createdAt = null;
 
     #[ORM\ManyToOne(targetEntity: Trick::class, inversedBy: 'comments')]

@@ -67,8 +67,8 @@ abstract class Media
         return $this;
     }
 
-    public function __toString()
-    {
-        return $this->getName();
-    }
+    // public function __toString()
+    // {
+    //     return $this->getName();
+    // }
 }

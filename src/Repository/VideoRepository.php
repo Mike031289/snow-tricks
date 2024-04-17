@@ -3,6 +3,8 @@
 namespace App\Repository;
 
 use App\Entity\Video;
+use App\Entity\Trick;
+use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -19,6 +21,33 @@ class VideoRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Video::class);
+    }
+
+    /**
+     * Fetches all Videos
+     *
+     * @return Video[]
+     */
+    public function findAllVideos(): array
+    {
+        return $this->createQueryBuilder('v')
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * Fetches all videos associated with a specific trick
+     *
+     * @param Trick $trick
+     * @return Video[]
+     */
+    public function findVideosByTrick(Trick $trick): array
+    {
+        return $this->createQueryBuilder('v')
+            ->andWhere('v.trick = :trick')
+            ->setParameter('trick', $trick)
+            ->getQuery()
+            ->getResult();
     }
 
 //    /**

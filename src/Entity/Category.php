@@ -28,7 +28,7 @@ class Category
     #[Assert\Length(max: 1000, maxMessage: 'La description ne peut pas dépasser {{ limit }} caractères')]
     private ?string $aboutCategory = null;
 
-    #[ORM\Column(type: 'datetime_immutable')]
+    #[ORM\Column(type: "datetime_immutable")]
     private ?\DateTimeImmutable $createdAt = null;
 
     #[ORM\OneToMany(targetEntity: Trick::class, mappedBy: 'category')]

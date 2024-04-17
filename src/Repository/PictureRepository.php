@@ -3,8 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Picture;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @extends ServiceEntityRepository<Picture>
@@ -19,6 +20,35 @@ class PictureRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Picture::class);
+    }
+
+    /**
+     * Fetches all pictures
+     *
+     * @return Picture[]
+     */
+    public function findAllPictures(): array
+    {
+        return $this->createQueryBuilder('p')
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * Fetches the latest picture for trick
+     *
+     * @return array
+     */
+    public function findLatestPicturesForTrick(): array
+    {
+        return $this->createQueryBuilder('p')
+            // ->select('p')
+            ->join('p.trick', 't')
+            ->addSelect('t')
+            ->groupBy('t.id')
+            ->orderBy('t.createdAt', 'DESC')
+            ->getQuery()
+            ->getResult();
     }
 
 //    /**

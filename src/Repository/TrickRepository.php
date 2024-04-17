@@ -5,9 +5,7 @@ namespace App\Repository;
 use App\Entity\Trick;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
-use Doctrine\ORM\emInterface;
-use Doctrine\ORM\ORMException;
-use Doctrine\ORM\Query\Expr\OrderBy;
+use Doctrine\ORM\Exception\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
 
 class TrickRepository extends ServiceEntityRepository
@@ -69,13 +67,13 @@ class TrickRepository extends ServiceEntityRepository
      * @param string $name The name of the trick to find.
      * @return Trick|null The Trick entity if found, null otherwise.
      */
-    public function findByName(string $name): ?Trick
-    {
-        return $this->createQueryBuilder('t')
-            ->andWhere('t.name = :name')
-            ->setParameter('name', $name)
-            ->getQuery()
-            ->getOneOrNullResult();
-    }
+    // public function findByName(string $name): ?Trick
+    // {
+    //     return $this->createQueryBuilder('t')
+    //         ->andWhere('t.name = :name')
+    //         ->setParameter('name', $name)
+    //         ->getQuery()
+    //         ->getOneOrNullResult();
+    // }
 
 }

@@ -3,10 +3,13 @@
 
 namespace App\Controller;
 
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use App\Entity\Trick;
 use App\Entity\Picture;
 use App\Entity\Video;
+use App\Entity\Comment;
 use App\Form\TrickType;
+use App\Form\CommentType;
 use App\Repository\CategoryRepository;
 use App\Repository\CommentRepository;
 use App\Repository\PictureRepository;
@@ -27,14 +30,15 @@ class TrickController extends AbstractController
         $this->trickRepository = $trickRepository;
     }
 
+    // crat new trick
     #[Route(path: 'tricks/ajout-figure', name: 'add-trick', methods: ['GET', 'POST'])]
     public function addTrick(Request $request, EntityManagerInterface $em, TrickRepository $trickRepository): Response
     {
-        $dateTime = new \DateTimeImmutable('now', new \DateTimeZone('Europe/Paris'));
-        $formattedDateTime = $dateTime->format('d/m/Y');
+        $createdAt = new \DateTimeImmutable('now', new \DateTimeZone('Europe/Paris'));
+        $createdAt->format('d/m/Y');
         $trick = new Trick();
-        $trick->setCreatedAt($dateTime);
-        $trick->setUpdatedAt($dateTime);
+        $trick->setCreatedAt($createdAt);
+        $trick->setUpdatedAt($createdAt);
         $form  = $this->createForm(TrickType::class, $trick);
         $form->handleRequest($request);
         $trick = $form->getData();
@@ -67,18 +71,17 @@ class TrickController extends AbstractController
                 /** @var UploadedFile[] $urls */
                 $urls = $form->get('videoUrl')->getData();
 
-                foreach ($urls as $videoUrl) {
-                    // Access properties of each url
-                    // dd($videoUrl);
+                // Access properties of each url
+                foreach ($urls as $url) {
+                    $path = parse_url((string)$url)['path'];
 
-
+                    $id = substr($path, 1);
                     // Save the video content to your desired directory
-                    $videos = $videoUrl;
-                    // dd($videoPath);
+                    $videoUrl = "https://www.youtube.com/embed/$id";
 
                     $video = new Video();
-                    $video->setName($videos);
-                    $video->setUrl($videos);
+                    $video->setName($videoUrl);
+                    $video->setUrl($videoUrl);
                     $video->setTrick($trick);
                     // Associate the video with your trick
                     $trick->addVideo($video);
@@ -100,59 +103,47 @@ class TrickController extends AbstractController
         ]);
     }
 
-    #[Route(path: '/nouvelle-figure', name: 'new-trick', methods: ['GET', 'POST'])]
-    public function new(Request $request): Response
+    // show-trick detail
+    #[Route(path:"/trick-detail/{slug}/{id}", name:"show-trick", methods: ['GET', 'POST'])]
+    public function showTrick(Request $request, TrickRepository $trickRepository, CommentRepository $commentRepository, CategoryRepository $categoryRepository, PictureRepository $pictureRepository, VideoRepository $videoRepository, EntityManagerInterface $em, int $id): Response
     {
-        $trick = new Trick();
-        $form  = $this->createForm(TrickType::class, $trick);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            // Handle media files
-            $pictures = $trick->getPictures();
-            foreach ($pictures as $picture) {
-                // Handle each picture file here (upload, etc.)
-            }
-
-            $videos = $trick->getVideos();
-            foreach ($videos as $video) {
-                // Handle each video link here (validation, etc.)
-            }
-
-            // Persist the Trick entity
-            $this->trickRepository->add($trick);
-
-            // Redirect to home page
-            return $this->redirectToRoute('home');
-        }
-
-        return $this->render('trick/new.html.twig', [
-            'form' => $form->createView(),
-        ]);
-    }
-
-    #[Route(path:"/trick-detail/{slug}_{trick.id}", name:"show-trick", methods: ['GET', 'POST'])]
-    public function showTrick(Request $request, TrickRepository $trickRepository, CommentRepository $commentRepository, CategoryRepository $categoryRepository, PictureRepository $pictureRepository, VideoRepository $videoRepository, string $slug): Response
-    {
-        // Assuming slug is the name of the trick
-        $trick = $trickRepository->findByName($slug);
+        // get the id of the curent Trick
+        $trick = $trickRepository->findById($id);
         if (!$trick) {
             throw $this->createNotFoundException('Trick not found');
         }
 
-        // Retrieve related entities (comments, category, pictures, videos)
-        $comments = $commentRepository->findBy(['trick' => $trick]);
-        // $category = $categoryRepository->findOneBy(['trick' => $trick]);
-        // $pictures = $pictureRepository->findBy(['trick' => $trick]);
-        // $videos   = $videoRepository->findBy(['trick' => $trick]);
+        $createdAt = new \DateTimeImmutable('now', new \DateTimeZone('Europe/Paris'));
+        $createdAt->format('d/m/Y');
+        $comment = new Comment();
+        $comment->setCreatedAt($createdAt);
+        $form = $this->createForm(CommentType::class, $comment);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            
+             // Retrive comment from form if not null
+            if ($form->get('content')->getData() !== null) {
+                $content = $form->get('content')->getData();
 
+                $comment->setContent($content);
+                // Associate the comment with your trick
+                $commentRepository->addCommentToTrick($comment, $trick);
+            }
+
+            $this->addFlash('success', 'Commentaire ajouté avec succès');
+
+        }
+
+        // Retrieve related entities (comments, category, pictures, videos)
         // Pass the trick entity and related entities to the Twig template
         return $this->render('trick/showTrick.html.twig', [
+            'form'     => $form->createView(),
             'trick'    => $trick,
-            'comments' => $comments,
-            // 'category' => $category,
-            // 'pictures' => $pictures,
-            // 'videos'   => $videos,
+            'comments' => $trick->getComments(),
+            'category' => $trick->getCategory(),
+            'pictures' => $trick->getPictures(),
+            'videos'   => $trick->getVideos(),
+            'latestPicture'   => $trick->getPictures()->offsetGet(0),
         ]);
     }
 }

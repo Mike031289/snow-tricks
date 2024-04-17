@@ -15,11 +15,12 @@ return [
         '/_profiler/xdebug' => [[['_route' => '_profiler_xdebug', '_controller' => 'web_profiler.controller.profiler::xdebugAction'], null, null, null, false, false, null]],
         '/_profiler/open' => [[['_route' => '_profiler_open_file', '_controller' => 'web_profiler.controller.profiler::openAction'], null, null, null, false, false, null]],
         '/tricks/nouveau-groupe' => [[['_route' => 'add-group', '_controller' => 'App\\Controller\\CategoryController::addCategory'], null, ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        '/comment' => [[['_route' => 'app_comment', '_controller' => 'App\\Controller\\CommentController::index'], null, null, null, false, false, null]],
         '/user/login' => [[['_route' => 'connexion', '_controller' => 'App\\Controller\\LoginLogoutController::login'], null, null, null, false, false, null]],
         '/user/password-reset' => [[['_route' => 'passwordreset', '_controller' => 'App\\Controller\\PasswordResetController::passwordReset'], null, null, null, false, false, null]],
         '/reset-password' => [[['_route' => 'resetpassword', '_controller' => 'App\\Controller\\PasswordResetController::resetPassword'], null, null, null, false, false, null]],
+        '/picture' => [[['_route' => 'app_picture', '_controller' => 'App\\Controller\\PictureController::index'], null, null, null, false, false, null]],
         '/tricks/ajout-figure' => [[['_route' => 'add-trick', '_controller' => 'App\\Controller\\TrickController::addTrick'], null, ['GET' => 0, 'POST' => 1], null, false, false, null]],
-        '/nouvelle-figure' => [[['_route' => 'new-trick', '_controller' => 'App\\Controller\\TrickController::new'], null, ['GET' => 0, 'POST' => 1], null, false, false, null]],
         '/user/inscription' => [[['_route' => 'register', '_controller' => 'App\\Controller\\UserController::register'], null, null, null, false, false, null]],
         '/tricks' => [[['_route' => 'homepage', '_controller' => 'App\\Controller\\HomeController::index'], null, null, null, false, false, null]],
         '/user' => [[['_route' => 'useradim', '_controller' => 'App\\Controller\\UserController::index'], null, null, null, false, false, null]],
@@ -41,7 +42,7 @@ return [
                         .'|(*:159)'
                     .')'
                 .')'
-                .'|/trick\\-detail/([^/_]++)_\\{trick\\.id\\}(*:207)'
+                .'|/trick\\-detail/([^/]++)/([^/]++)(*:201)'
             .')/?$}sDu',
     ],
     [ // $dynamicRoutes
@@ -52,8 +53,8 @@ return [
         136 => [[['_route' => '_profiler_exception', '_controller' => 'web_profiler.controller.exception_panel::body'], ['token'], null, null, false, false, null]],
         149 => [[['_route' => '_profiler_exception_css', '_controller' => 'web_profiler.controller.exception_panel::stylesheet'], ['token'], null, null, false, false, null]],
         159 => [[['_route' => '_profiler', '_controller' => 'web_profiler.controller.profiler::panelAction'], ['token'], null, null, false, true, null]],
-        207 => [
-            [['_route' => 'show-trick', '_controller' => 'App\\Controller\\TrickController::showTrick'], ['slug'], ['GET' => 0, 'POST' => 1], null, false, false, null],
+        201 => [
+            [['_route' => 'show-trick', '_controller' => 'App\\Controller\\TrickController::showTrick'], ['slug', 'id'], ['GET' => 0, 'POST' => 1], null, false, true, null],
             [null, null, null, null, false, false, 0],
         ],
     ],
