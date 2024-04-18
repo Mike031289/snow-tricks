@@ -147,8 +147,8 @@ class TrickController extends AbstractController
         ]);
     }
     // show-trick detail
-    #[Route(path: "/delete-trick/{id}", name: "delete-trick", methods: ['GET', 'POST'])]
-    public function deleteTrick(Request $request, TrickRepository $trickRepository, CommentRepository $commentRepository, CategoryRepository $categoryRepository, PictureRepository $pictureRepository, VideoRepository $videoRepository, EntityManagerInterface $em, int $id): Response
+    #[Route(path: "/delete-trick/{id}", name: "delete-trick", methods: ['POST'])]
+    public function deleteTrick(Request $request, TrickRepository $trickRepository, int $id): Response
     {
 
         // get the id of the curent Trick
@@ -159,9 +159,101 @@ class TrickController extends AbstractController
         // dd($trick);
         $trickRepository->delete($trick);
         $this->addFlash('success', 'Figure supprimée avec succès !');
-        
+
+        // Si la requête est de type POST, supprimer le trick
+        // if ($request->isMethod('POST')) {
+        //     $trickRepository->delete($trick);
+        //     // $trickRepository->flush();
+
+        //     $this->addFlash('success', 'Figure supprimée avec succès !');
+        // }
         // Redirect to home page
         return $this->redirectToRoute('homepage', ['page' => 1], Response::HTTP_SEE_OTHER);
 
     }
+
+    #[Route(path: "/edite-trick/{id}", name: "edite-trick", methods: ['GET', 'POST'])]
+    public function editeTrick(Request $request, TrickRepository $trickRepository, CommentRepository $commentRepository, CategoryRepository $categoryRepository, PictureRepository $pictureRepository, VideoRepository $videoRepository, EntityManagerInterface $em, int $id): Response
+    {
+        $trick = $trickRepository->findById($id);
+
+        if (!$trick) {
+            throw $this->createNotFoundException('Trick not found');
+        }
+
+        $form = $this->createForm(TrickType::class, $trick);
+        $form->handleRequest($request);
+        // Si la requête est de type POST, modifier le trick
+        if ($request->isMethod('POST')) {
+            // $updatedAt = new \DateTimeImmutable('now', new \DateTimeZone('Europe/Paris'));
+            // $updatedAt->format('d/m/Y');
+            // $trick = new Trick();
+            // $trick->setUpdatedAt($updatedAt);
+            // $form = $this->createForm(TrickType::class, $trick);
+            // $form->handleRequest($request);
+            // $trick = $form->getData();
+            // if ($form->isSubmitted() && $form->isValid()) {
+
+            //     // Retrive pictures from form if not null
+            //     if ($form->get('image')->getData() !== null) {
+
+            //         /** @var UploadedFile[] $files */
+            //         $files = $form->get('image')->getData();
+
+            //         foreach ($files as $file) {
+            //             // Access properties of each file
+            //             $fileName = $trick->getId() . uniqid() . '.' . $file->getClientOriginalExtension();
+            //             // mooving upload file to the project directory 
+            //             $filePath = $file->move($this->getParameter('kernel.project_dir') . '/public/media/pictures', $fileName);
+
+            //             $picture = new Picture();
+            //             $picture->setName($fileName);
+            //             $picture->setPath($filePath);
+            //             $picture->setTrick($trick);
+            //             // Associate the picture with your trick
+            //             $trick->addPicture($picture);
+            //         }
+            //     }
+
+            //     // Retrive videoUrl from form if not null
+            //     if ($form->get('videoUrl')->getData() !== null) {
+
+            //         /** @var UploadedFile[] $urls */
+            //         $urls = $form->get('videoUrl')->getData();
+
+            //         // Access properties of each url
+            //         foreach ($urls as $url) {
+            //             $path = parse_url((string) $url)['path'];
+
+            //             $id = substr($path, 1);
+            //             // Save the video content to your desired directory
+            //             $videoUrl = "https://www.youtube.com/embed/$id";
+
+            //             $video = new Video();
+            //             $video->setName($videoUrl);
+            //             $video->setUrl($videoUrl);
+            //             $video->setTrick($trick);
+            //             // Associate the video with your trick
+            //             $trick->addVideo($video);
+
+            //         }
+            //     }
+            $trickRepository->update($trick);
+
+            $this->addFlash('success', 'Figure modifié avec succès !');
+            return $this->redirectToRoute('homepage');
+        }
+
+        // Rendre le formulaire et les informations du trick
+        return $this->render('trick/editeTrick.html.twig', [
+            'form'          => $form->createView(),
+            'trick'         => $trick,
+            'comments'      => $trick->getComments(),
+            'category'      => $trick->getCategory(),
+            'pictures'      => $trick->getPictures(),
+            'videos'        => $trick->getVideos(),
+            'latestPicture' => $trick->getPictures()->offsetGet(0),
+        ]);
+    }
+
 }

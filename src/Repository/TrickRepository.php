@@ -34,7 +34,9 @@ class TrickRepository extends ServiceEntityRepository
      */
     public function update(Trick $trick): void
     {
-        $this->em->flush();
+        $em = $this->managerRegistry->getManager();
+        $em->persist($trick);
+        $em->flush();
     }
 
     /**

@@ -168,17 +168,18 @@
         <div class="col-lg-10 col-xl-8">
           <div class="single-post">
             {% if trick is defined %}
-              <h1 class="mt-5">{{trick.name}}</h1>
+              <h1 class="mt-5 text-center">{{trick.name}}</h1>
               <div class="d-flex align-items-center justify-content-between mb-5">
                 <div class="single-post-meta me-4">
                   <div class="single-post-meta-details">
-                    <div class="single-post-meta-details-name">Auteur: Nom de l'Auteur</div>
-                    <div class="single-post-meta-details-date">Publié le {{trick.createdAt|date('d/m/Y') }}</div>
-                    <div class="single-post-meta-details-date">Mise à jour le {{trick.updatedAt|date('d/m/Y') }}</div>
+                    <div class="single-post-meta-details-categorie"><h6>Catégorie : <span class="small">{{trick.category.name}}</span></h6></div>
+                    <div class="single-post-meta-details-name mb-2"><h6>Auteur : <span class="small"> Nom de l'Auteur</span></h6> </div>
+                    <div class="single-post-meta-details-date mb-2"><h6>Publié le <span class="small">{{trick.createdAt|date('d/m/Y') }}</span></h6></div>
+                    <div class="single-post-meta-details-date"><h6>Mise à jour le <span class="small">{{trick.updatedAt|date('d/m/Y') }}</span> </h6></div>
                   </div>
                 </div>
               </div>
-              <div class="small text-gray-500 text-center">{{ trick.category.name }}</div>
+              <div class="text-gray-500 text-center">Description </div>
               <div class="single-post-text my-5">
                 <p>{{ trick.description }}</p>
                 <hr class="my-5"/>
