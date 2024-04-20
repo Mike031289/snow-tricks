@@ -85,7 +85,7 @@
         </p>
         <div class="container-flex text-center">
         {% if currentPage > 1 %}
-          <a class="btn btn-outline-primary btn-lg m-auto" href="{{ path('homepage', {'page': currentPage - 1} ) }}" role="button">Voir la page précédente</a>
+          <a class="btn btn-outline-primary btn-lg m-auto" href="{{ path('homepage', {'page': currentPage - 1} ) }}" role="button">Figures précédentes</a>
         {% endif %}
         {% if currentPage < maxPage %}
           <a class="btn btn-outline-primary btn-lg m-auto" href="{{ path('homepage', {'page': currentPage + 1} ) }}" role="button">Voir plus de figures</a>
