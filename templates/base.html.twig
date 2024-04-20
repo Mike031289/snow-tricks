@@ -34,11 +34,11 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <hr class="navbar-nav mr-auto">
-              <a class="nav-link navbar-text {% if page == 'home' %}active{% endif %}" href="{{ path('homepage') }}">Accueil</a>
+              <a class="nav-link navbar-text" href="{{ path('homepage') }}">Accueil</a>
               <hr class="navbar-nav mr-5">
-              <a class="nav-link navbar-text {% if page == 'register' %}active{% endif %}" href="{{ path('register', { 'slug': 'inscription'}) }}">Inscription</a>
+              <a class="nav-link navbar-text" href="{{ path('register', { 'slug': 'inscription'}) }}">Inscription</a>
               <hr class="navbar-nav mr-5">
-              <a class="nav-link navbar-text {% if page == 'login' %}active{% endif %}" href="{{ path('connexion', { 'slug': 'loginForm'}) }}">Connexion
+              <a class="nav-link navbar-text" href="{{ path('connexion', { 'slug': 'loginForm'}) }}">Connexion
               {# <i class="ms-2" data-feather="log-in"></i> #}
               {# <idata-feather="edit"></i> #}
               </a>
@@ -79,8 +79,8 @@
             </div>
             <div class="col-lg-6 col-md-6">
               <div class="text-uppercase-expanded text-xs mb-4">Liens</div>
-              <a class="nav-link navbar-text text-white {% if page == 'register' %}active{% endif %}" href="{{ path('register', { 'slug': 'Inscription'}) }}">Inscription</a>
-              <a class="nav-link navbar-text text-white {% if page == 'login' %}active{% endif %}" href="{{ path('connexion', { 'slug': 'loginForm'}) }}">Connexion
+              <a class="nav-link navbar-text text-white" href="{{ path('register', { 'slug': 'Inscription'}) }}">Inscription</a>
+              <a class="nav-link navbar-text text-white" href="{{ path('connexion', { 'slug': 'loginForm'}) }}">Connexion
               </a>
             </div>
           </div>

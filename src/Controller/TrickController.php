@@ -94,7 +94,7 @@ class TrickController extends AbstractController
             $this->addFlash('success', 'Votre Figure a bien été ajouté');
 
             // Redirect to home page
-            return $this->redirectToRoute('homepage', ['page' => 1], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('homepage', ['page' => 1]);
 
         }
 

@@ -1,6 +1,5 @@
 {# templates/home.html.twig #}
 {% extends 'base.html.twig' %}
-{% set page = 'home' %}
 
 {% block body %}
   <body>
@@ -85,7 +84,13 @@
           </div>
         </p>
         <div class="container-flex text-center">
-          <a class="btn btn-outline-primary btn-lg m-auto" href="#" role="button">Voir plus de figures</a>
+        {% if currentPage > 1 %}
+          <a class="btn btn-outline-primary btn-lg m-auto" href="{{ path('homepage', {'page': currentPage - 1} ) }}" role="button">Voir la page précédente</a>
+        {% endif %}
+        {% if currentPage < maxPage %}
+          <a class="btn btn-outline-primary btn-lg m-auto" href="{{ path('homepage', {'page': currentPage + 1} ) }}" role="button">Voir plus de figures</a>
+        {% endif %}
+          
         </div>
       </div>
       <hr class="my-4">

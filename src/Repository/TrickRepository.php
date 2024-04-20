@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Trick;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\Exception\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
@@ -56,12 +57,38 @@ class TrickRepository extends ServiceEntityRepository
     }
 
     // Find all Tricks ordered by creation date (most recent first)
-    public function findAllOrderByCreationDate(): array
+    // public function findAllOrderByCreationDate(): array
+    // {
+    //     return $this->createQueryBuilder('t')
+    //         ->orderBy('t.createdAt', 'DESC') // Trie par date de création (plus récent d'abord)
+    //         ->getQuery()
+    //         ->getResult();
+    // }
+    // Find paginated Tricks ordered by creation date (most recent first)
+    // public function findPaginatedTricksOrderByCreationDate(int $page, int $limit): Paginator
+    // {
+    //     return new Paginator($this
+    //         ->createQueryBuilder('t')
+    //         ->orderBy('t.createdAt', 'DESC') // Trie par date de création (plus récent d'abord)
+    //         // ->getResult());
+    //         ->setFirstResult(($page - 1) * $limit)
+    //         ->setMaxResults($limit)
+    //         ->getQuery()
+    //         ->setHint(Paginator::HINT_ENABLE_DISTINCT, false), false
+    //     );
+    // }
+    public function findPaginatedTricksOrderByCreationDate(int $page, int $limit): Paginator
     {
-        return $this->createQueryBuilder('t')
-            ->orderBy('t.createdAt', 'DESC') // Trie par date de création (plus récent d'abord)
-            ->getQuery()
-            ->getResult();
+        $query = $this->createQueryBuilder('t')
+            ->orderBy('t.createdAt', 'DESC')
+            ->getQuery();
+
+        $paginator = new Paginator($query);
+        $paginator->getQuery()
+            ->setFirstResult(($page - 1) * $limit)
+            ->setMaxResults($limit);
+
+        return $paginator;
     }
 
         /**
