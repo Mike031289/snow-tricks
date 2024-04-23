@@ -4,7 +4,7 @@
 {% block title %}Créer un nouveau trick{% endblock %}
 
 {% block header %}
-  <!-- Header content ici -->
+  <!-- Header content here -->
 {% endblock %}
 
 {% block body %}
@@ -20,55 +20,74 @@
                 </div>
                 <div class="card-body p-0">
                   <!-- Symfony Form -->
-                  {{ form_start(addTrickForm, {'attr': {'class': 'needs-validation', 'novalidate': 'novalidate'}}) }}
+                  {{ form_start(form, {'attr': {'class': 'needs-validation', 'novalidate': 'novalidate'}}) }}
                   <div class="row gx-3 p-5 pb-2">
-                    <div class="{{ addTrickForm.name.vars.errors ? 'has-error' : '' }}">
-                      <!-- Form Category (name)-->
+                    <div class="{{ form.name.vars.errors ? 'has-error' : '' }}">
+                      <!-- Form Trick (name) -->
                       <div class="mb-3">
-                        {{ form_label(addTrickForm.name, 'Nom du trick *', {'label_attr': {'class': 'small mb-1'}}) }}
-                        {{ form_widget(addTrickForm.name, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_label(form.name, 'Nom du trick *', {'label_attr': {'class': 'small mb-1'}}) }}
+                        {{ form_widget(form.name, {'attr': {'class': 'form-control'}}) }}
                         <span class="error-message">
-                          {{ form_errors(addTrickForm.name) }}
+                          {{ form_errors(form.name) }}
                         </span>
                       </div>
                     </div>
-                    <div class="{{ addTrickForm.description.vars.errors ? 'has-error' : '' }}">
-                      <!-- Form Category (description)-->
+                    <div class="{{ form.description.vars.errors ? 'has-error' : '' }}">
+                      <!-- Form Trick (description) -->
                       <div class="mb-3">
-                        {{ form_label(addTrickForm.description, 'Description du trick *', {'label_attr': {'class': 'small mb-1'}}) }}
-                        {{ form_widget(addTrickForm.description, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_label(form.description, 'Description du trick *', {'label_attr': {'class': 'small mb-1'}}) }}
+                        {{ form_widget(form.description, {'attr': {'class': 'form-control'}}) }}
                         <span class="error-message">
-                          {{ form_errors(addTrickForm.description) }}
+                          {{ form_errors(form.description) }}
                         </span>
                       </div>
                     </div>
-                    <div class="{{ addTrickForm.category.vars.errors ? 'has-error' : '' }}">
-                      <!-- Form Category (Category)-->
+                    <div class="{{ form.category.vars.errors ? 'has-error' : '' }}">
+                      <!-- Form Trick (category) -->
                       <div class="mb-3">
-                        {{ form_label(addTrickForm.category, 'Groupe du trick *', {'label_attr': {'class': 'small mb-1'}}) }}
-                        {{ form_widget(addTrickForm.category, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_label(form.category, 'Groupe du trick *', {'label_attr': {'class': 'small mb-1'}}) }}
+                        {{ form_widget(form.category, {'attr': {'class': 'form-control'}}) }}
                         <span class="error-message">
-                          {{ form_errors(addTrickForm.category) }}
+                          {{ form_errors(form.category) }}
                         </span>
                       </div>
                     </div>
-                    <div class="{{ addTrickForm.picture.vars.errors ? 'has-error' : '' }}">
-                      <!-- Form Category (picture)-->
+                    {# <div id="medias" class="{{ form.medias.vars.errors ? 'has-error' : '' }}">
+                      <!-- Form Trick (medias) -->
                       <div class="mb-3">
-                        {{ form_label(addTrickForm.picture, 'Image du trick *', {'label_attr': {'class': 'small mb-1'}}) }}
-                        {{ form_widget(addTrickForm.picture, {'attr': {'class': 'form-control'}}) }}
+                        <div class="d-flex justify-content-between align-items-center">
+                          <label class="small mb-1">Médias du trick *</label>
+                          <button type="button" class="btn btn-success" id="add-media-btn">Ajouter un média</button>
+                        </div>
+                        {{ form_widget(form.medias, {'attr': {'class': 'form-control'} }) }}
                         <span class="error-message">
-                          {{ form_errors(addTrickForm.picture) }}
+                          {{ form_errors(form.medias) }}
+                        </span>
+                      </div>
+                    </div> #}
+                    <div id="image-field" class="{{ form.image.vars.errors ? 'has-error' : '' }}">
+                      <!-- Form Trick (medias) -->
+                      <div class="mb-3">
+                        <div class="d-flex justify-content-between align-items-center">
+                          <label class="small mb-1">Médias du trick</label>
+                          <button type="button" class="btn btn-success" id="add-image-btn">Ajouter des images</button>
+                        </div>
+                        {{ form_widget(form.image, {'attr': {'class': 'form-control'} }) }}
+                        <span class="error-message">
+                          {{ form_errors(form.image) }}
                         </span>
                       </div>
                     </div>
-                    <div class="{{ addTrickForm.video.vars.errors ? 'has-error' : '' }}">
-                      <!-- Form Category (video)-->
+                    <div id="videoUrl-field" class="{{ form.videoUrl.vars.errors ? 'has-error' : '' }}">
+                      <!-- Form Trick (medias) -->
                       <div class="mb-3">
-                        {{ form_label(addTrickForm.video, 'Vidéo du trick *', {'label_attr': {'class': 'small mb-1'}}) }}
-                        {{ form_widget(addTrickForm.video, {'attr': {'class': 'form-control'}}) }}
+                        <div class="d-flex justify-content-between align-items-center">
+                          <label class="small mb-1">Médias du trick</label>
+                          <button type="button" class="btn btn-success" id="add-video-btn">Ajouter des vidéos</button>
+                        </div>
+                        {{ form_widget(form.videoUrl, {'attr': {'class': 'form-control'} }) }}
                         <span class="error-message">
-                          {{ form_errors(addTrickForm.video) }}
+                          {{ form_errors(form.videoUrl) }}
                         </span>
                       </div>
                     </div>
@@ -80,10 +99,11 @@
                   <div class="small text-muted p-5 pt-2 pb-2">
                     * Champs obligatoires
                   </div>
-                  {{ form_end(addTrickForm) }}
-                  <!-- Fin Symfony Form -->
+                  {{ form_rest(form) }}
+                  {{ form_end(form) }}
+                  <!-- End Symfony Form -->
                 </div>
-                <!-- ... Le reste du code du formulaire existant -->
+                <!-- ... The rest of the existing form code -->
               </div>
             </div>
           </div>

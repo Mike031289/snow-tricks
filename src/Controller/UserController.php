@@ -11,7 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class UserController extends AbstractController
 {
-    #[Route(path: '/inscription', name: 'register')]
+    #[Route(path: 'user/inscription', name: 'register')]
     public function register(Request $request): Response
     {
         $user = new User();
@@ -25,7 +25,7 @@ class UserController extends AbstractController
         }
 
         return $this->render('user/register.html.twig', [
-            'registerForm' => $form->createView(),
+            'form' => $form->createView(),
         ]);
     }
 

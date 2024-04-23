@@ -3,42 +3,64 @@
 namespace App\Entity;
 
 use App\Repository\TrickRepository;
-use Doctrine\DBAL\Types\Types;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: TrickRepository::class)]
 #[ORM\Table(name: 'trick')]
+#[UniqueEntity(fields: 'name', message: 'Cette figure a déjà été enregistrée')]
 class Trick
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
+    #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: 'Le nom ne peut pas être vide')]
+    #[Assert\Regex(
+        pattern: '/^[a-zA-Z0-9\s]+$/',
+        message: 'Le nom ne peut contenir que des lettres, des chiffres et des espaces'
+    )]
     private ?string $name = null;
 
-    #[ORM\Column(type: Types::TEXT)]
+    #[ORM\Column(type: 'text')]
+    #[Assert\NotBlank(message: 'La description ne peut pas être vide')]
     private ?string $description = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $picture = null;
+    // #[ORM\Column(name: 'user_id')]
+    // private ?int $userId = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $video = null;
-
-    #[ORM\ManyToOne(targetEntity: Category::class)]
-    #[ORM\JoinColumn(name: 'category_id', referencedColumnName: 'id')]
-    private ?Category $category = null;
-
-    #[ORM\Column(name: 'user_id')]
-    private ?int $userId = null;
-
-    #[ORM\Column(type: 'datetime')]
+    #[ORM\Column(type: "datetime_immutable")]
     private \DateTimeInterface $createdAt;
 
-    #[ORM\Column(type: 'datetime')]
+    #[ORM\Column(type: "datetime_immutable")]
     private \DateTimeInterface $updatedAt;
+
+    #[ORM\ManyToOne(targetEntity: Category::class, inversedBy: 'tricks')]
+    private ?Category $category = null;
+
+    #[ORM\OneToMany(targetEntity: Comment::class, mappedBy: 'trick', cascade: ['persist', 'remove'])]
+    #[ORM\OrderBy(["createdAt" => "DESC"])]
+    private Collection $comments;
+
+    #[ORM\OneToMany(targetEntity: Picture::class, mappedBy: 'trick', cascade: ['persist', 'remove'])]
+    #[ORM\OrderBy(["id" => "DESC"])]
+    private Collection $pictures;
+
+    #[ORM\OneToMany(targetEntity: Video::class, mappedBy: 'trick', cascade: ['persist', 'remove'])]
+    #[ORM\OrderBy(["id" => "DESC"])]
+    private Collection $videos;
+
+    public function __construct()
+    {
+        $this->comments = new ArrayCollection();
+        $this->pictures = new ArrayCollection();
+        $this->videos   = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -50,7 +72,7 @@ class Trick
         return $this->name;
     }
 
-    public function setName(string $name): static
+    public function setName(string $name): self
     {
         $this->name = $name;
 
@@ -62,67 +84,31 @@ class Trick
         return $this->description;
     }
 
-    public function setDescription(string $description): static
+    public function setDescription(string $description): self
     {
         $this->description = $description;
 
         return $this;
     }
 
-    public function getPicture(): ?string
-    {
-        return $this->picture;
-    }
+    // public function getUserId(): ?int
+    // {
+    //     return $this->userId;
+    // }
 
-    public function setPicture(string $picture): static
-    {
-        $this->picture = $picture;
+    // public function setUserId(int $userId): self
+    // {
+    //     $this->userId = $userId;
 
-        return $this;
-    }
-
-    public function getVideo(): ?string
-    {
-        return $this->video;
-    }
-
-    public function setVideo(string $video): static
-    {
-        $this->video = $video;
-
-        return $this;
-    }
-
-    public function getCategory(): ?Category
-    {
-        return $this->category;
-    }
-
-    public function setCategory(?Category $category): static
-    {
-        $this->category = $category;
-
-        return $this;
-    }
-
-    public function getUserId(): ?int
-    {
-        return $this->userId;
-    }
-
-    public function setUserId(int $userId): static
-    {
-        $this->userId = $userId;
-
-        return $this;
-    }
+    //     return $this;
+    // }
 
     public function getCreatedAt(): \DateTimeInterface
     {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeInterface $createdAt): static
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
 
@@ -134,10 +120,156 @@ class Trick
         return $this->updatedAt;
     }
 
-    public function setUpdatedAt(\DateTimeInterface $updatedAt): static
+    public function setUpdatedAt(\DateTimeInterface $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
 
         return $this;
     }
+
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?Category $category): self
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
+    // /**
+    //  * @return Collection|Media[]
+    //  */
+    // public function getMedias(): Collection
+    // {
+    //     return $this->medias;
+    // }
+
+    // public function addMedia(Media $media): self
+    // {
+    //     if (!$this->medias->contains($media)) {
+    //         $this->medias[] = $media;
+    //         $media->setTrick($this);
+    //     }
+
+    //     return $this;
+    // }
+
+    // public function removeMedia(Media $media): self
+    // {
+    //     if ($this->medias->removeElement($media)) {
+    //         // set the owning side to null (unless already changed)
+    //         if ($media->getTrick() === $this) {
+    //             $media->setTrick(null);
+    //         }
+    //     }
+
+    //     return $this;
+    // }
+
+    /**
+     * @return Collection|Comment[]
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function addComment(Comment $comment): self
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments[] = $comment;
+            $comment->setTrick($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComment(Comment $comment): self
+    {
+        if ($this->comments->removeElement($comment)) {
+            // set the owning side to null (unless already changed)
+            if ($comment->getTrick() === $this) {
+                $comment->setTrick(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Picture[]
+     */
+    public function getPictures(): Collection
+    {
+        return $this->pictures;
+    }
+
+    public function addPicture(Picture $picture): self
+    {
+        if (!$this->pictures->contains($picture)) {
+            $this->pictures[] = $picture;
+            $picture->setTrick($this);
+        }
+
+        return $this;
+    }
+
+    public function removePicture(Picture $picture): self
+    {
+        if ($this->pictures->removeElement($picture)) {
+            // set the owning side to null (unless already changed)
+            if ($picture->getTrick() === $this) {
+                $picture->setTrick(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Video[]
+     */
+    public function getVideos(): Collection
+    {
+        return $this->videos;
+    }
+
+    public function addVideo(Video $video): self
+    {
+        if (!$this->videos->contains($video)) {
+            $this->videos[] = $video;
+            $video->setTrick($this);
+        }
+
+        return $this;
+    }
+
+    public function removeVideo(Video $video): self
+    {
+        if ($this->videos->removeElement($video)) {
+            // set the owning side to null (unless already changed)
+            if ($video->getTrick() === $this) {
+                $video->setTrick(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * Set the value of pictures
+     */
+    public function setPictures(Collection $pictures): self
+    {
+        $this->pictures = $pictures;
+
+        return $this;
+    }
+    // public function __toString()
+    // {
+    //     return $this->getName();
+    // }
 }

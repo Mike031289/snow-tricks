@@ -18,82 +18,82 @@
                 </div>
                 <div class="card-body p-0">
                   <!-- Symfony Registration form -->
-                  {{ form_start(registerForm, {'attr': {'class': 'needs-validation', 'novalidate': 'novalidate'}}) }}
+                  {{ form_start(form, {'attr': {'class': 'needs-validation', 'novalidate': 'novalidate'}}) }}
                   <!-- Form Row-->
                   <div class="row gx-3 p-5 pb-2">
-                    <div class="{{ registerForm.firstName.vars.errors ? 'has-error' : '' }}">
+                    <div class="{{ form.firstName.vars.errors ? 'has-error' : '' }}">
                       <!-- Form Group (first name)-->
                       <div class="mb-3">
-                        {{ form_label(registerForm.firstName, 'Prénom *', {'label_attr': {'class': 'small mb-1'}}) }}
-                        {{ form_widget(registerForm.firstName, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_label(form.firstName, 'Prénom *', {'label_attr': {'class': 'small mb-1'}}) }}
+                        {{ form_widget(form.firstName, {'attr': {'class': 'form-control'}}) }}
                         <span class="error-message">
-                          {{ form_errors(registerForm.firstName) }}</span>
+                          {{ form_errors(form.firstName) }}</span>
                       </div>
                     </div>
-                    <div class="{{ registerForm.lastName.vars.errors ? 'has-error' : '' }}">
+                    <div class="{{ form.lastName.vars.errors ? 'has-error' : '' }}">
                       <!-- Form Group (last name)-->
                       <div class="mb-3">
-                        {{ form_label(registerForm.lastName, 'Nom *', {'label_attr': {'class': 'small mb-1'}}) }}
-                        {{ form_widget(registerForm.lastName, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_label(form.lastName, 'Nom *', {'label_attr': {'class': 'small mb-1'}}) }}
+                        {{ form_widget(form.lastName, {'attr': {'class': 'form-control'}}) }}
                         <span class="error-message">
-                          {{ form_errors(registerForm.lastName) }}</span>
+                          {{ form_errors(form.lastName) }}</span>
                       </div>
                     </div>
-                    <div class="{{ registerForm.userName.vars.errors ? 'has-error' : '' }}">
+                    <div class="{{ form.userName.vars.errors ? 'has-error' : '' }}">
                       <!-- Form Group (user name)-->
                       <div class="mb-3">
-                        {{ form_label(registerForm.userName, 'Nom d\'utilisateur *', {'label_attr': {'class': 'small mb-1'}}) }}
-                        {{ form_widget(registerForm.userName, {'attr': {'class': 'form-control'}}) }}
-                        <span class="error-message"> {{ form_errors(registerForm.userName) }}</span>
+                        {{ form_label(form.userName, 'Nom d\'utilisateur *', {'label_attr': {'class': 'small mb-1'}}) }}
+                        {{ form_widget(form.userName, {'attr': {'class': 'form-control'}}) }}
+                        <span class="error-message"> {{ form_errors(form.userName) }}</span>
                       </div>
                     </div>
-                    <div class="{{ registerForm.email.vars.errors ? 'has-error' : '' }}">
+                    <div class="{{ form.email.vars.errors ? 'has-error' : '' }}">
                       <!-- Form Group (email)-->
                       <div class="mb-3">
-                        {{ form_label(registerForm.email, 'Adresse email *', {'label_attr': {'class': 'small mb-1'}}) }}
-                        {{ form_widget(registerForm.email, {'attr': {'class': 'form-control'}}) }}
-                        <span class="error-message"> {{ form_errors(registerForm.email) }}</span>
+                        {{ form_label(form.email, 'Adresse email *', {'label_attr': {'class': 'small mb-1'}}) }}
+                        {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
+                        <span class="error-message"> {{ form_errors(form.email) }}</span>
                       </div>
                     </div>
                     <!-- Form Row -->
                     <div class="row gx-3">
                       <div class="col-md-6">
-                        <div class="{{ registerForm.password.vars.errors ? 'has-error' : '' }}">
+                        <div class="{{ form.password.vars.errors ? 'has-error' : '' }}">
                           <!-- Form Group (password)-->
                           <div class="mb-3">
-                            {{ form_label(registerForm.password, 'Mot de passe *', {'label_attr': {'class': 'small mb-1'}}) }}
+                            {{ form_label(form.password, 'Mot de passe *', {'label_attr': {'class': 'small mb-1'}}) }}
                               <div class="input-group-append">  
-                                {{ form_widget(registerForm.password, {'attr': {'class': 'form-control'}}) }}
+                                {{ form_widget(form.password, {'attr': {'class': 'form-control'}}) }}
                                 <button class="btn btn-outline-black" type="button" id="showPasswordBtn">
                                   <i class="fa fa-eye" id="password-icon"></i>
                                 </button>
                               </div>
-                              <span class="error-message"> {{ form_errors(registerForm.password) }}</span>
+                              <span class="error-message"> {{ form_errors(form.password) }}</span>
                           </div>
                         </div>
                       </div>
                       <div class="col-md-6">
-                        <div class="{{ registerForm.passwordConfirm.vars.errors ? 'has-error' : '' }}">
+                        <div class="{{ form.passwordConfirm.vars.errors ? 'has-error' : '' }}">
                           <!-- Form Group (password confirm)-->
                           <div class="mb-3">
-                            {{ form_label(registerForm.passwordConfirm, 'Confirmez votre mot de passe *', {'label_attr': {'class': 'small mb-1'}}) }}
+                            {{ form_label(form.passwordConfirm, 'Confirmez votre mot de passe *', {'label_attr': {'class': 'small mb-1'}}) }}
                               <div class="input-group-append">
-                                {{ form_widget(registerForm.passwordConfirm, {'attr': {'class': 'form-control'}}) }}
+                                {{ form_widget(form.passwordConfirm, {'attr': {'class': 'form-control'}}) }}
                                 <button class="btn btn-outline-black" type="button" id="showConfirmPasswordBtn">
                                   <i class="fa fa-eye" id="confirm-password-icon"></i>
                                 </button>
                               </div>
-                            <span class="error-message"> {{ form_errors(registerForm.passwordConfirm) }}</span>
+                            <span class="error-message"> {{ form_errors(form.passwordConfirm) }}</span>
                           </div>
                         </div>
                       </div>
                     </div>
-                    <div class="{{ registerForm.userPicture.vars.errors ? 'has-error' : '' }}">
+                    <div class="{{ form.userPicture.vars.errors ? 'has-error' : '' }}">
                       <!-- Form Group (user picture)-->
                       <div class="mb-3">
-                        {{ form_label(registerForm.userPicture, 'Image de profil *', {'label_attr': {'class': 'small mb-1'}}) }}
-                        {{ form_widget(registerForm.userPicture, {'attr': {'class': 'form-control'}}) }}
-                        <span class="error-message"> {{ form_errors(registerForm.userPicture) }}</span>
+                        {{ form_label(form.userPicture, 'Image de profil *', {'label_attr': {'class': 'small mb-1'}}) }}
+                        {{ form_widget(form.userPicture, {'attr': {'class': 'form-control'}}) }}
+                        <span class="error-message"> {{ form_errors(form.userPicture) }}</span>
                       </div>
                     </div>
                   </div>
@@ -105,12 +105,11 @@
                   <div class="small text-muted p-5 pt-2 pb-2">
                     * Ces champs sont obligatoires
                   </div>
-                {{ form_end(registerForm) }}
+                {{ form_end(form) }}
                 <!-- Fin Symfony Registration form -->
                 <div class="card-footer text-center">
                   <div class="small">
                     <a class="text-black" href="{{ path('connexion') }}">Vous êtes déjà inscrit? Connectez-vous</a>
-                    {# href="{{path('login')}}" #}
                   </div>
                 </div>
               </div>

@@ -13,7 +13,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class PasswordResetController extends AbstractController
 {
-    #[Route(path: '/password-reset', name: 'passwordreset')]
+    #[Route(path: 'user/password-reset', name: 'passwordreset')]
     public function passwordReset(Request $request): Response
     {
         $passwordReset = new PasswordReset();
@@ -27,7 +27,7 @@ class PasswordResetController extends AbstractController
         }
 
         return $this->render('user/requestForPasswordReset.html.twig', [
-            'loginForm' => $form->createView(),
+            'form' => $form->createView(),
         ]);
     }
 
@@ -45,7 +45,7 @@ class PasswordResetController extends AbstractController
         }
 
         return $this->render('user/resetPassword.html.twig', [
-            'loginForm' => $form->createView(),
+            'form' => $form->createView(),
         ]);
     }
 }

@@ -4,66 +4,71 @@ namespace App\Entity;
 
 use App\Repository\MediaRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
+#[ORM\InheritanceType('JOINED')]
+#[ORM\DiscriminatorColumn(name: 'discr', type: 'string')]
+#[ORM\DiscriminatorMap(['picture' => Picture::class, 'video' => Video::class])]
 #[ORM\Entity(repositoryClass: MediaRepository::class)]
-#[ORM\Table(name: 'media')]
-class Media
+abstract class Media
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?int $id = null;
+    protected ?int $id = null;
+
+    // #[ORM\ManyToOne(targetEntity: Trick::class, inversedBy: 'medias')]
+    // #[ORM\JoinColumn(nullable: false)]
+    // protected ?Trick $trick = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $type = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $url = null;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=Trick::class)
-     * @ORM\JoinColumn(name="trick_id", referencedColumnName="id", nullable=false)
-     */
-    private ?Trick $trick = null;
+    #[Assert\NotBlank(message: 'Le nom ne peut pas être vide')]
+    #[Assert\Length(max: 255, maxMessage: 'Le nom ne peut pas dépasser {{ limit }} caractères')]
+    protected ?string $name = null;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getType(): ?string
+    // /**
+    //  * Get the value of trick
+    //  */
+    // public function getTrick(): ?Trick
+    // {
+    //     return $this->trick;
+    // }
+
+    // /**
+    //  * Set the value of trick
+    //  */
+    // public function setTrick(?Trick $trick): self
+    // {
+    //     $this->trick = $trick;
+
+    //     return $this;
+    // }
+
+    /**
+     * Get the value of name
+     */
+    public function getName(): ?string
     {
-        return $this->type;
+        return $this->name;
     }
 
-    public function setType(string $type): static
+    /**
+     * Set the value of name
+     */
+    public function setName(?string $name): self
     {
-        $this->type = $type;
+        $this->name = $name;
 
         return $this;
     }
 
-    public function getUrl(): ?string
-    {
-        return $this->url;
-    }
-
-    public function setUrl(string $url): static
-    {
-        $this->url = $url;
-
-        return $this;
-    }
-
-    public function getTrick(): ?Trick
-    {
-        return $this->trick;
-    }
-
-    public function setTrick(?Trick $trick): static
-    {
-        $this->trick = $trick;
-
-        return $this;
-    }
+    // public function __toString()
+    // {
+    //     return $this->getName();
+    // }
 }

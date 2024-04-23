@@ -4,14 +4,11 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\PasswordresetRepository;
-use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\MappedSuperclass(repositoryClass: PasswordresetRepository::class)]
 class PasswordReset
 {
     #[ORM\Column(length: 255)]
-    #[Assert\NotBlank(message: 'Renseigner votre adresse mail')]
-    #[Assert\Email(message: 'l\'adresse mail "{{ value }}" n\'est pas valide')]
     private ?string $email = null;
     
     #[ORM\Column(type: "string", length: 255)]

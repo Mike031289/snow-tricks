@@ -2,72 +2,66 @@
 
 namespace App\Form;
 
-use App\Entity\Category;
 use App\Entity\Trick;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\File;
-use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+
 
 class TrickType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options): void
+    public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', null, [
-                'constraints' => [
-                    new NotBlank(['message' => 'Veuillez entrer un nom pour le trick']),
-                ],
-            ])
-            ->add('description', null, [
-                'constraints' => [
-                    new NotBlank(['message' => 'Veuillez entrer une description pour le trick']),
-                ],
-            ])
+            ->add('name', TextType::class)
+            ->add('description', TextareaType::class)
             ->add('category', EntityType::class, [
-                'class' => Category::class,
+                'class'        => 'App\Entity\Category',
                 'choice_label' => 'name',
-                'placeholder' => 'Sélectionner un groupe',
-                'required' => true,
-                'constraints' => [
-                    new NotBlank(['message' => 'Veuillez sélectionner un groupe']),
-                ],
             ])
-            ->add('picture', FileType::class, [
-                'label' => 'Image du trick',
+            ->add('image', CollectionType::class, [
+                'label' => 'Fichiers de l\'image',
+                'entry_type' => FileType::class,
+                'entry_options' => [
+                    'attr' => ['class' => 'form-control mb-3'],
+                ],
+                'allow_add' => true,
+                'allow_delete' => true,
                 'required' => false,
                 'mapped' => false,
-                'constraints' => [
-                    new File([
-                        'maxSize' => '1024k',
-                        'mimeTypes' => [
-                            'image/*',
-                        ],
-                        'mimeTypesMessage' => 'Veuillez télécharger une image valide (format accepté : image/*)',
-                    ]),
-                ],
             ])
-            ->add('video', FileType::class, [
-                'label' => 'Vidéo du trick',
+            ->add('videoUrl', CollectionType::class, [
+                'label' => 'Lien de la vidéo',
+                'entry_type' => TextType::class,
+                'entry_options' => [
+                    'attr' => ['class' => 'form-control mb-3'],
+                ],
+                'allow_add' => true,
+                'allow_delete' => true,
                 'required' => false,
                 'mapped' => false,
-                'constraints' => [
-                    new File([
-                        'maxSize' => '10240k',
-                        'mimeTypes' => [
-                            'video/*',
-                        ],
-                        'mimeTypesMessage' => 'Veuillez télécharger une vidéo valide (format accepté : video/*)',
-                    ]),
-                ],
             ])
+            // ->add('image', FileType::class, [
+            //     'label'    => 'Fichiers de l\'image',
+            //     'required' => false,
+            //     'mapped'   => false,
+            //     'multiple' => true,
+            // ])
+            
+            // ->add('videoUrl', TextType::class, [
+            //     'label'    => 'Lien de la video',
+            //     'required' => false,
+            //     'mapped'   => false,
+            // ])
         ;
     }
 
-    public function configureOptions(OptionsResolver $resolver): void
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
             'data_class' => Trick::class,

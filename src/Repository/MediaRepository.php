@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Media;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -19,6 +20,25 @@ class MediaRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Media::class);
+    }
+
+            public function upload(UploadedFile $file): string
+    {
+        $fileName = md5(uniqid()).'.'.$file->guessExtension();
+
+        $file->move($this->getTargetDirectory(), $fileName);
+
+        return $fileName;
+    }
+
+    public function getTargetDirectory(): string
+    {
+        return $this->targetDirectory;
+    }
+
+    public function setTargetDirectory(string $targetDirectory): void
+    {
+        $this->targetDirectory = $targetDirectory;
     }
 
 //    /**
