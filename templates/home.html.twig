@@ -1,15 +1,19 @@
 {# templates/home.html.twig #}
 {% extends 'base.html.twig' %}
-{% set page = 'home' %}
 
 {% block body %}
   <body>
     <div class="container">
       <div class="jumbotron bg-white mt-5">
+        {% for message in app.flashes('success') %}
+          <div class="alert alert-success text-center">
+            {{ message }}
+          </div>
+        {% endfor %}
         <div class="row m-auto align-items-center justify-content-between pt-3">
           <div class="col-auto mb-3">
             <div class="page-header-icon">
-                <i data-feather="list"></i>
+              <i data-feather="list"></i>
             </div>
             <h1 class="display-4">Liste de figures</h1>
           </div>
@@ -22,190 +26,71 @@
         </div>
         <p class="lead">
           <div class="row gx-5">
-            <div class="col-md-6 col-xl-4 mb-5">
-              <a class="card post-preview lift {% if page == 'showtrick' %}active{% endif %}" href="{{ path('show-trick', { 'slug': 'nom de la figure'}) }}">
-                <img class="card-img-top" src="{{ asset('pictures/snow-trickers-img.jpeg') }}"alt="trick"/>
-                <div class="card-body">
-                  <h5 class="card-title">Trick-1</h5>
-                </div>
-                <div class="card-footer">
-                  <div class="post-preview-meta">
-                    <div class="post-preview-meta-details col-lg col-md col-sm">
-                      <div class="post-preview-meta-details-date">Créer par le 12/02/2024</div>
+            {% for trick in tricks %}
+              {% set haslatestPicture = false %}
+              <div class="col-md-6 col-xl-4 mb-5">
+                <a class="card post-preview lift" href="{{  path('show-trick', { 'slug':trick.name|lower,'id': trick.id}) }}">
+                  {% for latestPicture in latestPictures %}
+                    {% if latestPicture.trick.id == trick.id %}
+                      {% set haslatestPicture = true %}
+                      <img class="card-img-top" src="{{ asset('media/pictures/' ~ latestPicture.name) }}" alt="{{ latestPicture.name }}">
+                    {% endif %}
+                  {% endfor %}
+                  {% if not haslatestPicture %}
+                    <img class="card-img-top" src="{{ asset('default-media/picture-plus-icon.jpg') }}" alt="image de la figure">
+                  {% endif %}
+                  <div class="card-body">
+                    <h5 class="card-title">{{ trick.name }}</h5>
+                  </div>
+                  <div class="card-footer">
+                    <div class="post-preview-meta">
+                      <div class="post-preview-meta-details col-lg col-md col-sm">
+                        <div class="post-preview-meta-details-date">Créer par le
+                          {{trick.createdAt|date('d/m/Y') }}</div>
+                      </div>
+                      <button class="btn btn-black btn-sm col-lg-3">Afficher</button>
                     </div>
-                    <button class="btn btn-black btn-sm col-lg-3" href="">Afficher</button>
+                  </div>
+                </a>
+                <div class="post-preview-meta">
+                  <a class="btn btn-sm" href="{{  path('edite-trick', { 'id': trick.id}) }}">Modif
+                    <i class="ml-1 text-info" data-feather="edit"></i>
+                  </a>
+                  <!-- Button trigger modal -->
+                  <button class="btn danger btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop{{ trick.id }}" href="">Supp
+                    <i class="text-danger ml-1" data-feather="trash"></i>
+                  </button>
+                  <!-- Modal -->
+                  <div class="modal fade" id="staticBackdrop{{ trick.id }}" data-bs-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="staticBackdropLabel">Voulez-vous supprimer cette figure ?</h5>
+                          <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">{{trick.name}}</div>
+                        <div class="modal-footer">
+                          <button class="btn btn-info" type="button" data-bs-dismiss="modal">Annuler</button>
+                          <form action="{{ path('delete-trick', { 'id': trick.id }) }}">
+                            <button class="btn btn-danger" type="submit">Supprimer</button>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </a>
-              <div class="post-preview-meta">
-                <a class="btn btn-sm" href="#">Modif <i class="ml-1 text-info" data-feather="edit"></i></a>
-                <a class="btn danger btn-sm" href="">Supp <i class="text-danger ml-1" data-feather="trash"></i></a>
               </div>
-            </div>
-            <div class="col-md-6 col-xl-4 mb-5">
-              <a class="card post-preview lift" href="{{ path('show-trick', { 'slug': 'nom de la figure'}) }}">
-                <img class="card-img-top" src="{{ asset('pictures/trick1.jpeg') }}"alt="trick"/>
-                <div class="card-body">
-                  <h5 class="card-title">Trick-2</h5>
-                </div>
-                <div class="card-footer">
-                  <div class="post-preview-meta">
-                    <div class="post-preview-meta-details col-lg col-md col-sm">
-                      <div class="post-preview-meta-details-date">Créer par le 12/02/2024</div>
-                    </div>
-                    <button class="btn btn-black btn-sm col-lg-3" href="">Afficher</button>
-                  </div>
-                </div>
-              </a>
-              <div class="post-preview-meta">
-                <a class="btn btn-sm" href="#">Modif <i class="ml-1 text-info" data-feather="edit"></i></a>
-                <a class="btn danger btn-sm" href="">Supp <i class="text-danger ml-1" data-feather="trash"></i></a>
-              </div>
-            </div>
-            <div class="col-md-6 col-xl-4 mb-5">
-              <a class="card post-preview lift" href="">
-                <img class="card-img-top" src="{{ asset('pictures/trick2.jpeg') }}"alt="trick"/>
-                <div class="card-body">
-                  <h5 class="card-title">Trick-3</h5>
-                </div>
-                <div class="card-footer">
-                  <div class="post-preview-meta">
-                    <div class="post-preview-meta-details col-lg col-md col-sm">
-                      <div class="post-preview-meta-details-date">Créer par le 12/02/2024</div>
-                    </div>
-                    <button class="btn btn-black btn-sm col-lg-3" href="">Afficher</button>
-                  </div>
-                </div>
-              </a>
-              <div class="post-preview-meta">
-                <a class="btn btn-sm" href="#">Modif <i class="ml-1 text-info" data-feather="edit"></i></a>
-                <a class="btn danger btn-sm" href="">Supp <i class="text-danger ml-1" data-feather="trash"></i></a>
-              </div>
-            </div>
-            <div class="col-md-6 col-xl-4 mb-5">
-              <a class="card post-preview lift" href="">
-                <img class="card-img-top" src="{{ asset('pictures/trick10.jpeg') }}"alt="trick"/>
-                <div class="card-body">
-                  <h5 class="card-title">Trick-4</h5>
-                </div>
-                <div class="card-footer">
-                  <div class="post-preview-meta">
-                    <div class="post-preview-meta-details col-lg col-md col-sm">
-                      <div class="post-preview-meta-details-date">Créer par le 12/02/2024</div>
-                    </div>
-                    <button class="btn btn-black btn-sm col-lg-3" href="">Afficher</button>
-                  </div>
-                </div>
-              </a>
-              <div class="post-preview-meta">
-                <a class="btn btn-sm" href="#">Modif <i class="ml-1 text-info" data-feather="edit"></i></a>
-                <a class="btn danger btn-sm" href="">Supp <i class="text-danger ml-1" data-feather="trash"></i></a>
-              </div>
-            </div>
-            <div class="col-md-6 col-xl-4 mb-5">
-              <a class="card post-preview lift" href="">
-                <img class="card-img-top" src="{{ asset('pictures/trick4.jpeg') }}"alt="trick"/>
-                <div class="card-body">
-                  <h5 class="card-title">Trick-5</h5>
-                </div>
-                <div class="card-footer">
-                  <div class="post-preview-meta">
-                    <div class="post-preview-meta-details col-lg col-md col-sm">
-                      <div class="post-preview-meta-details-date">Créer par le 12/02/2024</div>
-                    </div>
-                    <button class="btn btn-black btn-sm col-lg-3" href="">Afficher</button>
-                  </div>
-                </div>
-              </a>
-              <div class="post-preview-meta">
-                <a class="btn btn-sm" href="#">Modif <i class="ml-1 text-info" data-feather="edit"></i></a>
-                <a class="btn danger btn-sm" href="">Supp <i class="text-danger ml-1" data-feather="trash"></i></a>
-              </div>
-            </div>
-            <div class="col-md-6 col-xl-4 mb-5">
-              <a class="card post-preview lift" href="">
-                <img class="card-img-top" src="{{ asset('pictures/trick5.jpeg') }}" alt="trick"/>
-                <div class="card-body">
-                  <h5 class="card-title">Trick-6</h5>
-                </div>
-                <div class="card-footer">
-                  <div class="post-preview-meta">
-                    <div class="post-preview-meta-details col-lg col-md col-sm">
-                      <div class="post-preview-meta-details-date">Créer par le 12/02/2024</div>
-                    </div>
-                    <button class="btn btn-black btn-sm col-lg-3" href="">Afficher</button>
-                  </div>
-                </div>
-              </a>
-              <div class="post-preview-meta">
-                <a class="btn btn-sm" href="#">Modif <i class="ml-1 text-info" data-feather="edit"></i></a>
-                <a class="btn danger btn-sm" href="">Supp <i class="text-danger ml-1" data-feather="trash"></i></a>
-              </div>
-            </div>
-            <div class="col-md-6 col-xl-4 mb-5">
-              <a class="card post-preview lift" href="">
-                <img class="card-img-top" src="{{ asset('pictures/trick6.jpeg') }}"alt="trick"/>
-                <div class="card-body">
-                  <h5 class="card-title">Trick-7</h5>
-                </div>
-                <div class="card-footer">
-                  <div class="post-preview-meta">
-                    <div class="post-preview-meta-details col-lg col-md col-sm">
-                      <div class="post-preview-meta-details-date">Créer par le 12/02/2024</div>
-                    </div>
-                    <button class="btn btn-black btn-sm col-lg-3" href="">Afficher</button>
-                  </div>
-                </div>
-              </a>
-              <div class="post-preview-meta">
-                <a class="btn btn-sm" href="#">Modif <i class="ml-1 text-info" data-feather="edit"></i></a>
-                <a class="btn danger btn-sm" href="">Supp <i class="text-danger ml-1" data-feather="trash"></i></a>
-              </div>
-            </div>
-            <div class="col-md-6 col-xl-4 mb-5">
-              <a class="card post-preview lift" href="">
-                <img class="card-img-top" src="{{ asset('pictures/trick7.jpeg') }}"alt="trick"/>
-                <div class="card-body">
-                  <h5 class="card-title">Trick-8</h5>
-                </div>
-                <div class="card-footer">
-                  <div class="post-preview-meta">
-                    <div class="post-preview-meta-details col-lg col-md col-sm">
-                      <div class="post-preview-meta-details-date">Créer par le 12/02/2024</div>
-                    </div>
-                    <button class="btn btn-black btn-sm col-lg-3" href="">Afficher</button>
-                  </div>
-                </div>
-              </a>
-              <div class="post-preview-meta">
-                <a class="btn btn-sm" href="#">Modif <i class="ml-1 text-info" data-feather="edit"></i></a>
-                <a class="btn danger btn-sm" href="">Supp <i class="text-danger ml-1" data-feather="trash"></i></a>
-              </div>
-            </div>
-            <div class="col-md-6 col-xl-4 mb-5">
-              <a class="card post-preview lift" href="">
-                <img class="card-img-top" src="{{ asset('pictures/trick9.jpeg') }}"alt="trick"/>
-                <div class="card-body">
-                  <h5 class="card-title">Trick-9</h5>
-                </div>
-                <div class="card-footer">
-                  <div class="post-preview-meta">
-                    <div class="post-preview-meta-details col-lg col-md col-sm">
-                      <div class="post-preview-meta-details-date">Créer par le 12/02/2024</div>
-                    </div>
-                    <button class="btn btn-black btn-sm col-lg-3" href="">Afficher</button>
-                  </div>
-                </div>
-              </a>
-              <div class="post-preview-meta">
-                <a class="btn btn-sm" href="#">Modif <i class="ml-1 text-info" data-feather="edit"></i></a>
-                <a class="btn danger btn-sm" href="">Supp <i class="text-danger ml-1" data-feather="trash"></i></a>
-              </div>
-            </div>
+            {% endfor %}
           </div>
         </p>
-        <div class="container-flex text-center"> 
-          <a class="btn btn-outline-primary btn-lg m-auto" href="#" role="button">Voir plus de figures</a>
+        <div class="container-flex text-center">
+        {% if currentPage > 1 %}
+          <a class="btn btn-outline-primary btn-lg m-auto" href="{{ path('homepage', {'page': currentPage - 1} ) }}" role="button">Figures précédentes</a>
+        {% endif %}
+        {% if currentPage < maxPage %}
+          <a class="btn btn-outline-primary btn-lg m-auto" href="{{ path('homepage', {'page': currentPage + 1} ) }}" role="button">Voir plus de figures</a>
+        {% endif %}
+          
         </div>
       </div>
       <hr class="my-4">

@@ -38,7 +38,7 @@ class User
     #[ORM\Column(length: 255)]
     private ?string $passwordConfirm = null;
 
-    #[ORM\Column]
+    #[ORM\Column(type: "datetime")]
     private ?\DateTimeImmutable $createdAt = null;
 
 
@@ -52,7 +52,7 @@ class User
         return $this->firstName;
     }
 
-    public function setFirstName(string $firstName): static
+    public function setFirstName(string $firstName): self
     {
         $this->firstName = $firstName;
 
@@ -64,7 +64,7 @@ class User
         return $this->lastName;
     }
 
-    public function setLastName(string $lastName): static
+    public function setLastName(string $lastName): self
     {
         $this->lastName = $lastName;
 
@@ -76,7 +76,7 @@ class User
         return $this->userName;
     }
 
-    public function setUserName(string $userName): static
+    public function setUserName(string $userName): self
     {
         $this->userName = $userName;
 
@@ -88,7 +88,7 @@ class User
         return $this->email;
     }
 
-    public function setEmail(string $email): static
+    public function setEmail(string $email): self
     {
         $this->email = $email;
 
@@ -100,7 +100,7 @@ class User
         return $this->role;
     }
 
-    public function setRole(string $role): static
+    public function setRole(string $role): self
     {
         $this->role = $role;
 
@@ -112,7 +112,7 @@ class User
         return $this->userPicture;
     }
 
-    public function setUserPicture(string $userPicture): static
+    public function setUserPicture(string $userPicture): self
     {
         $this->userPicture = $userPicture;
 
@@ -124,7 +124,7 @@ class User
         return $this->password;
     }
 
-    public function setPassword(string $password): static
+    public function setPassword(string $password): self
     {
         $this->password = $password;
 
@@ -136,7 +136,7 @@ class User
         return $this->passwordConfirm;
     }
 
-    public function setPasswordConfirm(string $passwordConfirm): static
+    public function setPasswordConfirm(string $passwordConfirm): self
     {
         $this->passwordConfirm = $passwordConfirm;
 
@@ -148,7 +148,7 @@ class User
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeImmutable $createdAt): static
+    public function setCreatedAt(\DateTimeImmutable $createdAt): self
     {
         $this->createdAt = $createdAt;
 

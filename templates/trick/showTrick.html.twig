@@ -22,26 +22,52 @@
       </div>
     </nav>
     <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
+      {# {% if trick is defined %} #}
       <div class="carousel-inner">
         <div class="carousel-item active">
-          <img class="trick-header-img" src="{{ asset('pictures/trick24.jpeg') }}" alt="Description de l'image">
+          {% if latestPicture is null %}
+            <img class="trick-header-img" src="{{ asset('default-media/trick24.jpeg') }}" alt="Description de l'image">
+          {% else %}
+            <img class="trick-header-img" src="{{ asset('media/pictures/' ~ latestPicture.name) }}" alt="{{ latestPicture.name }}">
+          {% endif %}
           <div class="carousel-caption d-none d-md-block">
             <a class="" href="">
               <i class="mr-3" data-feather="edit"></i>
             </a>
-            <a class="" href="">
+            <a href="">
               <i data-feather="trash"></i>
             </a>
-            <h5>First slide label</h5>
-            <p>Some representative placeholder content for the first slide.</p>
+            <h5>{{ trick.name}}</h5>
           </div>
         </div>
+        {# <div class="carousel-item active">
+            {% set hasLatestPicture = false %}
+            {% for picture in latestPictures %}
+              {% if latestPicture.trick.id == trick.id %}
+                {% set hasLatestPicture = true %}
+                <img class="trick-header-img" src="{{ asset('media/pictures/' ~ latestPicture.name) }}" alt="{{ latestPicture.name }}">
+              {% endif %}
+            {% endfor %}
+            {% if not hasLatestPicture %}
+              <img class="trick-header-img" src="{{ asset('default-media/trick24.jpeg') }}" alt="Description de l'image">
+            {% endif %}
+            <div class="carousel-caption d-none d-md-block">
+              <a class="" href="">
+                <i class="mr-3" data-feather="edit"></i>
+              </a>
+              <a href="">
+                <i data-feather="trash"></i>
+              </a>
+              <h5>{{ trick.name}}</h5>
+            </div>
+          </div> #}
       </div>
+      {# {% endif %} #}
     </div>
   </header>
 {% endblock %}
 {% block body %}
-  <body><div class="container" <div class="jumbotron"> <h1 class="display-4 pt-5">Médias</h1>
+  <body><div class="container" <div class="jumbotron"> <h1 class="display-4 pt-5">médias</h1>
   <p class="lead">
     <div class="row gx-5">
       <div class="row">
@@ -50,18 +76,44 @@
             <div class="card-body">
               <h5 class="card-title">Images</h5>
               <p class="card-text">
-                <div id="carouselExampleSlidesOnly trick-media-picture" class="carousel slide carousel-fade" data-bs-ride="carousel">
-                  <div class="carousel-inner">
-                    <div class="carousel-item active">
-                      <img class="picture" src="{{ asset('pictures/snow-trickers-img.jpeg') }}" alt="tricks">
-                    </div>
-                    <div class="carousel-item">
-                      <img class="picture" src="{{ asset('pictures/trick1.jpeg') }}" alt="tricks">
-                    </div>
-                    <div class="carousel-item">
-                      <img class="picture" src="{{ asset('pictures/trick18.jpeg') }}" alt="tricks">
-                    </div>
+                <div id="carouselExampleDark" class="carousel carousel-dark slide carousel-fade" data-bs-ride="carousel">
+                  <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
                   </div>
+                  <div class="carousel-inner">
+                    {% if pictures is defined %}
+                      {% set haspicture = false %}
+                      {% for picture in pictures %}
+                        {% if picture.trick.id == trick.id %}
+                          {% set haspicture = true %}
+                          <div class="carousel-item active">
+                            <img class="card-img-top trick-pictures" src="{{ asset('media/pictures/' ~ picture.name) }}" alt="{{ picture.name }}">
+                            <div class="carousel-caption d-none d-md-block">
+                              <h5 class="text-dark">{{ trick.name }}</h5>
+                            </div>
+                          </div>
+                        {% endif %}
+                      {% endfor %}
+                      {% if not haspicture %}
+                        <a href="" class="carousel-item active">
+                          <img class="card-img-top trick-pictures" src="{{ asset('default-media/picture-plus-icon.jpg') }}" alt="image de la figure">
+                          <div class="carousel-caption d-none d-md-block">
+                            <h5 class="text-white">Ajouter de nouvelles images</h5>
+                          </div>
+                        </a>
+                      {% endif %}
+                    {% endif %}
+                  </div>
+                  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                  </button>
+                  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                  </button>
                 </div>
               </p>
             </div>
@@ -74,18 +126,28 @@
               <p class="card-text">
                 <div id="carouselExampleSlidesOnly trick-media-video" class="carousel slide carousel-fade" data-bs-ride="carousel">
                   <div class="carousel-inner">
-                    <div class="carousel-item active">
-                      <!-- Vidéo YouTube -->
-                      <iframe class="video" src="https://www.youtube.com/embed/aINlzgrOovI?si=F8L2Y0av4zk5CuF1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="allowfullscreen"></iframe>
-                    </div>
-                    <div class="carousel-item">
-                      <!-- Autre vidéo -->
-                      <iframe class="video" src="https://www.youtube.com/embed/vx-uVPSSnx0?si=Savr0smQk1QXrG7Q" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="allowfullscreen"></iframe>
-                    </div>
-                    <div class="carousel-item">
-                      <!-- Autre vidéo -->
-                      <iframe class="video" src="https://www.youtube.com/embed/LAuDJsReHlw?si=Mcl5q4PbPeKEbJwj" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="allowfullscreen"></iframe>
-                    </div>
+                    {% if videos is defined %}
+                      {% set hasvideo = false %}
+                      {% for video in videos %}
+                        {% if video.trick.id == trick.id %}
+                          {% set hasvideo = true %}
+                          <div class="carousel-item active">
+                            <iframe class="card-img-top trick-videos" src="{{ video.url}}" frameborder="0" allowfullscreen="allowfullscreen" type="video/mp4"></iframe>
+                            <div class="carousel-caption d-none d-md-block">
+                              <h5 class="text-dark">{{ trick.name }}</h5>
+                            </div>
+                          </div>
+                        {% endif %}
+                      {% endfor %}
+                      {% if not hasvideo %}
+                        <a href="" class="carousel-item active">
+                          <img class="card-img-top trick-videos pb-5" src="{{ asset('default-media/video-plus-icon.jpg') }}">
+                          <div class="carousel-caption d-none d-md-block">
+                            <h5 class="text-dark">Ajouter de nouvelles videos</h5>
+                          </div>
+                        </a>
+                      {% endif %}
+                    {% endif %}
                   </div>
                 </div>
               </p>
@@ -97,142 +159,102 @@
   </p>
   <hr class="my-4">
 </div>
-</div>
-
+{# </div> #}
 <!-- Page Section-->
 <section class="bg-light py-10">
-{% block section %}
-  <div class="container px-5">
-    <div class="row gx-5 justify-content-center">
-      <div class="col-lg-10 col-xl-8">
-        <div class="single-post">
-          <h1 class="mt-5">Titre de la figure</h1>
-          <div class="d-flex align-items-center justify-content-between mb-5">
-            <div class="single-post-meta me-4">
-              <div class="single-post-meta-details">
-                <div class="single-post-meta-details-name">Auteur: Nom de l'Auteur</div>
-                <div class="single-post-meta-details-date">Publié le
-                  10/02/2024</div>
-                <div class="single-post-meta-details-date">Mise à jour le
-                  10/02/2024</div>
+  {% block section %}
+    <div class="container px-5">
+      <div class="row gx-5 justify-content-center">
+        <div class="col-lg-10 col-xl-8">
+          <div class="single-post">
+            {% if trick is defined %}
+              <h1 class="mt-5 text-center">{{trick.name}}</h1>
+              <div class="d-flex align-items-center justify-content-between mb-5">
+                <div class="single-post-meta me-4">
+                  <div class="single-post-meta-details">
+                    <div class="single-post-meta-details-categorie"><h6>Catégorie : <span class="small">{{trick.category.name}}</span></h6></div>
+                    <div class="single-post-meta-details-name mb-2"><h6>Auteur : <span class="small"> Nom de l'Auteur</span></h6> </div>
+                    <div class="single-post-meta-details-date mb-2"><h6>Publié le <span class="small">{{trick.createdAt|date('d/m/Y') }}</span></h6></div>
+                    <div class="single-post-meta-details-date"><h6>Mise à jour le <span class="small">{{trick.updatedAt|date('d/m/Y') }}</span> </h6></div>
+                  </div>
+                </div>
+              </div>
+              <div class="text-gray-500 text-center">Description </div>
+              <div class="single-post-text my-5">
+                <p>{{ trick.description }}</p>
+                <hr class="my-5"/>
+                <div class="text-center">
+                  <a class="btn btn-outline-dark" href="{{ path('homepage')}}">Retour à la Liste des Figures</a>
+                </div>
               </div>
             </div>
-          </div>
-          <div class="small text-gray-500 text-center">Nom du groupe : groupe 5</div>
-          <div class="single-post-text my-5">
-            <p>suivante :Nettoyez le Cache : Si toutes les autres étapes échouent, essayez de nettoyer le cache Symfony avec la commande suivante :Nettoyez le Cache : Si toutes les autres étapes échouent, essayez de nettoyer le cache Symfony avec la commande suivante :Nettoyez le Cache : Si toutes les autres étapes échouent, essayez de nettoyer le cache Symfony avec la commande suivante :Nettoyez le Cache : Si toutes les autres étapes échouent, essayez de nettoyer le cache Symfony avec la commande suivante</p>
-            <hr class="my-5"/>
-            <div class="text-center">
-              <a class="btn btn-outline-dark" href="{{ path('homepage')}}">Retour à la Liste des Figures</a>
+          {% endif %}
+          {% for message in app.flashes('success') %}
+            <div class="alert alert-success text-center">
+              {{ message }}
             </div>
-          </div>
-        </div>
-
-        <!-- formulaire d'ajout de commentaires -->
-        <form class="mt-5" method="POST">
-          <div class="card mb-5">
+          {% endfor %}
+          <!-- formulaire d'ajout de commentaires -->
+          <!-- Symfony Form -->
+          {{ form_start(form, {'attr': {'class': 'needs-validation', 'novalidate': 'novalidate'}}) }}
+          <div class="card mb-5 {{ form.content.vars.errors ? 'has-error' : '' }}">
             <div class="card-header text-secondary">LAISSEZ NOUS UN COMMENTAIRE</div>
             <div class="card-body">
-              <textarea class="form-control mb-2" name="content" placeholder="Ajouter un commentaire" required="required" rows="4"></textarea>
-              <button type="submit" class="btn btn-secondary btn-sm me-2">Ajouter</button>
+              {{ form_widget(form.content, {'attr': {'class': 'form-control'}}) }}
+              <span class="error-message">
+                {{ form_errors(form.content) }}
+              </span>
+              <button type="submit" class="btn btn-secondary btn-sm mt-2">Ajouter</button>
             </div>
           </div>
-        </form>
+          {{ form_end(form) }}
 
-        <div class="mb-5">
-          <p>Pour nous laissez votre commentaire vous devez être connecté ! Si non inscrivez vous pour vous connecter celà vous prendra environ 2 min</p>
-          <a href="{{ path('connexion', { 'slug': 'loginForm'}) }}" class="btn btn-success btn-sm">Je me connecte</a>
-          <a href="{{ path('register', { 'slug': 'inscription'}) }}" class="btn btn-secondary btn-sm">Je suis nouveau</a>
-        </div>
+          <div class="mb-5">
+            <p>Pour nous laissez votre commentaire vous devez être connecté ! Si non inscrivez vous pour vous connecter celà vous prendra environ 2 min</p>
+            <a href="{{ path('connexion', { 'slug': 'loginForm'}) }}" class="btn btn-success btn-sm">Je me connecte</a>
+            <a href="{{ path('register', { 'slug': 'inscription'}) }}" class="btn btn-secondary btn-sm">Je suis nouveau</a>
+          </div>
 
-        <!-- affichage des commentaires -->
-        <section class="bg-light py-3">
-          <div class="container px-5">
-            <div class="row gx-5 justify-content-center">
-              <div class="col-lg-10">
-                <h3 class="post-archive-tag">
-                  <span class="translate-midlle badge rounded bg-secondary p-2">12</span>
-                  COMMENTAIRES
-                </h3>
-                <div>
-                  <a class="post-archive-item">
-                    <h5>Auteur du Commentaire: nom de l'auteur</h5>
-                    <p>
-                      ceci est un commentaire ajouté ceci est un commentaire ajoutéceci est un commentaire ajoutéceci est un commentaire ajoutéceci est un commentaire ajoutéceci est un commentaire ajoutéceci est un commentaire ajouté
-                    </p>
-                  </a>
-                  <div class="post-archive-meta">
-                    <img class="post-archive-meta-img" src="/../mon-blog/public/assets/img/illustrations/profiles/profile-1.png"/>
-                    <div class="post-archive-meta-details">
-                      <div class="post-archive-meta-details-name">Auteur : Auteur</div>
-                      <div class="post-archive-meta-details-date">Commentaire ajouté le : 13/02/2024</div>
+          <!-- affichage des commentaires -->
+          <section class="bg-light py-3">
+            <div class="container px-5">
+              <div class="row gx-5 justify-content-center">
+                <div class="col-lg-10">
+                  <h3 class="post-archive-tag">
+                    <span class="translate-midlle badge rounded bg-secondary p-2">{{ comments|length }}</span>
+                    COMMENTAIRES
+                  </h3>
+                  {% for comment in comments %}
+                    <div>
+                      <a class="post-archive-item">
+                        {# <h5>Auteur du Commentaire: {{ comment.author }}</h5> #}
+                        <p>{{ comment.content }}</p>
+                      </a>
+                      <div class="post-archive-meta">
+                        <img class="post-archive-meta-img" src="/../mon-blog/public/assets/img/illustrations/profiles/profile-1.png"/>
+                        <div class="post-archive-meta-details">
+                          {# <div class="post-archive-meta-details-name">Auteur : {{ comment.author }}</div> #}
+                          <div class="post-archive-meta-details-date">Commentaire ajouté le :
+                            {{ comment.createdAt|date('d/m/Y') }}</div>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                </div>
-                <hr class="my-5"/>
-                <div>
-                  <a class="post-archive-item">
-                    <h5>Auteur du Commentaire: nom de l'auteur</h5>
-                    <p>
-                      ceci est un commentaire ajouté ceci est un commentaire ajoutéceci est un commentaire ajoutéceci est un commentaire ajoutéceci est un commentaire ajoutéceci est un commentaire ajoutéceci est un commentaire ajouté
+                    <hr class="my-5"/>
+                  {% else %}
+                    <p class="mb-5">
+                      <span class="translate-midlle badge rounded bg-dark p-2">0</span>
+                      commentaire pour ce post. Laissez nous votre commentaire, nous apprécions vos retours
                     </p>
-                  </a>
-                  <div class="post-archive-meta">
-                    <img class="post-archive-meta-img" src="/../mon-blog/public/assets/img/illustrations/profiles/profile-1.png"/>
-                    <div class="post-archive-meta-details">
-                      <div class="post-archive-meta-details-name">Auteur : Auteur</div>
-                      <div class="post-archive-meta-details-date">Commentaire ajouté le : 13/02/2024</div>
-                    </div>
-                  </div>
+                  {% endfor %}
                 </div>
-                <hr class="my-5"/>
-                <div>
-                  <a class="post-archive-item">
-                    <h5>Auteur du Commentaire: nom de l'auteur</h5>
-                    <p>
-                      ceci est un commentaire ajouté ceci est un commentaire ajoutéceci est un commentaire ajoutéceci est un commentaire ajoutéceci est un commentaire ajoutéceci est un commentaire ajoutéceci est un commentaire ajouté
-                    </p>
-                  </a>
-                  <div class="post-archive-meta">
-                    <img class="post-archive-meta-img" src="/../mon-blog/public/assets/img/illustrations/profiles/profile-1.png"/>
-                    <div class="post-archive-meta-details">
-                      <div class="post-archive-meta-details-name">Auteur : Auteur</div>
-                      <div class="post-archive-meta-details-date">Commentaire ajouté le : 13/02/2024</div>
-                    </div>
-                  </div>
-                </div>
-                <hr class="my-5"/>
-                <div>
-                  <a class="post-archive-item">
-                    <h5>Auteur du Commentaire: nom de l'auteur</h5>
-                    <p>
-                      ceci est un commentaire ajouté ceci est un commentaire ajoutéceci est un commentaire ajoutéceci est un commentaire ajoutéceci est un commentaire ajoutéceci est un commentaire ajoutéceci est un commentaire ajouté
-                    </p>
-                  </a>
-                  <div class="post-archive-meta">
-                    <img class="post-archive-meta-img" src="/../mon-blog/public/assets/img/illustrations/profiles/profile-1.png"/>
-                    <div class="post-archive-meta-details">
-                      <div class="post-archive-meta-details-name">Auteur : Auteur</div>
-                      <div class="post-archive-meta-details-date">Commentaire ajouté le : 13/02/2024</div>
-                    </div>
-                  </div>
-                </div>
-                <hr class="my-5"/>
-
-                <p class="mb-5">
-                  <span class="translate-midlle badge rounded bg-dark p-2">0</span>
-                  commentaire pour ce post. Laissez nous votre commentaire, nous apprécions vos retours</p>
-
               </div>
             </div>
-          </div>
-        </section>
+          </section>
+
+        </div>
       </div>
-
     </div>
-  </div>
-{% endblock %}
-
+  {% endblock %}
 </section>
 </body>
 {% endblock %}

@@ -11,7 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class LoginLogoutController extends AbstractController
 {
-    #[Route(path: '/login', name: 'connexion')]
+    #[Route(path: 'user/login', name: 'connexion')]
     public function login(Request $request): Response
     {
         $user = new User();
@@ -21,11 +21,11 @@ class LoginLogoutController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            return $this->redirectToRoute('snow-tricks');
+            // return $this->redirectToRoute('homepage');
         }
 
         return $this->render('user/login.html.twig', [
-            'loginForm' => $form->createView(),
+            'form' => $form->createView(),
         ]);
     }
 
